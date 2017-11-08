@@ -11,4 +11,8 @@
 
     <!-- ###GameModes### -->
     <string name="game_mode">Game Mode</string>
+    <string name="game_type_human">Human</string>
+    <string name="game_type_bot">Bot</string>
+
+    <string name="menu_tutorial">Tutorial</string>
 </resources>
