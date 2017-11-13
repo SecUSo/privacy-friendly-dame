@@ -9,14 +9,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name="de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui.TutorialActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name="de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName="de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui.MainActivity" />
 
     </application>
 

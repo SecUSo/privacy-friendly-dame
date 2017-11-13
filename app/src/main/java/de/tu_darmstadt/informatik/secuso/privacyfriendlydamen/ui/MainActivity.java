@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -50,7 +51,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // TODO!
         setSupportActionBar(toolbar);
 
         // Create the adapter that will return a fragment for each of the three
@@ -102,7 +102,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
 
-        overridePendingTransition(0, 0);
+        // set Nav_Bar
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout_main);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view_main);
+        // TODO: MNAVIGATION MENU IS NULL , CREATING NULL POINTER
+        // mNavigationView.setNavigationItemSelectedListener(this);
+
+        //selectNavigationItem(R.id.nav_newgame_main);
+
+        //overridePendingTransition(0, 0);
     }
 
     @Override
