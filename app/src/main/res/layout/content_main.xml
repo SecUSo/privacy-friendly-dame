@@ -27,12 +27,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-
             </android.support.v7.widget.Toolbar>
-
-
         </android.support.design.widget.AppBarLayout>
-
         <LinearLayout
             android:layout_height="match_parent"
             android:layout_width="match_parent"
@@ -42,12 +38,20 @@
             style="?android:buttonBarStyle"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <TextView
+                android:padding="@dimen/text_size"
+                android:id="@+id/difficultyText"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:text="@string/chose_opponent"
+                android:textSize="@dimen/text_size"
+                android:gravity="center_horizontal"/>
+
             <RelativeLayout
                 android:layout_width="fill_parent"
                 android:layout_height="0dp"
                 android:layoutDirection="ltr"
                 android:layout_weight="4">
-
                 <android.support.v4.view.ViewPager
                     android:id="@+id/scroller"
 
@@ -96,16 +100,6 @@
                 android:baselineAligned="false"
                 android:gravity="center_horizontal">
 
-                <RatingBar
-                    android:layout_width="wrap_content"
-                    android:id="@+id/difficultyBar"
-                    android:layout_gravity="center_horizontal"
-                    android:clickable="true"
-                    android:numStars="3"
-                    android:rating="1"
-                    android:stepSize="1"
-                    style="@style/RatingBar"/>
-
                 <Button
                     android:textColor="@color/white"
                     android:layout_width="match_parent"
@@ -140,93 +134,7 @@
                     android:capitalize="none"
                     android:clickable="false"
                     android:background="@drawable/standalone_button"/>
-
-                <!--  <Button
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:text="coachMark"
-                      android:visibility="visible"
-                      android:onClick="coachMark"/> -->
-                <!--
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:weightSum="2">
-                                <Button
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="30dp"
-                                    android:layout_marginRight="1dp"
-                                    android:text="@string/menu_highscore"
-                                    android:textStyle="normal"
-                                    android:id="@+id/highscoreButton"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_weight="1"
-                                    android:onClick="onClick"
-                                    android:capitalize="none"
-                                    android:clickable="false"/>
-                                <Button
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="1dp"
-                                    android:layout_marginRight="30dp"
-                                    android:text="@string/menu_settings"
-                                    android:textStyle="normal"
-                                    android:id="@+id/settingsButton"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_weight="1"
-                                    android:onClick="onClick"
-                                    android:capitalize="none"
-                                    android:clickable="false"/>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="2"
-                                android:weightSum="2">
-                                <Button
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="30dp"
-                                    android:layout_marginRight="1dp"
-                                    android:text="@string/menu_about"
-                                    android:textStyle="normal"
-                                    android:id="@+id/aboutButton"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_weight="1"
-                                    android:onClick="onClick"
-                                    android:capitalize="none"
-                                    android:clickable="false"/>
-                                <Button
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_marginLeft="1dp"
-                                    android:layout_marginRight="30dp"
-                                    android:text="@string/menu_help"
-                                    android:textStyle="normal"
-                                    android:id="@+id/helpButton"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_weight="1"
-                                    android:onClick="onClick"
-                                    android:capitalize="none"
-                                    android:clickable="false"/>
-                            </LinearLayout>
-                -->
             </LinearLayout>
-
         </LinearLayout>
-
     </android.support.design.widget.CoordinatorLayout>
-
-    <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view_main"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        android:background="@color/white"
-        app:menu="@menu/menu_drawer_main"
-        app:headerLayout="@layout/nav_header" />
-
 </android.support.v4.widget.DrawerLayout>
