@@ -15,7 +15,7 @@
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui;
+package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui;
 
 import android.content.Context;
 import android.content.SharedPreferences;

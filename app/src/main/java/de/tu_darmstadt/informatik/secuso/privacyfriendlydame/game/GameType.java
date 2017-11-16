@@ -1,11 +1,11 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.game;
+package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.game;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.LinkedList;
 
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.R;
+import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.R;
 
 /**
  * Created by Chris on 09.11.2015.

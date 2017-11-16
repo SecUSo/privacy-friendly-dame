@@ -15,9 +15,8 @@
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui;
+package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -27,14 +26,11 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.R;
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.game.GameType;
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui.PrefManager;
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui.TutorialActivity;
+import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.R;
+import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.game.GameType;
 
 /**
  * @author Christopher Beckmann, Karola Marky

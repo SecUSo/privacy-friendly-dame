@@ -15,14 +15,13 @@
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.ui;
+package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
@@ -35,7 +34,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.R;
+import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.R;
 
 /**
  * @author Christopher Beckmann, Karola Marky

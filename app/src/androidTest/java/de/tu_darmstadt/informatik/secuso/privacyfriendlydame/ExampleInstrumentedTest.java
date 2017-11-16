@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydamen;
+package de.tu_darmstadt.informatik.secuso.privacyfriendlydame;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

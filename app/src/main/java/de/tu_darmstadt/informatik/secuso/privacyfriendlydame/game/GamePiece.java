@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydamen.game;
+package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.game;
 
 /**
  * Created by Marc on 16.11.2017.

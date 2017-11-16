@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "de.tu_darmstadt.informatik.secuso.privacyfriendlydamen"
+        applicationId "de.tu_darmstadt.informatik.secuso.privacyfriendlydame"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
