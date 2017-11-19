@@ -17,6 +17,7 @@
 
 package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,6 +46,7 @@ public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
     private ImageView mArrowLeft;
     private ImageView mArrowRight;
+    private Button newGameBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setCurrentItem(index);
         mArrowLeft = (ImageView) findViewById(R.id.arrow_left);
         mArrowRight = (ImageView) findViewById(R.id.arrow_right);
+        newGameBtn = findViewById(R.id.playButton);
 
         //care for initial postiton of the ViewPager
         mArrowLeft.setVisibility((index==0)?View.INVISIBLE:View.VISIBLE);
@@ -101,10 +106,17 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onClick(View view) {
+
+        Intent i = null;
+
         switch(view.getId()) {
             // do something with all these buttons?
+            case R.id.playButton:
+                i = new Intent(getApplicationContext(), GameActivity.class);
+                // TODO pass settings here
             default:
         }
+        startActivity(i);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

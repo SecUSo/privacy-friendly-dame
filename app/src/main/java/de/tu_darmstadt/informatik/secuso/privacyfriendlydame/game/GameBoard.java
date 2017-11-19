@@ -6,13 +6,13 @@ package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.game;
 
 public class GameBoard {
 
-    private int size;
+    private int dimension;
     private GameCell[][] board;
 
 
     public GameBoard(int dimension) {
-        this.size = size;
-        this.board = new GameCell[size][size];
+        this.dimension = dimension;
+        this.board = new GameCell[this.dimension][this.dimension];
 
         initBoard();
         initPieces();
@@ -25,8 +25,8 @@ public class GameBoard {
      * board[7][7] == bottom right corner is white == false
      */
     private void initBoard() {
-        for (int i = 0; i < size; i++)
-            for (int j = 0; j < size; j++) {
+        for (int i = 0; i < dimension; i++)
+            for (int j = 0; j < dimension; j++) {
                 if ((i + j) % 2 == 0)
                     board[i][j] = new GameCell(false);
                 else
@@ -45,15 +45,21 @@ public class GameBoard {
      */
     private void initPieces() {
         for (int i = 0; i < 3; i++)
-            for (int j = 0; j < size; j++)
+            for (int j = 0; j < dimension; j++)
                 if (board[i][j].isBlack())
                     board[i][j].placePiece(new GamePiece(true, false));
 
-        for (int i = 5; i < size; i++)
-            for (int j = 0; j < size; j++)
+        for (int i = 5; i < dimension; i++)
+            for (int j = 0; j < dimension; j++)
                 if (board[i][j].isBlack())
                     board[i][j].placePiece(new GamePiece(false, false));
     }
 
-    
+    public int getDimension() {
+        return this.dimension;
+    }
+
+    public GameCell getGameCellAt(int i, int j) {
+        return board[i][j];
+    }
 }
