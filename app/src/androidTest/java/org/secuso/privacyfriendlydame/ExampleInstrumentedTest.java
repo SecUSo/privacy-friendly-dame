@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydame;
+package org.secuso.privacyfriendlydame;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("de.tu_darmstadt.informatik.secuso.privacyfriendlydamen", appContext.getPackageName());
+        assertEquals("org.secuso.privacyfriendlydamen", appContext.getPackageName());
     }
 }

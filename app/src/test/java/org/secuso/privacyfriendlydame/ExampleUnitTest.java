@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydame;
+package org.secuso.privacyfriendlydame;
 
 import org.junit.Test;
 

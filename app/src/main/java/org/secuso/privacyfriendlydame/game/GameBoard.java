@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.game;
+package org.secuso.privacyfriendlydame.game;
 
 /**
  * Created by Marc on 16.11.2017.
@@ -47,12 +47,12 @@ public class GameBoard {
         for (int i = 0; i < 3; i++)
             for (int j = 0; j < dimension; j++)
                 if (board[i][j].isBlack())
-                    board[i][j].placePiece(new GamePiece(true, false));
+                    board[i][j].placePiece(new GamePiece(true, false, i, j));
 
         for (int i = 5; i < dimension; i++)
             for (int j = 0; j < dimension; j++)
                 if (board[i][j].isBlack())
-                    board[i][j].placePiece(new GamePiece(false, false));
+                    board[i][j].placePiece(new GamePiece(false, false, i, j));
     }
 
     public int getDimension() {

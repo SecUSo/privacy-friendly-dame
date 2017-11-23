@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui.MainActivity">
+    tools:context="org.secuso.privacyfriendlydame.ui.MainActivity">
 
     <include layout="@layout/toolbar"/>
 

@@ -15,7 +15,7 @@
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui;
+package org.secuso.privacyfriendlydame.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +32,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Intent mainIntent = new Intent(SplashActivity.this, TutorialActivity.class);
+        Intent mainIntent = new Intent(SplashActivity.this, org.secuso.privacyfriendlydame.ui.TutorialActivity.class);
         SplashActivity.this.startActivity(mainIntent);
         SplashActivity.this.finish();
 

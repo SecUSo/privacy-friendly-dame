@@ -1,4 +1,4 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.game;
+package org.secuso.privacyfriendlydame.game;
 
 /**
  * Created by Marc on 16.11.2017.
@@ -18,14 +18,19 @@ public class GameCell {
         this.piece = piece;
     }
 
-    public GamePiece removePiece() {
-        GamePiece tempPiece = this.piece;
+    public void removePiece() {
         this.piece = null;
-
-        return tempPiece;
     }
 
     public boolean isBlack() {
         return this.color;
+    }
+
+    public boolean hasPiece() {
+        return (!(piece == null));
+    }
+
+    public GamePiece getPiece() {
+        return piece;
     }
 }

@@ -1,11 +1,11 @@
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui;
+package org.secuso.privacyfriendlydame.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.R;
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.controller.GameController;
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui.view.DameBoardLayout;
+import org.secuso.privacyfriendlydame.R;
+import org.secuso.privacyfriendlydame.controller.GameController;
+import org.secuso.privacyfriendlydame.ui.view.DameBoardLayout;
 
 public class GameActivity extends AppCompatActivity {
 

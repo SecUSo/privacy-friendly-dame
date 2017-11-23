@@ -15,7 +15,7 @@
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package de.tu_darmstadt.informatik.secuso.privacyfriendlydame.ui;
+package org.secuso.privacyfriendlydame.ui;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +35,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import de.tu_darmstadt.informatik.secuso.privacyfriendlydame.R;
+import org.secuso.privacyfriendlydame.R;
 
 /**
  * Class structure taken from tutorial at http://www.androidhive.info/2016/05/android-build-intro-slider-app/
