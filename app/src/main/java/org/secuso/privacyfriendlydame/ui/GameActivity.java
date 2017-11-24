@@ -12,6 +12,7 @@ public class GameActivity extends AppCompatActivity {
     private DameBoardLayout boardLayout;
     private GameController gameController;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,3 +23,15 @@ public class GameActivity extends AppCompatActivity {
         boardLayout.setGameController(gameController);
     }
 }
+
+/*
+public class GameActivity extends AppCompatActivity {
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+
+    }
+}
+*/

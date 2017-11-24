@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setCurrentItem(index);
         mArrowLeft = (ImageView) findViewById(R.id.arrow_left);
         mArrowRight = (ImageView) findViewById(R.id.arrow_right);
-        newGameBtn = findViewById(R.id.playButton);
+        newGameBtn = findViewById(R.id.play_button);
 
         //care for initial postiton of the ViewPager
         mArrowLeft.setVisibility((index==0)?View.INVISIBLE:View.VISIBLE);
@@ -110,13 +110,35 @@ public class MainActivity extends BaseActivity {
         Intent i = null;
 
         switch(view.getId()) {
-            // do something with all these buttons?
-            case R.id.playButton:
+            case R.id.arrow_left:
+                mViewPager.arrowScroll(View.FOCUS_LEFT);
+                break;
+            case R.id.arrow_right:
+                mViewPager.arrowScroll(View.FOCUS_RIGHT);
+                break;
+            case R.id.play_button:
                 i = new Intent(getApplicationContext(), GameActivity.class);
                 // TODO pass settings here
+                break;
             default:
         }
-        startActivity(i);
+
+        final Intent intent = i;
+
+        if(intent != null) {
+            View mainContent = findViewById(R.id.main_content);
+            if (mainContent != null) {
+                mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
+            }
+
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(intent);
+                }
+            }, MAIN_CONTENT_FADEOUT_DURATION);
+
+        }
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
