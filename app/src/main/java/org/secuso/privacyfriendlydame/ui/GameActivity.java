@@ -64,7 +64,7 @@ public class GameActivity extends AppCompatActivity {
         super.onResume();
         prepTurn();
     }
-    
+
 
     private void createGameBoard()
     {

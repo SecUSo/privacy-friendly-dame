@@ -99,16 +99,7 @@ public class ComputerTurn extends AsyncTask<String, String, String>
 
         if (moves.length == 0) return null;
 
-        int difficulty = 0;
-        if (myDifficulty.equals("Easy")) {
-            difficulty = 0;
-        } else if (myDifficulty.equals("Medium")) {
-            difficulty = 1;
-        } else if (myDifficulty.equals("Hard")) {
-            difficulty = 2;
-        } else if (myDifficulty.equals("Very Hard")) {
-            difficulty = 3;
-        }
+        int difficulty = 3;
 
         if (difficulty == 0)
         {
