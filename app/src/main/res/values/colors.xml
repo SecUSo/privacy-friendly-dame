@@ -6,10 +6,16 @@
     <color name="transparent">#00000000</color>
     <color name="lightblue">#0274B2</color>
     <color name="middleblue">#8aa5ce</color>
-    <color name="middlegrey">#A8A8A8</color>
+    <color name="middlegrey">#A1A1A1</color>
     <color name="yellow">#f6d126</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+
+    <!-- game colors -->
+    <color name="cellRed">#DC1414</color>
+    <color name="cellBlack">#000000</color>
+    <color name="cellSelect">#FFFFFF</color>
+    <color name="cellOption">#1414DC</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen">#026499</color>

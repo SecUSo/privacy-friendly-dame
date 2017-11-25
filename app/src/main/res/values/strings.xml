@@ -70,4 +70,11 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_example_switch">Example Switch</string>
     <string name="pref_example_switch_summary">Example Switch Summary</string>
     <string name="pref_example_summary">Example Summary</string>
+
+    <!-- ###GAME###-->
+    <string name="title_activity_game">Game</string>
+    <string name="game_button_start">New Game</string>
+    <string name="game_button_continue">Continue Game</string>
+    <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
+
 </resources>
