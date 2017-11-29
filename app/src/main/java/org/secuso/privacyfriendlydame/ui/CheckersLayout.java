@@ -52,15 +52,15 @@ public class CheckersLayout extends TableLayout {
                         // set the correct image
                         if (color == CheckersGame.RED) {
                             if (king) {
-                                cell.setImageResource(R.drawable.redking);
+                                cell.setImageResource(R.drawable.ic_piece_white_king);
                             } else {
-                                cell.setImageResource(R.drawable.red);
+                                cell.setImageResource(R.drawable.ic_piece_white);
                             }
                         } else if (color == CheckersGame.BLACK) {
                             if (king) {
-                                cell.setImageResource(R.drawable.blackking);
+                                cell.setImageResource(R.drawable.ic_piece_black_king);
                             } else {
-                                cell.setImageResource(R.drawable.black);
+                                cell.setImageResource(R.drawable.ic_piece_black);
                             }
                         }
                         // set the background color
@@ -137,7 +137,7 @@ public class CheckersLayout extends TableLayout {
                     bgColor = getResources().getColor(R.color.cellBlack);
                 }
                 else {
-                    bgColor = getResources().getColor(R.color.cellRed);
+                    bgColor = getResources().getColor(R.color.cellWhite);
                 }
 
                 cell.setBackgroundColor(bgColor);

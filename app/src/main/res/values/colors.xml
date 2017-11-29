@@ -12,10 +12,10 @@
     <color name="black">#000000</color>
 
     <!-- game colors -->
-    <color name="cellRed">#DC1414</color>
-    <color name="cellBlack">#000000</color>
-    <color name="cellSelect">#FFFFFF</color>
-    <color name="cellOption">#1414DC</color>
+    <color name="cellWhite">#ffffff</color>
+    <color name="cellBlack">#024265</color>
+    <color name="cellSelect">#8aa5ce</color>
+    <color name="cellOption">#8aa5ce</color>
 
     <!-- dots inactive colors -->
     <color name="dot_dark_screen">#026499</color>

@@ -29,8 +29,7 @@
             android:name="org.secuso.privacyfriendlydame.ui.GameActivity"
             android:label="@string/title_activity_game"
             android:parentActivityName="org.secuso.privacyfriendlydame.ui.MainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
+            >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlydame.ui.MainActivity" />
