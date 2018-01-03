@@ -138,19 +138,48 @@ public class Board {
         // add jumps in each direction
         Position[] directions = getNeighbors(color, isKing);
         for (Position dir : directions) {
-            Position target = start.plus(dir);
-            Position dest = target.plus(dir);
-            Piece targetPiece = getPiece(target);
-            Piece destPiece = getPiece(dest);
+            // if the current piece is a king the search range is increased by one in each iteration
+            if (isKing) {
+                for (int i = 0; i < 8; i++) {
+                    Position target = start.plus(dir);
+                    for (int j = 0; j < i; j++) {
+                        target = target.plus(dir);
+                    }
+                    Position dest = target.plus(dir);
+                    Piece targetPiece = getPiece(target);
+                    Piece destPiece = getPiece(dest);
 
-            // look for a valid landing space with an opposing piece in-between
-            if (isGameSquare(dest) && destPiece == null &&
-                    targetPiece != null &&
-                    targetPiece.getColor() != color)
-            {
-                Move newMove = new Move(start);
-                newMove.add(dest);
-                base.add(newMove);
+                    // look for a valid landing space with an opposing piece in-between
+                    if (isGameSquare(dest) && destPiece == null &&
+                            targetPiece != null &&
+                            targetPiece.getColor() != color) {
+                        Move newMove = new Move(start);
+                        newMove.add(dest);
+                        newMove.addCapture(target);
+                        base.add(newMove);
+                    }
+                    // if 2 pieces are back-to-back or the position is off-board
+                    // the search is terminated in the current direction
+                    else if ((targetPiece != null && destPiece != null) || !isGameSquare(target)) {
+                        break;
+                    }
+                }
+            }
+            else {
+                Position target = start.plus(dir);
+                Position dest = target.plus(dir);
+                Piece targetPiece = getPiece(target);
+                Piece destPiece = getPiece(dest);
+
+                // look for a valid landing space with an opposing piece in-between
+                if (isGameSquare(dest) && destPiece == null &&
+                        targetPiece != null &&
+                        targetPiece.getColor() != color) {
+                    Move newMove = new Move(start);
+                    newMove.add(dest);
+                    newMove.addCapture(target);
+                    base.add(newMove);
+                }
             }
         }
 
@@ -196,6 +225,7 @@ public class Board {
                     if (valid) {
                         Move newMove = new Move(move);
                         newMove.add(dest);
+                        newMove.addCapture(target);
                         furtherCaptures.add(newMove);
                         continues = true;
                     }
@@ -225,13 +255,37 @@ public class Board {
         // check neighboring positions
         Position[] neighbors = getNeighbors(piece.getColor(), piece.isKing());
         for (Position pos : neighbors) {
-            Position dest = start.plus(pos);
-            Piece destPiece = getPiece(dest);
+            // check each square if it is free to move to
+            if (piece.isKing()) {
+                for (int i = 0; i < 8; i++) {
+                    Position dest = start.plus(pos);
+                    for (int j = 0; j < i; j++) {
+                        dest = dest.plus(pos);
+                    }
+                    Piece destPiece = getPiece(dest);
 
-            if (isGameSquare(dest) && destPiece == null) {
-                Move newMove = new Move(start);
-                newMove.add(dest);
-                immediateMoves.add(newMove);
+                    // add current square if square is on board and no other piece is on that position
+                    if (isGameSquare(dest) && destPiece == null) {
+                        Move newMove = new Move(start);
+                        newMove.add(dest);
+                        immediateMoves.add(newMove);
+                    }
+                    // else position is off board or another piece occupies the position
+                    // so no further checking is required in this direction
+                    else {
+                        break;
+                    }
+                }
+            }
+            else {
+                Position dest = start.plus(pos);
+                Piece destPiece = getPiece(dest);
+
+                if (isGameSquare(dest) && destPiece == null) {
+                    Move newMove = new Move(start);
+                    newMove.add(dest);
+                    immediateMoves.add(newMove);
+                }
             }
         }
 

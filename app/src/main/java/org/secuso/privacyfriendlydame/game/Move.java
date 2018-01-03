@@ -62,17 +62,19 @@ public class Move {
         Position prev = positions.get(positions.size() - 1);
         Position next = new Position(x, y);
         positions.add(next);
-        // check if move is a capture
-        int dist = Math.abs(prev.x - x) + Math.abs(prev.y - y);
-        if (dist > 2) {
-            int cx = (prev.x + x) / 2;
-            int cy = (prev.y + y) / 2;
-            captures.add(new Position(cx, cy));
-        }
-        // check if move is a king
+
+        // check if move results in a new king
         if (y == 0 || y == 7) {
             kings = true;
         }
+    }
+
+    /**
+     * add a position of a piece which is captured when executing the move
+     * @param position position of piece which is captured
+     */
+    public void addCapture(Position position) {
+        captures.add(position);
     }
 
     public Position start() {
