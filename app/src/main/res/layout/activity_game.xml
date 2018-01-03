@@ -28,7 +28,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context="org.secuso.privacyfriendlyexample.activities.GameActivity"
             tools:showIn="@layout/activity_game"
-            android:orientation="vertical"
             android:weightSum="10"
             style="?android:buttonBarStyle">
 
@@ -36,12 +35,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <TextView
+                    android:paddingBottom="@dimen/player_indicator_pb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/playerIndicator"
+                    android:textSize="@dimen/player_indicator_ts"
+                    android:layout_gravity="center_horizontal" />
+
                 <org.secuso.privacyfriendlydame.ui.view.DameBoardLayout
                     android:id="@+id/board"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     android:layout_centerInParent="true"/>
-
                 </org.secuso.privacyfriendlydame.ui.view.DameBoardLayout>
             </RelativeLayout>
 

@@ -17,18 +17,24 @@
 
 package org.secuso.privacyfriendlydame.ui;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.secuso.privacyfriendlydame.R;
 import org.secuso.privacyfriendlydame.game.Board;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
 import org.secuso.privacyfriendlydame.game.ComputerTurn;
+import org.secuso.privacyfriendlydame.game.GameType;
 import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
 import org.secuso.privacyfriendlydame.game.Position;
@@ -38,6 +44,7 @@ import java.util.ArrayList;
 public class GameActivity extends AppCompatActivity {
     private CheckersGame gamelogic;
     private CheckersLayout checkersView;
+    private GameType gameType;
     public TextView statusText;
 
     private String prefDifficulty;
@@ -53,9 +60,11 @@ public class GameActivity extends AppCompatActivity {
         createGameBoard();
         // portrait only
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        //
-        ////PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-        //
+
+
+        Bundle extras = getIntent().getExtras();
+        this.gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
         prefDifficulty = sharedPreferences.getString(DIFFICULTY, null);
@@ -79,6 +88,7 @@ public class GameActivity extends AppCompatActivity {
         TextView topText = new TextView(this);
         topText.setText("Play Checkers");
 
+        statusText = this.findViewById(R.id.playerIndicator);
         statusText = new TextView(this);
         statusText.setText("status");
 
@@ -130,12 +140,36 @@ public class GameActivity extends AppCompatActivity {
 
         int turn = gamelogic.whoseTurn();
 
-        if (turn == CheckersGame.RED) {
-            statusText.setText("Red's (computer's) turn. Difficulty: "+prefDifficulty);
+        if (turn == CheckersGame.WHITE) {
+            if(gameType == GameType.Bot) {
+                statusText.setText("White's (computer's) turn. Difficulty: " + prefDifficulty);
 
-            // run the CPU AI on another thread
-            computerTask = new ComputerTurn(this, gamelogic, prefDifficulty, prefAllowAnyMove);
-            computerTask.execute();
+                // run the CPU AI on another thread
+                computerTask = new ComputerTurn(this, gamelogic, prefDifficulty, prefAllowAnyMove);
+                computerTask.execute();
+            }else{
+                statusText.setText("White's (player's) turn.");
+                // prep for human player turn
+                ArrayList<Piece> selectablePieces = new ArrayList<>();
+                Move moves[] = gamelogic.getMoves();
+
+                // find pieces which can be moved
+                for (Move move : moves) {
+                    Piece newPiece = board.getPiece(move.start());
+                    if (!selectablePieces.contains(newPiece)) {
+                        selectablePieces.add(newPiece);
+                    }
+                }
+
+                // convert to array
+                this.selectablePieces = selectablePieces.toArray(
+                        new Piece[selectablePieces.size()]
+                );
+
+                if (selectablePieces.size() == 0) {
+                    showWinDialog();
+                }
+            }
 
         } else if (turn == CheckersGame.BLACK) {
             statusText.setText("Black's (player's) turn.");
@@ -158,7 +192,7 @@ public class GameActivity extends AppCompatActivity {
             );
 
             if (selectablePieces.size() == 0) {
-                statusText.setText("You lost!");
+                showWinDialog();
             }
         }
 
@@ -167,7 +201,7 @@ public class GameActivity extends AppCompatActivity {
 
     // difficulty easy: randomly pick a move
     private void makeComputerTurn() {
-        if (gamelogic.whoseTurn() == CheckersGame.RED) {
+        if (gamelogic.whoseTurn() == CheckersGame.WHITE) {
             Move moves[] = gamelogic.getMoves();
             if (moves.length > 0) {
                 Move choice;
@@ -195,7 +229,7 @@ public class GameActivity extends AppCompatActivity {
                 prepTurn();
             } else {
                 // player wins
-                statusText.setText("You won!");
+                showWinDialog();
             }
         }
     }
@@ -277,11 +311,7 @@ public class GameActivity extends AppCompatActivity {
 
     // player makes a click
     public void onClick(int x, int y) {
-        // check if its player's turn
-        if (gamelogic.whoseTurn() != CheckersGame.BLACK) {
-            return;
-        }
-
+        // statusText.setText(gamelogic.whoseTurn()+" : clicks : "+x+" : "+y);
         Position location = new Position(x, y);
         Piece targetPiece = gamelogic.getBoard().getPiece(x, y);
 
@@ -289,8 +319,7 @@ public class GameActivity extends AppCompatActivity {
         if (selectedPiece != null && selectedPosition != null && targetPiece == null) {
             makeMove(location);
         }
-        else
-        {
+        else{
             selectPiece(targetPiece, location);
         }
     }
@@ -308,4 +337,31 @@ public class GameActivity extends AppCompatActivity {
                     prepTurn();
                 }
             };
+
+    /**
+     * Shows the dialog after a game was won with the options of going back to main as well as showing the final game pane
+     */
+    public void showWinDialog() {
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.sWinDialogTitle);
+        builder.setMessage(R.string.sWinDialogText);
+        builder.setIcon(ResourcesCompat.getDrawable(this.getResources(), R.drawable.medal, null));
+        builder.setPositiveButton(R.string.sWinDialogBack, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Intent intent = new Intent(GameActivity.this.getApplicationContext(), MainActivity.class);
+                GameActivity.this.getApplicationContext().startActivity(intent);
+
+            }
+        });
+        builder.setNegativeButton(R.string.sWinDialogShowBoard, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog winDialog = builder.create();
+        winDialog.show();
+    }
 }

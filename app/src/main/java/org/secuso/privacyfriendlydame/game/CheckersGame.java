@@ -20,7 +20,7 @@ package org.secuso.privacyfriendlydame.game;
 public class CheckersGame {
     public static final int NONE = 0;
     public static final int BLACK = 1;
-    public static final int RED = 2;
+    public static final int WHITE = 2;
     public static final int KINGED = 3;
 
     // checkers game state
@@ -85,10 +85,10 @@ public class CheckersGame {
 
     // switch turns
     private void advanceTurn() {
-        if (turn == CheckersGame.RED) {
+        if (turn == CheckersGame.WHITE) {
             turn = CheckersGame.BLACK;
         } else {
-            turn = CheckersGame.RED;
+            turn = CheckersGame.WHITE;
         }
     }
 }

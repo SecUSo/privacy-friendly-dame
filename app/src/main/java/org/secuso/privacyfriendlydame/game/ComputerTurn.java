@@ -47,7 +47,7 @@ public class ComputerTurn extends AsyncTask<String, String, String>
 
     protected int minimax(Board base, int turn, int depth)
     {
-        int oppositeTurn = (turn == CheckersGame.RED ? CheckersGame.BLACK : CheckersGame.RED);
+        int oppositeTurn = (turn == CheckersGame.WHITE ? CheckersGame.BLACK : CheckersGame.WHITE);
         Move[] baseMoves = base.getMoves(turn, allowAnyMove);
 
         int score = 999;
@@ -69,7 +69,7 @@ public class ComputerTurn extends AsyncTask<String, String, String>
                 score = moveScore;
             }
 
-            if (turn == CheckersGame.RED) {
+            if (turn == CheckersGame.WHITE) {
                 // MIN
                 score = (moveScore < score) ? moveScore : score;
             } else if (turn == CheckersGame.BLACK) {
@@ -110,7 +110,7 @@ public class ComputerTurn extends AsyncTask<String, String, String>
 
     @Override
     protected String doInBackground(String... strings) {
-        if (myGame.whoseTurn() != CheckersGame.RED) return null;
+        if (myGame.whoseTurn() != CheckersGame.WHITE) return null;
         Move moves[] = myGame.getMoves();
 
         if (moves.length == 0) return null;
@@ -170,13 +170,13 @@ public class ComputerTurn extends AsyncTask<String, String, String>
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        if (myGame.whoseTurn() == CheckersGame.RED) {
+        if (myGame.whoseTurn() == CheckersGame.WHITE) {
             if (selectedMove != null) {
                 myGame.makeMove(selectedMove);
                 myActivity.prepTurn();
             } else {
                 // player wins
-                myActivity.statusText.setText("You won!");
+                myActivity.showWinDialog();
             }
         }
     }

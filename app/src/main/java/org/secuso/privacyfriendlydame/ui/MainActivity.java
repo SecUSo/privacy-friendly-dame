@@ -116,7 +116,10 @@ public class MainActivity extends BaseActivity {
                 mViewPager.arrowScroll(View.FOCUS_RIGHT);
                 break;
             case R.id.play_button:
+                GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
+
                 i = new Intent(getApplicationContext(), GameActivity.class);
+                i.putExtra("gameType", gameType.name());
                 // TODO pass settings here
                 break;
             default:

@@ -66,7 +66,7 @@ public class CheckersLayout extends TableLayout {
                         int color = piece.getColor();
                         boolean king = piece.isKing();
                         // set the correct image
-                        if (color == CheckersGame.RED) {
+                        if (color == CheckersGame.WHITE) {
                             if (king) {
                                 cell.setImageResource(R.drawable.ic_piece_white_king);
                             } else {

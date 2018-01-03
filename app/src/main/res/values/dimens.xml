@@ -19,4 +19,7 @@
     <dimen name="slide_actions">20dp</dimen>
     <dimen name="desc_padding">40dp</dimen>
 
+    <dimen name="player_indicator_ts">25sp</dimen>
+    <dimen name="player_indicator_pb">20dp</dimen>
+
 </resources>

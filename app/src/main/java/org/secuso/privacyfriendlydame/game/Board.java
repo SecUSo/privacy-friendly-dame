@@ -43,7 +43,7 @@ public class Board {
     private Position[] getNeighbors(int color, boolean king) {
         if (king) {
             return BOTH_DIRECTIONS;
-        } else if (color == CheckersGame.RED) {
+        } else if (color == CheckersGame.WHITE) {
             return RED_DIRECTIONS;
         } else if (color == CheckersGame.BLACK) {
             return BLACK_DIRECTIONS;
@@ -59,7 +59,7 @@ public class Board {
         board = new Piece[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                int side = (y < 3) ? CheckersGame.RED : (y > 4) ? CheckersGame.BLACK : 0;
+                int side = (y < 3) ? CheckersGame.WHITE : (y > 4) ? CheckersGame.BLACK : 0;
                 boolean validSquare = this.isGameSquare(x, y);
                 if (side != CheckersGame.NONE && validSquare) {
                     board[x][y] = new Piece(side, false);
@@ -289,7 +289,7 @@ public class Board {
         Position start = move.start();
         Position end = move.end();
         Piece piece = getPiece(start);
-        int otherColor = (piece.getColor() == CheckersGame.RED) ? CheckersGame.BLACK : CheckersGame.RED;
+        int otherColor = (piece.getColor() == CheckersGame.WHITE) ? CheckersGame.BLACK : CheckersGame.WHITE;
         // clear visited positions
         for (Position pos : move.positions) {
             board[pos.x][pos.y] = null;
@@ -315,7 +315,7 @@ public class Board {
                 Piece piece = board[x][y];
                 if (piece != null) {
                     int weight = piece.isKing() ? 5 : 2;
-                    if (piece.getColor() == CheckersGame.RED) {
+                    if (piece.getColor() == CheckersGame.WHITE) {
                         weight *= -1;
                         redPieces++;
                     } else {
