@@ -332,7 +332,7 @@ public class GameActivity extends AppCompatActivity {
                     prefDifficulty = sharedPreferences.getString(DIFFICULTY, null);
                     prefAllowAnyMove = sharedPreferences.getBoolean(ANY_MOVE, false);
 
-                    gamelogic.setAnyMove(prefAllowAnyMove);
+
 
                     prepTurn();
                 }

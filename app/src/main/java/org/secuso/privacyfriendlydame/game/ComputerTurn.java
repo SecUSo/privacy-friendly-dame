@@ -48,7 +48,7 @@ public class ComputerTurn extends AsyncTask<String, String, String>
     protected int minimax(Board base, int turn, int depth)
     {
         int oppositeTurn = (turn == CheckersGame.WHITE ? CheckersGame.BLACK : CheckersGame.WHITE);
-        Move[] baseMoves = base.getMoves(turn, allowAnyMove);
+        Move[] baseMoves = base.getMoves(turn);
 
         int score = 999;
 

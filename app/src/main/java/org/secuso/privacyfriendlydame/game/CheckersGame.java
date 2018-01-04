@@ -28,26 +28,20 @@ public class CheckersGame {
     private int turn;
     private boolean over;
     private int winner;
-    private boolean allowAnyMove;
 
     // checkers game holds board state and current turn
     public CheckersGame(boolean anyMove) {
-        gameBoard = new Board(this);
+        gameBoard = new Board();
         turn = CheckersGame.BLACK;
         over = false;
         winner = CheckersGame.NONE;
-        allowAnyMove = anyMove;
     }
 
     public void restart() {
-        gameBoard = new Board(this);
+        gameBoard = new Board();
         turn = CheckersGame.BLACK;
         over = false;
         winner = CheckersGame.NONE;
-    }
-
-    public void setAnyMove(boolean anyMove) {
-        allowAnyMove = anyMove;
     }
 
     // check whose turn it is
@@ -74,7 +68,7 @@ public class CheckersGame {
     }
 
     public Move[] getMoves() {
-        return gameBoard.getMoves(turn, allowAnyMove);
+        return gameBoard.getMoves(turn);
     }
 
     // make a move

@@ -19,43 +19,21 @@ package org.secuso.privacyfriendlydame.game;
 
 import java.util.ArrayList;
 
- // data for complete board state
+/**
+ * This class is used to model a 8x8 board state for a game of checkers. Each square either contains
+ * a piece or is null if empty. By executing a move the current board state can be modified.
+ * Methods for loading and saving the current board state are available as well as methods for
+ * generating lists of allowed moves for a player.
+ */
 public class Board {
-    //private CheckersGame checkersGame;
+
+    // each data field either contains a game piece or is null
     private Piece board[][];
 
-    public boolean isGameSquare(int x, int y) {
-        // within 8x8 dimensions and is odd-square
-        return (x >= 0 && y >= 0 && x < 8 && y < 8 && (x + y) % 2 > 0);
-    }
-
-    public boolean isGameSquare(Position pos) {
-        return isGameSquare(pos.x, pos.y);
-    }
-
-
-    //
-    private Position[] RED_DIRECTIONS = new Position[]{new Position(-1, 1), new Position(1, 1)};
-    private Position[] BLACK_DIRECTIONS = new Position[]{new Position(-1, -1), new Position(1, -1)};
-    private Position[] BOTH_DIRECTIONS = new Position[]{new Position(-1, 1), new Position(1, 1), new Position(-1, -1), new Position(1, -1)};
-    private Position[] NO_DIRECTIONS = new Position[]{};
-
-    private Position[] getNeighbors(int color, boolean king) {
-        if (king) {
-            return BOTH_DIRECTIONS;
-        } else if (color == CheckersGame.WHITE) {
-            return RED_DIRECTIONS;
-        } else if (color == CheckersGame.BLACK) {
-            return BLACK_DIRECTIONS;
-        } else {
-            return BOTH_DIRECTIONS;
-        }
-    }
-
-
-    // create new board
-    public Board(CheckersGame checkersGame) {
-        //this.checkersGame = checkersGame;
+    /**
+     * Constructs a new default board
+     */
+    Board() {
         board = new Piece[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
@@ -70,8 +48,11 @@ public class Board {
         }
     }
 
-    // create from existing positions
-    public Board(int[][] positions) {
+    /**
+     * Reconstructs a board with a two dimensional array containing information for each position
+     * @param positions each field represents a position on board
+     */
+    Board(int[][] positions) {
         //this.checkersGame = checkersGame;
         board = new Piece[8][8];
         for (int x = 0; x < 8; x++) {
@@ -87,48 +68,12 @@ public class Board {
         }
     }
 
-    // save positions as int[][]
-    public int[][] saveBoard() {
-        int result[][] = new int[8][8];
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (board[x][y] != null) {
-                    Piece piece = board[x][y];
-                    result[x][y] = piece.getColor();
-                    if (piece.isKing()) {
-                        result[x][y] += CheckersGame.KINGED;
-                    }
-                } else {
-                    result[x][y] = CheckersGame.NONE;
-                }
-            }
-        }
-        return result;
-    }
-
-    // get a piece on the board
-    public Piece getPiece(int x, int y) {
-        return (isGameSquare(x, y) ? board[x][y] : null);
-    }
-    public Piece getPiece(Position pos) {
-        return getPiece(pos.x, pos.y);
-    }
-
-    // find a piece on the board
-    public Position getPosition(Piece piece) {
-        int x = 0, y = 0;
-        for (; x < 8; x++) {
-            for (; y < 8; y++) {
-                if (getPiece(x, y) == piece) {
-                    return new Position(x, y);
-                }
-            }
-        }
-        return null;
-    }
-
-    //
-    public ArrayList<Move> getCaptures(Position start, boolean allowAnyMove)
+     /**
+      * Generates a list of moves for a certain position which include at least one capture
+      * @param start starting position of all moves which are generated
+      * @return list of moves which include at least one capture
+      */
+    private ArrayList<Move> getCaptures(Position start)
     {
         ArrayList<Move> base = new ArrayList<>();
         Piece piece = getPiece(start);
@@ -136,7 +81,7 @@ public class Board {
         boolean isKing = piece.isKing();
 
         // add jumps in each direction
-        Position[] directions = getNeighbors(color, isKing);
+        Position[] directions = getDirections(color, isKing);
         for (Position dir : directions) {
             // if the current piece is a king the search range is increased by one in each iteration
             if (isKing) {
@@ -184,11 +129,16 @@ public class Board {
         }
 
         // find longest for each jump choice
-        return getCaptures(start, base, allowAnyMove);
+        return getCaptures(start, base);
     }
 
-    //
-    public ArrayList<Move> getCaptures(Position start, ArrayList<Move> expand, boolean allowAnyMove)
+     /**
+      * Tries to extend an existing list of captures(moves) by searching for ways to add more captures
+      * @param start starting position of all moves which are generated
+      * @param expand list of moves which include exactly one capture
+      * @return final list of all moves which have at least one capture
+      */
+    private ArrayList<Move> getCaptures(Position start, ArrayList<Move> expand)
     {
         ArrayList<Move> finalCaptures = new ArrayList<>();
         ArrayList<Move> furtherCaptures = new ArrayList<>();
@@ -199,7 +149,7 @@ public class Board {
 
         // create longer moves from existing ones
         for (Move move : expand) {
-            Position[] directions = getNeighbors(color, isKing || move.kings);
+            Position[] directions = getDirections(color, isKing || move.kings);
             Position current = move.end();
             boolean continues = false;
             for (Position dir : directions)
@@ -233,27 +183,51 @@ public class Board {
             }
 
             // only add this move if there are no longer alternatives
-            if (!continues || allowAnyMove) {
+            if (!continues) {
                 finalCaptures.add(move);
             }
         }
 
         if (furtherCaptures.size() > 0) {
-            furtherCaptures = getCaptures(start, furtherCaptures, allowAnyMove);
+            furtherCaptures = getCaptures(start, furtherCaptures);
         }
         finalCaptures.addAll(furtherCaptures);
 
         return finalCaptures;
     }
 
-    // get a set of possible moves from a place on the board
-    public ArrayList<Move> getMoves(Position start, boolean allowAnyMove) {
+    /**
+     * Returns the directions a piece with passed properties can move towards
+     * @param color color of the piece
+     * @param king is the piece a king
+     * @return allowed directions a piece can move towards
+     */
+    private Position[] getDirections(int color, boolean king) {
+        if (king) {
+            return new Position[]{new Position(-1, 1), new Position(1, 1),
+                    new Position(-1, -1), new Position(1, -1)};
+        } else if (color == CheckersGame.WHITE) {
+            return new Position[]{new Position(-1, 1), new Position(1, 1)};
+        } else if (color == CheckersGame.BLACK) {
+            return new Position[]{new Position(-1, -1), new Position(1, -1)};
+        } else {
+            return new Position[]{};
+        }
+    }
+
+     /**
+      * Generates a list of all possible moves for a certain position on the board
+      * @param start starting position of all moves which are generated
+      * @return ArrayList of executable moves
+      */
+    private ArrayList<Move> getMoves(Position start)
+    {
         Piece piece = getPiece(start);
 
         ArrayList<Move> immediateMoves = new ArrayList<>();
 
         // check neighboring positions
-        Position[] neighbors = getNeighbors(piece.getColor(), piece.isKing());
+        Position[] neighbors = getDirections(piece.getColor(), piece.isKing());
         for (Position pos : neighbors) {
             // check each square if it is free to move to
             if (piece.isKing()) {
@@ -289,26 +263,28 @@ public class Board {
             }
         }
 
-        ArrayList<Move> captures = getCaptures(start, allowAnyMove);
+        ArrayList<Move> captures = getCaptures(start);
         immediateMoves.addAll(captures);
         return immediateMoves;
     }
 
-
-    // get possible moves for current player
-    public Move[] getMoves(int turn, boolean allowAnyMove) {
+     /**
+      * Generates a list of possible moves for a player
+      * @param currentPlayer current player
+      * @return array of executable moves
+      */
+    Move[] getMoves(int currentPlayer) {
         ArrayList<Move> finalMoves;
         ArrayList<Move> potentialMoves = new ArrayList<>();
-        ArrayList<Position> startingPositions = new ArrayList<>();
 
         // add moves for each matching piece
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 Piece piece = getPiece(x, y);
-                if (piece != null && piece.getColor() == turn) {
+                if (piece != null && piece.getColor() == currentPlayer) {
                     Position start = new Position(x, y);
                     potentialMoves.addAll(
-                            getMoves(start, allowAnyMove)
+                            getMoves(start)
                     );
                 }
             }
@@ -316,34 +292,90 @@ public class Board {
 
         // check if non-jumping moves need to be removed
         finalMoves = potentialMoves;
-        if (allowAnyMove == false) {
-            boolean areCaptures = false;
+
+        boolean areCaptures = false;
+        for (Move sequence : potentialMoves) {
+            if (sequence.captures.size() > 0) {
+                areCaptures = true;
+                break;
+            }
+        }
+        if (areCaptures) {
+            finalMoves = new ArrayList<>();
             for (Move sequence : potentialMoves) {
                 if (sequence.captures.size() > 0) {
-                    areCaptures = true;
-                    break;
-                }
-            }
-            if (areCaptures) {
-                finalMoves = new ArrayList<>();
-                for (Move sequence : potentialMoves) {
-                    if (sequence.captures.size() > 0) {
-                        finalMoves.add(sequence);
-                    }
+                    finalMoves.add(sequence);
                 }
             }
         }
+
 
         // return choices as a sequence of positions
         return finalMoves.toArray(new Move[finalMoves.size()]);
     }
 
-    // carry out a move sequence
-    public void makeMove(Move move) {
+    /**
+     * Returns the game piece at a certain position on the board
+     * @param x x-coordinate of the position
+     * @param y y-coordinate of the position
+     * @return game piece at position or null if position is empty
+     */
+    public Piece getPiece(int x, int y) {
+        return (isGameSquare(x, y) ? board[x][y] : null);
+    }
+
+    /**
+     * Returns the game piece at a certain position on the board
+     * @param pos position on board
+     * @return game piece at position or null if position is empty
+     */
+    public Piece getPiece(Position pos) {
+        return getPiece(pos.x, pos.y);
+    }
+
+    // TODO: not used - remove?
+    // find a piece on the board
+    public Position getPosition(Piece piece) {
+        int x = 0, y = 0;
+        for (; x < 8; x++) {
+            for (; y < 8; y++) {
+                if (getPiece(x, y) == piece) {
+                    return new Position(x, y);
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Checks if a coordinate-pair is within the bounds of the board dimensions
+     * @param x x-coordinate of position to check
+     * @param y y-coordinate of position to check
+     * @return true if coordinates represent a position on the board
+     */
+    public boolean isGameSquare(int x, int y) {
+        // within 8x8 dimensions and is odd-square
+        return (x >= 0 && y >= 0 && x < 8 && y < 8 && (x + y) % 2 > 0);
+    }
+
+    /**
+     * Checks if a position, which consists of an x- and y-value, is within the bounds of the board dimensions
+     * @param pos the position to check
+     * @return true if the coordinates which represent the position are on the board
+     */
+    private boolean isGameSquare(Position pos) {
+        return isGameSquare(pos.x, pos.y);
+    }
+
+     /**
+      * Executes a move by placing a piece to an end position and removing all captures in between
+      * @param move move to execute
+      */
+    void makeMove(Move move) {
         Position start = move.start();
         Position end = move.end();
         Piece piece = getPiece(start);
-        int otherColor = (piece.getColor() == CheckersGame.WHITE) ? CheckersGame.BLACK : CheckersGame.WHITE;
+
         // clear visited positions
         for (Position pos : move.positions) {
             board[pos.x][pos.y] = null;
@@ -360,7 +392,8 @@ public class Board {
         }
     }
 
-    public int pseudoScore() {
+    // TODO: ?
+    int pseudoScore() {
         int score = 0;
         int blackPieces = 0;
         int redPieces = 0;
@@ -386,5 +419,28 @@ public class Board {
         }
 
         return score;
+    }
+
+    /**
+     * Saves the current board status as a 2-dimensional array with all necessary information
+     * to be able to be reconstructed
+     * @return the current board status as a 2-dimensional int array
+     */
+    int[][] saveBoard() {
+        int result[][] = new int[8][8];
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
+                if (board[x][y] != null) {
+                    Piece piece = board[x][y];
+                    result[x][y] = piece.getColor();
+                    if (piece.isKing()) {
+                        result[x][y] += CheckersGame.KINGED;
+                    }
+                } else {
+                    result[x][y] = CheckersGame.NONE;
+                }
+            }
+        }
+        return result;
     }
 }
