@@ -22,7 +22,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
@@ -35,7 +34,6 @@ import android.widget.TextView;
 import org.secuso.privacyfriendlydame.R;
 import org.secuso.privacyfriendlydame.game.Board;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
-import org.secuso.privacyfriendlydame.game.ComputerTurn;
 import org.secuso.privacyfriendlydame.game.GameType;
 import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
@@ -124,19 +122,8 @@ public class GameActivity extends AppCompatActivity {
         prepTurn();
     }
 
-    public void clearComputerTask() {
-        if (computerTask != null) {
-            if (computerTask.getStatus() != AsyncTask.Status.FINISHED)
-            {
-                computerTask.cancel(true);
-            }
-            computerTask = null;
-        }
-    }
-
-    // restart game
+        // restart game
     private void restart() {
-        clearComputerTask();
         gamelogic.restart();
         checkersView.refresh();
         prepTurn();
@@ -147,7 +134,6 @@ public class GameActivity extends AppCompatActivity {
     Piece selectablePieces[];
     Position moveOptions[];
 
-    ComputerTurn computerTask = null;
 
     // prepare a human or computer turn
     public void prepTurn() {
@@ -158,17 +144,14 @@ public class GameActivity extends AppCompatActivity {
         selectablePieces = null;
         moveOptions = null;
 
-        clearComputerTask();
-
         int turn = gamelogic.whoseTurn();
 
         if (turn == CheckersGame.WHITE) {
             if(gameType == GameType.Bot) {
                 currentPlayerText.setText(R.string.game_current_player_ai);
 
-                // run the CPU AI on another thread
-                computerTask = new ComputerTurn(this, gamelogic, prefDifficulty, prefAllowAnyMove);
-                computerTask.execute();
+                makeComputerTurn();
+
             }else{
                 currentPlayerText.setText(R.string.game_current_player_white);
                 // prep for human player turn
@@ -227,26 +210,35 @@ public class GameActivity extends AppCompatActivity {
             Move moves[] = gamelogic.getMoves();
             if (moves.length > 0) {
                 Move choice;
-                if (prefDifficulty.equals("Easy")) {
-                    int num = (int)(moves.length * Math.random());
-                    choice = moves[num];
-                } else {
-                    // find best move by capture amount vs king
-                    choice = moves[0];
-                    int curScore = -1;
-                    for (Move option : moves) {
-                        int score = option.capturePositions.size();
-                        Piece startPiece = gamelogic.getBoard().getPiece(option.start());
-                        if (option.kings && !startPiece.isKing())
-                        {
-                            score += 2;
+                int color;
+                int num = (int)(moves.length * Math.random());
+                choice = moves[num];
+                if (choice.capturePositions.size() > 0) {
+                    for (Position p: choice.capturePositions) {
+                        color = gamelogic.getBoard().getPiece(p).getColor();
+                        // captured piece is  black
+                        if (color == 1) {
+                            if (gamelogic.getBoard().getPiece(p).isKing()) {
+                                // captured piece is black and king
+                                capturedBlackPieces.addView(generatePieceImage(3));
+                            }
+                            else {
+                                capturedBlackPieces.addView(generatePieceImage(1));
+                            }
                         }
-                        if (score > curScore) {
-                            choice = option;
-                            curScore = score;
+                        // captured piece is white
+                        else {
+                            if (gamelogic.getBoard().getPiece(p).isKing()) {
+                                // captured piece is white and king
+                                capturedWhitePieces.addView(generatePieceImage(4));
+                            }
+                            else {
+                                capturedWhitePieces.addView(generatePieceImage(2));
+                            }
                         }
                     }
                 }
+
                 gamelogic.makeMove(choice);
                 prepTurn();
             } else {
