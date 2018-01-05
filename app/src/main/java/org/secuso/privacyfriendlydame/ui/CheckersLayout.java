@@ -120,7 +120,7 @@ public class CheckersLayout extends TableLayout {
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(1, 1, 1, 1);
         setLayoutParams(params);
-        setBackgroundColor(Color.rgb(48, 48, 48));
+        setBackgroundColor(getResources().getColor(R.color.cellBlack));
 
         // add table of image views
         cells = new CheckerImageView[8][8];
