@@ -17,30 +17,44 @@
 
 package org.secuso.privacyfriendlydame.game;
 
- // data for a single piece
+/**
+ * This class models a single game piece for a game of checkers. It can be either black or white
+ * and additionally, it can be a normal piece or a kinged piece, which can move in further directions.
+ */
 public class Piece {
     private int color;
     private boolean isKing;
 
-    Piece(int color) {
-        this.color = color;
-        isKing = false;
-    }
-
+    /**
+     * Constructs a piece with chosen color and king-status
+     * @param color color of player whom this piece belongs to
+     * @param king indicates if piece is a king
+     */
     Piece(int color, boolean king) {
         this.color = color;
         isKing = king;
     }
 
+    /**
+     * Returns the color of this piece
+     * @return color of this piece
+     */
     public int getColor() {
         return color;
     }
 
+    /**
+     * Returns whether this piece is a king
+     * @return true if piece is a king
+     */
     public boolean isKing() {
         return isKing;
     }
 
-    public void makeKing() {
+    /**
+     * Makes this piece a king
+     */
+    void makeKing() {
         isKing = true;
     }
 }

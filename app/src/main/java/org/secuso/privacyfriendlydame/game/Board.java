@@ -133,7 +133,7 @@ public class Board {
     }
 
      /**
-      * Tries to extend an existing list of captures(moves) by searching for ways to add more captures
+      * Tries to extend an existing list of capturePositions(moves) by searching for ways to add more capturePositions
       * @param start starting position of all moves which are generated
       * @param expand list of moves which include exactly one capture
       * @return final list of all moves which have at least one capture
@@ -165,7 +165,7 @@ public class Board {
                         targetPiece.getColor() != color) {
                     // check that the 'opposing piece' hasn't been captured in this move sequence yet
                     boolean valid = true;
-                    for (Position captured : move.captures) {
+                    for (Position captured : move.capturePositions) {
                         if (captured.equals(target)) {
                             valid = false;
                             break;
@@ -295,7 +295,7 @@ public class Board {
 
         boolean areCaptures = false;
         for (Move sequence : potentialMoves) {
-            if (sequence.captures.size() > 0) {
+            if (sequence.capturePositions.size() > 0) {
                 areCaptures = true;
                 break;
             }
@@ -303,7 +303,7 @@ public class Board {
         if (areCaptures) {
             finalMoves = new ArrayList<>();
             for (Move sequence : potentialMoves) {
-                if (sequence.captures.size() > 0) {
+                if (sequence.capturePositions.size() > 0) {
                     finalMoves.add(sequence);
                 }
             }
@@ -368,7 +368,7 @@ public class Board {
     }
 
      /**
-      * Executes a move by placing a piece to an end position and removing all captures in between
+      * Executes a move by placing a piece to an end position and removing all capturePositions in between
       * @param move move to execute
       */
     void makeMove(Move move) {
@@ -381,7 +381,7 @@ public class Board {
             board[pos.x][pos.y] = null;
         }
         // clear captured positions and decrease piece count
-        for (Position cap : move.captures) {
+        for (Position cap : move.capturePositions) {
             board[cap.x][cap.y] = null;
         }
         // place at end position

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 // move as a sequence of positions and list of capture positions
 public class Move {
     public ArrayList<Position> positions;
-    public ArrayList<Position> captures;
+    public ArrayList<Position> capturePositions;
     public boolean kings;
 
     public Move(Position pos) {
@@ -38,7 +38,7 @@ public class Move {
         positions = new ArrayList();
         positions.add(first);
         kings = false;
-        captures = new ArrayList();
+        capturePositions = new ArrayList();
     }
 
     // copy constructor
@@ -48,9 +48,9 @@ public class Move {
         for (Position position : clone.positions) {
             positions.add(position);
         }
-        captures = new ArrayList<>();
-        for (Position capture : clone.captures) {
-            captures.add(capture);
+        capturePositions = new ArrayList<>();
+        for (Position capture : clone.capturePositions) {
+            capturePositions.add(capture);
         }
     }
 
@@ -74,7 +74,7 @@ public class Move {
      * @param position position of piece which is captured
      */
     public void addCapture(Position position) {
-        captures.add(position);
+        capturePositions.add(position);
     }
 
     public Position start() {
@@ -84,4 +84,5 @@ public class Move {
     public Position end() {
         return positions.get(positions.size() - 1);
     }
+
 }

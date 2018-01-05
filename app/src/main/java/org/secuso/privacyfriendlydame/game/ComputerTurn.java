@@ -125,14 +125,14 @@ public class ComputerTurn extends AsyncTask<String, String, String>
         }
         else if (difficulty == 1)
         {
-            // medium CPU looks for most captures or kings
+            // medium CPU looks for most capturePositions or kings
             selectedMove = moves[0];
 
             ArrayList<Move> selectedMoves = new ArrayList<>();
 
             int curScore = -1;
             for (Move option : moves) {
-                int score = option.captures.size();
+                int score = option.capturePositions.size();
                 Piece startPiece = myGame.getBoard().getPiece(option.start());
                 if (option.kings && !startPiece.isKing())
                 {

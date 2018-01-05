@@ -17,20 +17,29 @@
 
 package org.secuso.privacyfriendlydame.game;
 
-// x y coordinate
+/**
+ * This class models a position of a square on the game board
+ */
 public class Position {
-    public final int x;
-    public final int y;
+    // x and y coordinates of position
+    final int x;
+    final int y;
 
+    /**
+     * Default constructor which assigns the x and y coordinates to this position
+     * @param x x coordinate of position
+     * @param y y coordinate of position
+     */
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public Position plus(Position to) {
-        return new Position(x + to.x, y + to.y);
-    }
-
+    /**
+     * Compares if two positions represent the same square on the board
+     * @param other other position this position is compared to
+     * @return true if both x- and y-values are the same
+     */
     @Override
     public boolean equals(Object other) {
         if (other != null && other instanceof Position) {
@@ -39,5 +48,15 @@ public class Position {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Adds the x- and y values of one position to another position
+     * Primarily used to traverse the board in a corner-direction by adding e.g. (1, 1).
+     * @param to position whose x- and y values are added to this position
+     * @return new position which resulted from adding the x- and y-coordinates respectively.
+     */
+    Position plus(Position to) {
+        return new Position(x + to.x, y + to.y);
     }
 }
