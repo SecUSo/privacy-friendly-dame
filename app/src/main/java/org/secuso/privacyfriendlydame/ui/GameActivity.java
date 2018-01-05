@@ -27,6 +27,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -45,7 +47,10 @@ public class GameActivity extends AppCompatActivity {
     private CheckersGame gamelogic;
     private CheckersLayout checkersView;
     private GameType gameType;
-    public TextView statusText;
+    private TextView currentPlayerText;
+    private LinearLayout capturedBlackPieces;
+    private LinearLayout capturedWhitePieces;
+
 
     private String prefDifficulty;
     private boolean prefAllowAnyMove;
@@ -57,7 +62,34 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle saved)
     {
         super.onCreate(saved);
-        createGameBoard();
+
+        setContentView(R.layout.activity_game);
+        gamelogic = new CheckersGame();
+
+        // generate new layout for the board
+        checkersView = new CheckersLayout(gamelogic, this);
+        checkersView.refresh();
+
+        // layout which contains all items which are displayed ingame
+        LinearLayout mainContentLayout = findViewById(R.id.main_content);
+        mainContentLayout.addView(checkersView);
+
+        // text which displays whose turn it is
+        currentPlayerText = new TextView(this);
+        currentPlayerText.setTextSize(24);
+        currentPlayerText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        mainContentLayout.addView(currentPlayerText);
+
+        // layouts for captured pieces
+        capturedBlackPieces = new LinearLayout(this);
+        capturedBlackPieces.setOrientation(LinearLayout.HORIZONTAL);
+
+        capturedWhitePieces = new LinearLayout(this);
+        capturedWhitePieces.setOrientation(LinearLayout.HORIZONTAL);
+
+        mainContentLayout.addView(capturedBlackPieces);
+        mainContentLayout.addView(capturedWhitePieces);
+
         // portrait only
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
@@ -69,37 +101,27 @@ public class GameActivity extends AppCompatActivity {
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
         prefDifficulty = sharedPreferences.getString(DIFFICULTY, null);
         prefAllowAnyMove = sharedPreferences.getBoolean(ANY_MOVE, false);
+
+    }
+
+    private ImageView generatePieceImage(int id) {
+        ImageView image = new ImageView(this);
+        image.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+        switch(id) {
+            case 1: image.setImageResource(R.drawable.ic_piece_black); break;
+            case 2: image.setImageResource(R.drawable.ic_piece_white); break;
+            case 3: image.setImageResource(R.drawable.ic_piece_black_king); break;
+            default: image.setImageResource(R.drawable.ic_piece_white_king); break;
+        }
+
+
+        return image;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         prepTurn();
-    }
-
-
-    private void createGameBoard()
-    {
-        gamelogic = new CheckersGame(prefAllowAnyMove);
-
-        LinearLayout rootLayout = new LinearLayout(this);
-        rootLayout.setOrientation(LinearLayout.VERTICAL);
-
-        TextView topText = new TextView(this);
-        topText.setText("Play Checkers");
-
-        statusText = this.findViewById(R.id.playerIndicator);
-        statusText = new TextView(this);
-        statusText.setText("status");
-
-        checkersView = new CheckersLayout(gamelogic, this);
-        checkersView.refresh();
-
-        rootLayout.addView(topText);
-        rootLayout.addView(checkersView);
-        rootLayout.addView(statusText);
-
-        setContentView(rootLayout);
     }
 
     public void clearComputerTask() {
@@ -142,13 +164,13 @@ public class GameActivity extends AppCompatActivity {
 
         if (turn == CheckersGame.WHITE) {
             if(gameType == GameType.Bot) {
-                statusText.setText("White's (computer's) turn. Difficulty: " + prefDifficulty);
+                currentPlayerText.setText(R.string.game_current_player_ai);
 
                 // run the CPU AI on another thread
                 computerTask = new ComputerTurn(this, gamelogic, prefDifficulty, prefAllowAnyMove);
                 computerTask.execute();
             }else{
-                statusText.setText("White's (player's) turn.");
+                currentPlayerText.setText(R.string.game_current_player_white);
                 // prep for human player turn
                 ArrayList<Piece> selectablePieces = new ArrayList<>();
                 Move moves[] = gamelogic.getMoves();
@@ -172,7 +194,7 @@ public class GameActivity extends AppCompatActivity {
             }
 
         } else if (turn == CheckersGame.BLACK) {
-            statusText.setText("Black's (player's) turn.");
+            currentPlayerText.setText(R.string.game_current_player_black);
 
             // prep for human player turn
             ArrayList<Piece> selectablePieces = new ArrayList<>();
@@ -213,7 +235,7 @@ public class GameActivity extends AppCompatActivity {
                     choice = moves[0];
                     int curScore = -1;
                     for (Move option : moves) {
-                        int score = option.captures.size();
+                        int score = option.capturePositions.size();
                         Piece startPiece = gamelogic.getBoard().getPiece(option.start());
                         if (option.kings && !startPiece.isKing())
                         {
@@ -303,7 +325,33 @@ public class GameActivity extends AppCompatActivity {
     {
         // make longest move available
         Move move = gamelogic.getLongestMove(selectedPosition, destination);
+        int color;
         if (move != null) {
+            if (move.capturePositions.size() > 0) {
+                for (Position p: move.capturePositions) {
+                    color = gamelogic.getBoard().getPiece(p).getColor();
+                    // captured piece is  black
+                    if (color == 1) {
+                        if (gamelogic.getBoard().getPiece(p).isKing()) {
+                            // captured piece is black and king
+                            capturedBlackPieces.addView(generatePieceImage(3));
+                        }
+                        else {
+                            capturedBlackPieces.addView(generatePieceImage(1));
+                        }
+                    }
+                    // captured piece is white
+                    else {
+                        if (gamelogic.getBoard().getPiece(p).isKing()) {
+                            // captured piece is white and king
+                            capturedWhitePieces.addView(generatePieceImage(4));
+                        }
+                        else {
+                            capturedWhitePieces.addView(generatePieceImage(2));
+                        }
+                    }
+                }
+            }
             gamelogic.makeMove(move);
             prepTurn();
         }
@@ -311,7 +359,6 @@ public class GameActivity extends AppCompatActivity {
 
     // player makes a click
     public void onClick(int x, int y) {
-        // statusText.setText(gamelogic.whoseTurn()+" : clicks : "+x+" : "+y);
         Position location = new Position(x, y);
         Piece targetPiece = gamelogic.getBoard().getPiece(x, y);
 
