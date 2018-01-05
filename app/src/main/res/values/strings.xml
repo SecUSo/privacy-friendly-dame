@@ -4,7 +4,7 @@
     <string name="Dame" translatable="false">Dame</string>
 
     <!-- ###MainActivity### -->
-    <string name="chose_opponent">Choose your opponent:</string>
+    <string name="chose_opponent">Chose your opponent:</string>
     <string name="game_type_human">Human</string>
     <string name="game_type_bot">Bot</string>
     <string name="new_game">New Game</string>
@@ -12,13 +12,13 @@
 
     <!-- ###Game### -->
     <string name="pref_header_game">Game</string>
-    <string name="pref_group_game">Settings</string>
+    <string name="pref_group_game">Game settings</string>
 
     <!-- ### Tutorial ###-->
     <string name="slide1_heading">Welcome!</string>
     <string name="slide1_text">Welcome to Privacy Friendly Dame!</string>
     <string name="slide2_heading">Game mode</string>
-    <string name="slide2_text">Swipe or press the arrow buttons on the left and right to change the game mode. You can either play versus a player or versus a bot.</string>
+    <string name="slide2_text">Swipe or press the arrow buttons on the left and right to change the game mode. You can either play versus bot or versus player.</string>
     <string name="next">Next</string>
     <string name="skip">Skip</string>
     <string name="menu_tutorial">Tutorial</string>
@@ -38,24 +38,32 @@
     <!--###ABOUT###-->
     <string name="about">About</string>
     <string name="version_number">Version</string>
-    <string name="about_author">Authors:</string>
+    <string name="about_author">Authors: </string>
     <string name="about_author_names" translatable="false">Maksim Melnik, Marc Schneider</string>
     <string name="about_author_contributors">and contributors.</string>
-    <string name="about_affiliation">In affiliation with</string>
+    <string name="about_affiliation">In Zusammenarbeit mit:</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-dame">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
     <!-- ###HELP### -->
-    <string name="sHelp">Help</string>
+    <string name="help">Help</string>
+    <string name="help_whatis">What is Privacy Friendly Dame?</string>
+    <string name="help_whatis_answer">Privacy Firendly Dame is an implementation of the board game checkers</string>
+    <string name="help_feature_one">Feature 1</string>
+    <string name="help_feature_one_answer">Description of Feature 1</string>
+    <string name="help_privacy">Why is this application privacy friendly?</string>
+    <string name="help_privacy_answer">Privacy Friendly Dame does not require additional permissions and it does not use advertisements.</string>
+    <string name="help_permission">Which permissions does this application require?</string>
+    <string name="help_permission_answer">None.</string>
     <string name="sHelpOverviewHeading">Overview</string>
     <string name="sHelpExample">Example Help Entry</string>
     <string name="sHelpCategoryExample">Example Help Category</string>
     <string name="sHelpPrivacyHeading">Privacy Info</string>
     <string name="sHelpPermissionsHeading">Permissions</string>
     <string name="sHelpPermissionsDescription">Privacy Friendly Dame does not use any permissions</string>
-    <string name="sHelpIntro">Welcome to the help page. This app is a variant of the board game Checkers. Along with the bot game mode it features a single device multiplayer.</string>
+    <string name="sHelpIntro">Welcome to the help page. This app is a variant of the famous board game Dame. Along with the bot game mode it features a single device multiplayer.</string>
     <string name="sModesCategory">Gamemode</string>
     <string name="sModeSummary">The app features several gamemodes that can be accessed by either swiping in the main menu or tapping the arrow buttons</string>
     <string name="sMode1">Dame - Bot game</string>
@@ -67,7 +75,7 @@
     <string name="sHelpMoveTapSummary">You can move by tapping a figure once and then tapping the destination. By tapping the figure you will also get a highlighting for possible destinations.</string>
     <string name="sHelpWin">Winning the game</string>
     <string name="sHelpWinCondition">Win condition</string>
-    <string name="sHelpWinSummary">The game is won when all pieces of your opponent are captured or if your opponent cannot move any piece.</string>
+    <string name="sHelpWinSummary">The game is won when you ether capture all pieces of your opponent, or if your opponent cannot move any piece.</string>
 
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Settings</string>

@@ -49,46 +49,54 @@
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
     <!--###HELP###-->
-    <string name="sHelp">Hilfe</string>
+    <string name="help">Help</string>
+    <string name="help_whatis">Was ist Privacy Friendly Dame?</string>
+    <string name="help_whatis_answer">Privacy Firendly Dame ist eine Implementierung des Brettspiels Dame</string>
+    <string name="help_feature_one">Feature 1</string>
+    <string name="help_feature_one_answer">Beschreibung des Feature 1</string>
+    <string name="help_privacy">Wieso ist diese Applikation privacy friendly?</string>
+    <string name="help_privacy_answer">Privacy Friendly Dame erfordert keine zusätzlichen Berechtigungen und es hat keine Werbung.</string>
+    <string name="help_permission">Welche Berechtigungen erfordert diese Applikation?</string>
+    <string name="help_permission_answer">Keine.</string>
     <string name="sHelpOverviewHeading">Übersicht</string>
-    <string name="sHelpExample">Beispiel Eintrag Hilfe</string>
-    <string name="sHelpCategoryExample">Beispielkategorie Hilfe</string>
-    <string name="sHelpPrivacyHeading">Privatsphäre Info</string>
-    <string name="sHelpPermissionsHeading">Berechtigungen</string>
-    <string name="sHelpPermissionsDescription">Privacy Friendly Dame erfordert keine Berechtigungen</string>
-    <string name="sHelpIntro">Willkommen zur Hilfe-Seite. Diese App ist eine Variante des Brettspiels Dame. Es ist möglich sowohl gegen einen Bot zu spielen als auch ein Multiplayer Spiel am selben Gerät zu starten.</string>
-    <string name="sModesCategory">Spielmodus</string>
-    <string name="sModeSummary">Die App bietet die Möglichkeit, unterschiedliche Spielmodi durch wischen oder über die Pfeile im Hauptmenü auszuwählen</string>
-    <string name="sMode1">Dame - Spiel gegen Bot</string>
-    <string name="sMode1Summary">Dieser Spielmodus erlaubt das Spielen gegen einen computergesteuerten Gegner.</string>
+    <string name="sHelpExample">Beispiel </string>
+    <string name="sHelpCategoryExample">Example Help Category</string>
+    <string name="sHelpPrivacyHeading">Privacy Info</string>
+    <string name="sHelpPermissionsHeading">Permissions</string>
+    <string name="sHelpPermissionsDescription">Privacy Friendly Dame does not use any permissions</string>
+    <string name="sHelpIntro">Welcome to the help page. This app is a variant of the famous board game Dame. Along with the bot game mode it features a single device multiplayer.</string>
+    <string name="sModesCategory">Gamemode</string>
+    <string name="sModeSummary">The app features several gamemodes that can be accessed by either swiping in the main menu or tapping the arrow buttons</string>
+    <string name="sMode1">Dame - Bot game</string>
+    <string name="sMode1Summary">This game mode features a game versus AI controlled bot.</string>
     <string name="sMode2">Dame - Multiplayer</string>
-    <string name="sMode2Summary">Dieser Spielmodus erlaubt das Spielen gegen einen zweiten Spieler am selben Gerät.</string>
-    <string name="sHelpMoveCategory">Bewegung</string>
-    <string name="sHelpMoveTap">Bewegung durch tippen</string>
-    <string name="sHelpMoveTapSummary">Figuren können durch das Tippen auf einen Stein und das Tippen auf ein freies Feld bewegt werden. Nach der Auswahl einer Figur, werden erlaubte Zielfelder farblich hervorgehoben.</string>
-    <string name="sHelpWin">Ziel des Spiels</string>
-    <string name="sHelpWinCondition">Siegesanforderung</string>
-    <string name="sHelpWinSummary">Das Spiel ist gewonnen, sobald alle Figuren des Gegners gefangen worden sind oder der Gegner keinen gültigen Zug mehr durchführen kann.</string>
+    <string name="sMode2Summary">This game mode features the game for two players on single device.</string>
+    <string name="sHelpMoveCategory">Moving</string>
+    <string name="sHelpMoveTap">Moving by tapping</string>
+    <string name="sHelpMoveTapSummary">You can move by tapping a figure once and then tapping the destination. By tapping the figure you will also get a highlighting for possible destinations.</string>
+    <string name="sHelpWin">Winning the game</string>
+    <string name="sHelpWinCondition">Win condition</string>
+    <string name="sHelpWinSummary">The game is won when you ether capture all pieces of your opponent, or if your opponent cannot move any piece.</string>
 
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_header_general">Haupt</string>
-    <string name="pref_example_switch">Beispiel Schalter</string>
-    <string name="pref_example_switch_summary">Beispiel Switch Zusammenfassung</string>
-    <string name="pref_example_summary">Beispiel Zusammenfassung</string>
+    <string name="pref_example_switch">Beispiel Switch</string>
+    <string name="pref_example_switch_summary">Beispiel Switch Summary</string>
+    <string name="pref_example_summary">Beispiel Summary</string>
 
     <!-- ###GAME###-->
     <string name="title_activity_game">Dame</string>
     <string name="game_button_start">Neues Spiel</string>
     <string name="game_button_continue">Fortsetzen</string>
-    <string name="game_desc">Das ist das Hauptmenü. Der Viewpager soll dazu genutzt werden, den Spielmodus zu ändern.</string>
+    <string name="game_desc">Das is hauptmenü. Viewpager oben soll dazu genutzt werden, Spielmodus zu ändern.</string>
     <string name="game_current_player_black">Schwarzer Spieler am Zug</string>
     <string name="game_current_player_white">Weißer Spieler am Zug</string>
     <string name="game_current_player_ai">Computer am Zug</string>
 
     <!-- ###WIN SCREEN###-->
-    <string name="sWinDialogTitle">Glückwunsch!</string>
-    <string name="sWinDialogText">Du hast deinen Gegner besiegt!</string>
-    <string name="sWinDialogBack">Zurück zum Hauptmenü</string>
-    <string name="sWinDialogShowBoard">Spielfeld anzeigen</string>
+    <string name="sWinDialogTitle">Congratulations!</string>
+    <string name="sWinDialogText">You defeated your opponent!</string>
+    <string name="sWinDialogBack">Back to Main Menu</string>
+    <string name="sWinDialogShowBoard">Show Board</string>
 </resources>
