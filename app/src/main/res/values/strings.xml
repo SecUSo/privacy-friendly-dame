@@ -30,7 +30,7 @@
     <string name="action_about">About</string>
     <string name="action_settings">Settings</string>
     <string name="action_main">Main</string>
-    <string name="action_game">Game</string>
+    <string name="action_game">Checkers</string>
     <string name="action_tutorial">Tutorial</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -72,10 +72,13 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_example_summary">Example Summary</string>
 
     <!-- ###GAME###-->
-    <string name="title_activity_game">Game</string>
+    <string name="title_activity_game">Checkers</string>
     <string name="game_button_start">New Game</string>
     <string name="game_button_continue">Continue Game</string>
     <string name="game_desc">This is the default main menu for game apps. The viewpager above should be used to switch between game modes.</string>
+    <string name="game_current_player_black">Black player\'s turn</string>
+    <string name="game_current_player_white">White player\'s turn</string>
+    <string name="game_current_player_ai">AI player\'s turn</string>
 
     <!-- ###WIN SCREEN###-->
     <string name="sWinDialogTitle">Congratulations!</string>

@@ -31,7 +31,7 @@
     <string name="action_about">Über</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Haupt</string>
-    <string name="action_game">Spiel</string>
+    <string name="action_game">Dame</string>
     <string name="action_tutorial">Tutorial</string>
     <string name="navigation_drawer_open">Öffne navigation drawer</string>
     <string name="navigation_drawer_close">Schliesse navigation drawer</string>
@@ -73,8 +73,11 @@ Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constitu
     <string name="pref_example_summary">Beispiel Summary</string>
 
     <!-- ###GAME###-->
-    <string name="title_activity_game">Spiel</string>
+    <string name="title_activity_game">Dame</string>
     <string name="game_button_start">Neues Spiel</string>
     <string name="game_button_continue">Fortsetzen</string>
     <string name="game_desc">Das is hauptmenü. Viewpager oben soll dazu genutzt werden, Spielmodus zu ändern.</string>
+    <string name="game_current_player_black">Schwarzer Spieler am Zug</string>
+    <string name="game_current_player_white">Weißer Spieler am Zug</string>
+    <string name="game_current_player_ai">Computer am Zug</string>
 </resources>
