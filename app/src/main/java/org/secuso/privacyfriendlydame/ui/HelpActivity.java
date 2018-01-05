@@ -18,6 +18,7 @@
 package org.secuso.privacyfriendlydame.ui;
 
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.widget.ExpandableListView;
 
 import org.secuso.privacyfriendlydame.R;
@@ -33,23 +34,26 @@ public class HelpActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_help);
-
-        ExpandableListAdapter expandableListAdapter;
-        HelpDataDump helpDataDump = new HelpDataDump(this);
-
-        ExpandableListView generalExpandableListView = (ExpandableListView) findViewById(R.id.generalExpandableListView);
-
-        LinkedHashMap<String, List<String>> expandableListDetail = helpDataDump.getDataGeneral();
-        List<String> expandableListTitleGeneral = new ArrayList<String>(expandableListDetail.keySet());
-        expandableListAdapter = new ExpandableListAdapter(this, expandableListTitleGeneral, expandableListDetail);
-        generalExpandableListView.setAdapter(expandableListAdapter);
+        //getFragmentManager().beginTransaction().replace(android.R.id.content, new HelpFragment()).commit();
 
         overridePendingTransition(0, 0);
     }
 
+    @Override
     protected int getNavigationDrawerID() {
         return R.id.nav_help;
+    }
+
+    public static class HelpFragment extends PreferenceFragment {
+
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            addPreferencesFromResource(R.xml.help);
+        }
     }
 
 }

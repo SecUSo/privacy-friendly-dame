@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/sHelpOverviewHeading">
+        <Preference
+            android:selectable="false"
+            android:persistent="false"
+            android:title=""
+            android:summary="@string/sHelpIntro" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sModesCategory"
+        android:summary="@string/sModeSummary">
+        <Preference
+            android:title="@string/sMode1"
+            android:summary="@string/sMode1Summary"
+            android:selectable="false" />
+        <Preference
+            android:title="@string/sMode2"
+            android:summary="@string/sMode2Summary"
+            android:selectable="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sHelpMoveCategory">
+        <Preference
+            android:summary="@string/sHelpMoveTapSummary"
+            android:title="@string/sHelpMoveTap"
+            android:selectable="false"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sHelpWin">
+        <Preference
+            android:summary="@string/sHelpWinSummary"
+            android:title="@string/sHelpWinCondition"
+            android:selectable="false"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sHelpPrivacyHeading">
+        <Preference
+            android:summary="@string/sHelpPermissionsDescription"
+            android:title="@string/sHelpPermissionsHeading" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

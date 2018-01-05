@@ -173,6 +173,7 @@ public class ComputerTurn extends AsyncTask<String, String, String>
         if (myGame.whoseTurn() == CheckersGame.WHITE) {
             if (selectedMove != null) {
                 myGame.makeMove(selectedMove);
+                myGame.capturedBlackPieces.addAll(myGame.getCapturedPiecesForMove(selectedMove));
                 myActivity.prepTurn();
             } else {
                 // player wins

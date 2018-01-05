@@ -47,22 +47,27 @@
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-dame">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
-    <!--###HELP###-->
-    <string name="help">Help</string>
-
-    <string name="help_whatis">What is Privacy Friendly Dame?</string>
-    <string name="help_whatis_answer">Privacy Friendly Dame is a privacy friendly implementation of a classic Checkers boardgame.</string>
-    <string name="help_feature_one">Feature 1</string>
-    <string name="help_feature_one_answer">Description of first feature.
-Lorem ipsum dolor sit amet, eu ius alia fierent indoctum, ad pri sale tation. Elit dictas sit an, ad volumus urbanitas duo. Ei clita iracundia mel, eum et laoreet pertinax abhorreant. Nonumy suavitate dignissim quo id, ius audire prodesset adipiscing ei, altera saperet his et. Nostrud pertinax eu has, qui munere complectitur an.
-
-Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constituto ex. Per soleat impedit delicatissimi cu. Inermis volumus his ea, id quo praesent eloquentiam conclusionemque. Dolores mediocrem ad sit, ex cibo evertitur cotidieque eos.
-
-    </string>
-    <string name="help_privacy">What makes the app privacy-friendly?</string>
-    <string name="help_privacy_answer">Privacy Friendly Dame does not require any permission. It further does not include any tracking mechanisms or advertisement.</string>
-    <string name="help_permission">Which permissions requires the app?</string>
-    <string name="help_permission_answer">Privacy Friendly Dame does not require any permission.</string>
+    <!-- ###HELP### -->
+    <string name="sHelp">Help</string>
+    <string name="sHelpOverviewHeading">Overview</string>
+    <string name="sHelpExample">Example Help Entry</string>
+    <string name="sHelpCategoryExample">Example Help Category</string>
+    <string name="sHelpPrivacyHeading">Privacy Info</string>
+    <string name="sHelpPermissionsHeading">Permissions</string>
+    <string name="sHelpPermissionsDescription">Privacy Friendly Dame does not use any permissions</string>
+    <string name="sHelpIntro">Welcome to the help page. This app is a variant of the famous board game Dame. Along with the bot game mode it features a single device multiplayer.</string>
+    <string name="sModesCategory">Gamemode</string>
+    <string name="sModeSummary">The app features several gamemodes that can be accessed by either swiping in the main menu or tapping the arrow buttons</string>
+    <string name="sMode1">Dame - Bot game</string>
+    <string name="sMode1Summary">This game mode features a game versus AI controlled bot.</string>
+    <string name="sMode2">Dame - Multiplayer</string>
+    <string name="sMode2Summary">This game mode features the game for two players on single device.</string>
+    <string name="sHelpMoveCategory">Moving</string>
+    <string name="sHelpMoveTap">Moving by tapping</string>
+    <string name="sHelpMoveTapSummary">You can move by tapping a figure once and then tapping the destination. By tapping the figure you will also get a highlighting for possible destinations.</string>
+    <string name="sHelpWin">Winning the game</string>
+    <string name="sHelpWinCondition">Win condition</string>
+    <string name="sHelpWinSummary">The game is won when you ether capture all pieces of your opponent, or if your opponent cannot move any piece.</string>
 
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Settings</string>

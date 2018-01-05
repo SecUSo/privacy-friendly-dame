@@ -31,7 +31,7 @@ public class CheckersGame {
     // checkers game state
     private Board gameBoard;
     private int turn;
-    private ArrayList<Piece> capturedWhitePieces, capturedBlackPieces;
+    public ArrayList<Piece> capturedWhitePieces, capturedBlackPieces;
 
 
     /**
@@ -63,7 +63,7 @@ public class CheckersGame {
         return this.gameBoard;
     }
 
-    private ArrayList<Piece> getCapturedPiecesForMove(Move move) {
+    public ArrayList<Piece> getCapturedPiecesForMove(Move move) {
         ArrayList<Piece> pieces = new ArrayList<>();
 
         for (Position p: move.capturePositions)
