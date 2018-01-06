@@ -1,10 +1,12 @@
-﻿# Privacy Friendly App Example
+﻿# Privacy Friendly Dame
 
-This application contains the basic design of a Privacy Friendly App without any other functionality. It includes a Navigation Drawer, examples for buttons, a help page and the about page. It further shows an example of the main menu for a Privacy Friendly Game App. This app belongs to the group of Privacy Friendly Apps developed by the Technische Universität Darmstadt. 
+Privacy Friendly Dame is a version of the board game checkers and belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt, Germany.
+
+This app is optimized regarding the user's privacy. It doesn't use any tracking mechanisms, neither it displays any advertisement. Also it does not use any permission, as the app can provide its full functionality without the usage of permissions. It also does neither include advertisement nor tracking mechanisms.
 
 ## Motivation
 
-This application has been developed to be used as a basis for a Privacy Friendly App. Privacy Friendly Apps are group of Android applications which are optimized regarding privacy. Further information can be found on https://secuso.org/pfa
+As it is part of the Privacy Friendly Apps developed by the SECUSO research group of the Technische Universtität Darmstadt in Germany it is optimized due to user's privacy.
 
 ## Download and more Information
 
