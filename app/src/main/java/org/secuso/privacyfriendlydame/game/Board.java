@@ -17,6 +17,9 @@
 
 package org.secuso.privacyfriendlydame.game;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
@@ -25,7 +28,7 @@ import java.util.ArrayList;
  * Methods for loading and saving the current board state are available as well as methods for
  * generating lists of allowed moves for a player.
  */
-public class Board {
+public class Board implements Parcelable{
 
     // each data field either contains a game piece or is null
     private Piece board[][];
@@ -442,5 +445,53 @@ public class Board {
             }
         }
         return result;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        for(int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] == null)
+                    dest.writeInt(0);
+                else
+                    dest.writeInt(board[i][j].getSummaryID());
+            }
+        }
+
+    }
+    public static final Parcelable.Creator<Board> CREATOR
+            = new Parcelable.Creator<Board>() {
+        public Board createFromParcel(Parcel in) {
+            return new Board(in);
+        }
+
+        public Board[] newArray(int size) {
+            return new Board[size];
+        }
+    };
+
+    /** recreate object from parcel */
+    private Board(Parcel in) {
+        board = new Piece[8][8];
+        int cellID = 0;
+
+        for(int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                cellID = in.readInt();
+                switch (cellID) {
+                    case 1: board[i][j] = new Piece(1, false); break;
+                    case 2: board[i][j] = new Piece(2, false); break;
+                    case 3: board[i][j] = new Piece(1, true); break;
+                    case 4: board[i][j] = new Piece(2, true); break;
+                    default:
+                }
+            }
+        }
     }
 }

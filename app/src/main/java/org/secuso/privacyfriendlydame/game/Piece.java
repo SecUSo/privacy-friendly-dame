@@ -24,6 +24,13 @@ package org.secuso.privacyfriendlydame.game;
 public class Piece {
     private int color;
     private boolean isKing;
+    private int summaryID;
+
+    public final int EMPTY = 0;
+    public final int BLACK = 1;
+    public final int WHITE = 2;
+    public final int BLACK_KING = 3;
+    public final int WHITE_KING = 4;
 
     /**
      * Constructs a piece with chosen color and king-status
@@ -33,6 +40,11 @@ public class Piece {
     Piece(int color, boolean king) {
         this.color = color;
         isKing = king;
+
+        summaryID = color;
+
+        if (isKing())
+            summaryID += 2;
     }
 
     /**
@@ -41,6 +53,10 @@ public class Piece {
      */
     public int getColor() {
         return color;
+    }
+
+    public int getSummaryID() {
+        return summaryID;
     }
 
     /**
@@ -56,5 +72,6 @@ public class Piece {
      */
     void makeKing() {
         isKing = true;
+        summaryID += 2;
     }
 }
