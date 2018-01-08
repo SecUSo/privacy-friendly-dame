@@ -18,7 +18,6 @@
 package org.secuso.privacyfriendlydame.ui;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,7 @@ import org.secuso.privacyfriendlydame.game.CheckersGame;
 import org.secuso.privacyfriendlydame.game.Piece;
 import org.secuso.privacyfriendlydame.game.Position;
 
-
+// TODO: javadoc
 public class CheckersLayout extends TableLayout {
 
     public class CheckerImageView extends AppCompatImageView {

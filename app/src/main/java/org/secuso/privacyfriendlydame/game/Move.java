@@ -19,7 +19,7 @@ package org.secuso.privacyfriendlydame.game;
 import java.util.ArrayList;
 
 
-// move as a sequence of positions and list of capture positions
+// TODO: javadoc
 public class Move {
     public ArrayList<Position> positions;
     public ArrayList<Position> capturePositions;
