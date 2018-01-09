@@ -5,7 +5,7 @@
     <string name="Dame" translatable="false">Dame</string>
 
     <!-- ###MainActivity### -->
-    <string name="chose_opponent">Wähle den Gegner:</string>
+    <string name="chose_opponent">Wählen Sie Ihren Gegner:</string>
     <string name="game_type_human">Mensch</string>
     <string name="game_type_bot">Bot</string>
     <string name="new_game">Neues Spiel</string>
@@ -13,13 +13,13 @@
 
     <!-- ###Game### -->
     <string name="pref_header_game">Spiel</string>
-    <string name="pref_group_game">Einstellungen</string>
+    <string name="pref_group_game">Spiel Einstellungen</string>
 
     <!-- ### Tutorial ###-->
     <string name="slide1_heading">Willkommen!</string>
-    <string name="slide1_text">Willkommen in Privacy Friendly Dame!</string>
+    <string name="slide1_text">Willkommen zu Privacy Friendly Dame!</string>
     <string name="slide2_heading">Spielmodus</string>
-    <string name="slide2_text">Wischen oder drücken Sie auf die Pfeile auf der linken und rechten Seite um den Spielmodus zu ändern. Du kannst entweder gegen einen Menschen oder gegen einen Bot spielen.</string>
+    <string name="slide2_text">Wischen oder drücken Sie auf die Pfeile auf der linken und rechten Seite, um den Spielmodus zu ändern. Sie können entweder gegen einen Menschen oder gegen einen Bot spielen.</string>
     <string name="next">Weiter</string>
     <string name="skip">Überspringen</string>
     <string name="menu_tutorial">Tutorial</string>
@@ -33,51 +33,70 @@
     <string name="action_main">Haupt</string>
     <string name="action_game">Dame</string>
     <string name="action_tutorial">Tutorial</string>
-    <string name="navigation_drawer_open">Öffne navigation drawer</string>
-    <string name="navigation_drawer_close">Schliesse navigation drawer</string>
+    <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
+    <string name="navigation_drawer_close">Navigationsleiste schließen</string>
 
     <!--###ABOUT###-->
     <string name="about">Über uns</string>
     <string name="version_number">Version</string>
-    <string name="about_author">Authoren:</string>
+    <string name="about_author">Autoren:</string>
     <string name="about_author_names" translatable="false">Maksim Melnik, Marc Schneider</string>
-    <string name="about_author_contributors">und co.</string>
-    <string name="about_affiliation">In affiliation with</string>
+    <string name="about_author_contributors">und Mitwirkende.</string>
+    <string name="about_affiliation">In Zusammenarbeit mit:</string>
     <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt von der Technischen Universität Darmstadt. Quelltext lizenziert unter GPLv3. Bilder copyright TU Darmstadt und Google Inc.</string>
     <string name="more_info">Weitere Infos unter:</string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-dame">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
     <!--###HELP###-->
-    <string name="help">Hilfe</string>
-
+    <string name="help">Help</string>
     <string name="help_whatis">Was ist Privacy Friendly Dame?</string>
-    <string name="help_whatis_answer">Privacy Friendly Dame ist eine privacy friendly implementierung von classischen Dame Brettspiel.</string>
+    <string name="help_whatis_answer">Privacy Firendly Dame ist eine Implementierung des Brettspiels Dame</string>
     <string name="help_feature_one">Feature 1</string>
-    <string name="help_feature_one_answer">Description of first feature.
-Lorem ipsum dolor sit amet, eu ius alia fierent indoctum, ad pri sale tation. Elit dictas sit an, ad volumus urbanitas duo. Ei clita iracundia mel, eum et laoreet pertinax abhorreant. Nonumy suavitate dignissim quo id, ius audire prodesset adipiscing ei, altera saperet his et. Nostrud pertinax eu has, qui munere complectitur an.
-
-Ne albucius perfecto adolescens eum, id choro assueverit mea, sed viris constituto ex. Per soleat impedit delicatissimi cu. Inermis volumus his ea, id quo praesent eloquentiam conclusionemque. Dolores mediocrem ad sit, ex cibo evertitur cotidieque eos.
-
-    </string>
-    <string name="help_privacy">Was macht dieses app privacy-friendly?</string>
-    <string name="help_privacy_answer">Privacy Friendly Sudoku verwendet keine Berechtigungen. Es hat keine Werbung.</string>
-    <string name="help_permission">Welche permissions verwendet dieses app?</string>
-    <string name="help_permission_answer">Privacy Friendly Sudoku verwendet keine Berechtigungen.</string>
+    <string name="help_feature_one_answer">Beschreibung des Feature 1</string>
+    <string name="help_privacy">Wieso ist diese Applikation privacy friendly?</string>
+    <string name="help_privacy_answer">Privacy Friendly Dame erfordert keine zusätzlichen Berechtigungen und es hat keine Werbung.</string>
+    <string name="help_permission">Welche Berechtigungen erfordert diese Applikation?</string>
+    <string name="help_permission_answer">Keine.</string>
+    <string name="sHelpOverviewHeading">Übersicht</string>
+    <string name="sHelpExample">Beispiel </string>
+    <string name="sHelpCategoryExample">Beispielkategorie Hilfe</string>
+    <string name="sHelpPrivacyHeading">Privatsphäre Info</string>
+    <string name="sHelpPermissionsHeading">Berechtigungen</string>
+    <string name="sHelpPermissionsDescription">Privacy Friendly Dame erfordert keine Berechtigungen</string>
+    <string name="sHelpIntro">Willkommen auf der Hilfe-Seite. Diese Applikation ist eine Variante des Brettspiels Dame. Es ist möglich sowohl gegen einen Bot zu spielen als auch ein Multiplayer Spiel am selben Gerät zu starten.</string>
+    <string name="sModesCategory">Spielmodus</string>
+    <string name="sModeSummary">Die Applikation bietet die Möglichkeit, unterschiedliche Spielmodi durch wischen oder über die Pfeile im Hauptmenü auszuwählen</string>
+    <string name="sMode1">Dame - Spiel gegen Bot</string>
+    <string name="sMode1Summary">Dieser Spielmodus erlaubt das SPielen gegen einen computergesteuerten Gegner.</string>
+    <string name="sMode2">Dame - Multiplayer</string>
+    <string name="sMode2Summary">Dieser Spielmodus erlaubt das Spielen gegen einen zweiten SPieler am selben Gerät.</string>
+    <string name="sHelpMoveCategory">Bewegung</string>
+    <string name="sHelpMoveTap">Bewegung durch Antippen</string>
+    <string name="sHelpMoveTapSummary">Figuren können durch das Antippen eines Steines und das Antippen eines freien Feldes bewegt werden. Nach der Auswahl einer Figur, werden erlaubte Zielfelder farblich hervorgehoben.</string>
+    <string name="sHelpWin">Ziel des Spiels</string>
+    <string name="sHelpWinCondition">Siegesanforderung</string>
+    <string name="sHelpWinSummary">Das Spiel ist gewonnen, sobald alle Figuren des Gegners gefangen worden sind oder der Gegner keinen gültigen Zug mehr durchführen kann.</string>
 
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Einstellungen</string>
     <string name="pref_header_general">Haupt</string>
     <string name="pref_example_switch">Beispiel Switch</string>
-    <string name="pref_example_switch_summary">Beispiel Switch Summary</string>
-    <string name="pref_example_summary">Beispiel Summary</string>
+    <string name="pref_example_switch_summary">Beispiel Switch Zusammenfassung</string>
+    <string name="pref_example_summary">Beispiel Zusammenfassung</string>
 
     <!-- ###GAME###-->
     <string name="title_activity_game">Dame</string>
     <string name="game_button_start">Neues Spiel</string>
     <string name="game_button_continue">Fortsetzen</string>
-    <string name="game_desc">Das is hauptmenü. Viewpager oben soll dazu genutzt werden, Spielmodus zu ändern.</string>
+    <string name="game_desc">Das ist das Hauptmenü. Der Viewpager soll dazu genutzt werden, den Spielmodus zu ändern.</string>
     <string name="game_current_player_black">Schwarzer Spieler am Zug</string>
     <string name="game_current_player_white">Weißer Spieler am Zug</string>
     <string name="game_current_player_ai">Computer am Zug</string>
+
+    <!-- ###WIN SCREEN###-->
+    <string name="sWinDialogTitle">Glückwunsch!</string>
+    <string name="sWinDialogText">Sie haben Ihren Gegner besiegt!</string>
+    <string name="sWinDialogBack">Zurück zum Hauptmenü</string>
+    <string name="sWinDialogShowBoard">Spielfeld anzeigen</string>
 </resources>

@@ -24,7 +24,7 @@ import java.util.LinkedList;
 
 import org.secuso.privacyfriendlydame.R;
 
-
+// TODO: javadoc
 public enum GameType implements Parcelable{
     Bot(R.string.game_type_bot,R.drawable.icon_bot),
     Human(R.string.game_type_human,R.drawable.icon_human);

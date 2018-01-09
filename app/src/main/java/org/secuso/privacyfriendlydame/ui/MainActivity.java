@@ -133,6 +133,8 @@ public class MainActivity extends BaseActivity {
                 i.putExtra("gameType", gameType.name());
                 // TODO pass settings here
                 break;
+            case R.id.continueButton:
+                //i = new Intent(this, GameActivity.class);
             default:
         }
 

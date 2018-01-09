@@ -17,12 +17,15 @@
 
 package org.secuso.privacyfriendlydame.game;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * This class models a game of checkers. It keeps track of the board and the active player.
  */
-public class CheckersGame {
+public class CheckersGame implements Parcelable{
     static final int NONE = 0;
     public static final int BLACK = 1;
     public static final int WHITE = 2;
@@ -31,7 +34,8 @@ public class CheckersGame {
     // checkers game state
     private Board gameBoard;
     private int turn;
-    public ArrayList<Piece> capturedWhitePieces, capturedBlackPieces;
+    private ArrayList<Piece> capturedBlackPieces;
+    private ArrayList<Piece> capturedWhitePieces;
 
 
     /**
@@ -40,8 +44,8 @@ public class CheckersGame {
     public CheckersGame() {
         gameBoard = new Board();
         turn = CheckersGame.BLACK;
-        capturedWhitePieces = new ArrayList<>();
         capturedBlackPieces = new ArrayList<>();
+        capturedWhitePieces = new ArrayList<>();
     }
 
     /**
@@ -63,7 +67,15 @@ public class CheckersGame {
         return this.gameBoard;
     }
 
-    public ArrayList<Piece> getCapturedPiecesForMove(Move move) {
+    public ArrayList<Piece> getCapturedBlackPieces() {
+        return capturedBlackPieces;
+    }
+
+    public ArrayList<Piece> getCapturedWhitePieces() {
+        return capturedWhitePieces;
+    }
+
+    private ArrayList<Piece> getCapturedPiecesForMove(Move move) {
         ArrayList<Piece> pieces = new ArrayList<>();
 
         for (Position p: move.capturePositions)
@@ -104,20 +116,12 @@ public class CheckersGame {
      * @param move move to execute
      */
     public void makeMove(Move move) {
-        gameBoard.makeMove(move);
-        if (whoseTurn() == WHITE)
-            capturedBlackPieces.addAll(getCapturedPiecesForMove(move));
-        else
+        if (whoseTurn() == BLACK)
             capturedWhitePieces.addAll(getCapturedPiecesForMove(move));
+        else
+            capturedBlackPieces.addAll(getCapturedPiecesForMove(move));
+        gameBoard.makeMove(move);
         advanceTurn();
-    }
-
-    /**
-     * Resets the board state and sets the current player to black
-     */
-    public void restart() {
-        gameBoard = new Board();
-        turn = CheckersGame.BLACK;
     }
 
     /**
@@ -126,5 +130,35 @@ public class CheckersGame {
      */
     public int whoseTurn() {
         return turn;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+
+        dest.writeParcelable(gameBoard, 0);
+        dest.writeInt(whoseTurn());
+    }
+
+    public static final Parcelable.Creator<CheckersGame> CREATOR
+            = new Parcelable.Creator<CheckersGame>() {
+        public CheckersGame createFromParcel(Parcel in) {
+            return new CheckersGame(in);
+        }
+
+        public CheckersGame[] newArray(int size) {
+            return new CheckersGame[size];
+        }
+    };
+
+    /** recreate object from parcel */
+    private CheckersGame(Parcel in) {
+
+        gameBoard = in.readParcelable(Board.class.getClassLoader());
+        turn = in.readInt();
     }
 }

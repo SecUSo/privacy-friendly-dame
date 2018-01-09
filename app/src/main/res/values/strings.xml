@@ -48,7 +48,15 @@
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
 
     <!-- ###HELP### -->
-    <string name="sHelp">Help</string>
+    <string name="help">Help</string>
+    <string name="help_whatis">What is Privacy Friendly Dame?</string>
+    <string name="help_whatis_answer">Privacy Firendly Dame is an implementation of the board game checkers</string>
+    <string name="help_feature_one">Feature 1</string>
+    <string name="help_feature_one_answer">Description of Feature 1</string>
+    <string name="help_privacy">Why is this application privacy friendly?</string>
+    <string name="help_privacy_answer">Privacy Friendly Dame does not require additional permissions and it does not use advertisements.</string>
+    <string name="help_permission">Which permissions does this application require?</string>
+    <string name="help_permission_answer">None.</string>
     <string name="sHelpOverviewHeading">Overview</string>
     <string name="sHelpExample">Example Help Entry</string>
     <string name="sHelpCategoryExample">Example Help Category</string>
