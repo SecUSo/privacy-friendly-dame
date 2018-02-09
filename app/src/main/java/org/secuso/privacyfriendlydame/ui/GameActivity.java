@@ -17,12 +17,15 @@
 
 package org.secuso.privacyfriendlydame.ui;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -138,8 +141,13 @@ public class GameActivity extends AppCompatActivity {
 
         if (gameType == GameType.Bot && turn == CheckersGame.WHITE) {
             currentPlayerText.setText(R.string.game_current_player_ai);
-
-            makeComputerTurn();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    makeComputerTurn();
+                }
+            }, 1500);
 
         }else{
             if (turn == CheckersGame.WHITE)
@@ -181,7 +189,6 @@ public class GameActivity extends AppCompatActivity {
                 int num = (int)(moves.length * Math.random());
                 choice = moves[num];
                 game.makeMove(choice);
-                prepTurn();
             } else {
                 // player wins
                 showWinDialog();
@@ -271,9 +278,23 @@ public class GameActivity extends AppCompatActivity {
     public void makeMove(Position destination)
     {
         // make longest move available
-        Move move = game.getLongestMove(selectedPosition, destination);
+        final Move move = game.getLongestMove(selectedPosition, destination);
         if (move != null) {
             game.makeMove(move);
+            Position p = move.start();
+
+            /**
+            final CheckersLayout.CheckerImageView cell = checkersView.getCellViews()[p.x][p.y];
+            cell.animate()
+                    .alpha(0f)
+                    .setDuration(500)
+                    .setListener(new AnimatorListenerAdapter() {
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            prepTurn();
+                        }
+                    });
+             **/
             prepTurn();
         }
     }
