@@ -17,22 +17,32 @@
 
 package org.secuso.privacyfriendlydame.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.secuso.privacyfriendlydame.R;
+import org.secuso.privacyfriendlydame.game.Board;
+import org.secuso.privacyfriendlydame.game.CheckersGame;
 import org.secuso.privacyfriendlydame.game.GameType;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 
 /**
  * @author Christopher Beckmann, Karola Marky
@@ -45,12 +55,36 @@ public class MainActivity extends BaseActivity {
     private ViewPager mViewPager;
     private ImageView mArrowLeft;
     private ImageView mArrowRight;
+    private Boolean game_continuable;
+    private CheckersGame currentGame;
     private Button newGameBtn;
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        currentGame = loadFile();
+        Button game_continue = (Button) findViewById(R.id.continueButton);
+        if (currentGame == null || currentGame.isGameFinished())
+        {
+            // no saved game available
+            game_continuable = false;
+            game_continue.setClickable(true);
+            game_continue.setBackgroundColor(ContextCompat.getColor(getBaseContext(),(R.color.middlegrey)));
+        }
+        else
+        {
+            game_continuable = true;
+            game_continue.setClickable(true);
+            game_continue.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimary));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        overridePendingTransition(0, 0);
         final SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.scroller);
@@ -92,7 +126,40 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        overridePendingTransition(0, 0);
+        currentGame = loadFile();
+        Button game_continue = (Button) findViewById(R.id.continueButton);
+        if (currentGame == null || currentGame.isGameFinished())
+        {
+            // no saved game available
+            game_continuable = false;
+            game_continue.setClickable(true);
+            game_continue.setBackgroundResource(R.drawable.button_disabled);
+        }
+        else
+        {
+            game_continuable = true;
+            game_continue.setClickable(true);
+            game_continue.setBackgroundResource(R.drawable.button_normal);
+        }
+    }
+
+    private CheckersGame loadFile() {
+        ObjectInputStream ois = null;
+        FileInputStream fis = null;
+        try {
+            fis = this.openFileInput("savedata");
+            ois = new ObjectInputStream(fis);
+            currentGame = (CheckersGame) ois.readObject();
+            currentGame.setContext(getBaseContext());
+            return currentGame;
+        }
+        catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (ois != null) try { ois.close(); } catch (IOException e) { e.printStackTrace();}
+            if (fis != null) try { fis.close(); } catch (IOException e) { e.printStackTrace();}
+        }
+        return null;
     }
 
     /**
@@ -117,8 +184,6 @@ public class MainActivity extends BaseActivity {
 
     public void onClick(View view) {
 
-        Intent i = null;
-
         switch(view.getId()) {
             case R.id.arrow_left:
                 mViewPager.arrowScroll(View.FOCUS_LEFT);
@@ -127,19 +192,80 @@ public class MainActivity extends BaseActivity {
                 mViewPager.arrowScroll(View.FOCUS_RIGHT);
                 break;
             case R.id.play_button:
+                /*
                 GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
 
                 i = new Intent(getApplicationContext(), GameActivity.class);
                 i.putExtra("gameType", gameType.name());
                 // TODO pass settings here
                 break;
+                */
+
+                if (game_continuable)
+                {
+                    // show alertDialog
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                    // Setting Dialog Title
+                    builder.setTitle(R.string.OverwriteResumableGameTitle);
+                    // Setting Dialog Message
+                    builder.setMessage(R.string.OverwriteResumableGame);
+
+                    builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            // delete file
+                            deleteFile("savedata");
+                            // open Settings
+                            Intent intent = new Intent(MainActivity.this, GameActivity.class);
+
+                            GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
+                            intent.putExtra("gameType", gameType.name());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                            dialog.dismiss();
+                        }
+                    });
+
+                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()     {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //do nothing
+                            dialog.dismiss();
+                        }
+                    });
+                    if (!this.isFinishing())
+                    {
+                        builder.show();
+                    }
+
+                }
+                else
+                {
+                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                    GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
+                    intent.putExtra("gameType", gameType.name());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+
+                break;
             case R.id.continueButton:
                 //i = new Intent(this, GameActivity.class);
+                if (game_continuable)
+                {
+                    Intent myintent = new Intent(MainActivity.this, GameActivity.class);
+                    myintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(myintent);
+                }
+                else
+                {
+                    Toast.makeText(MainActivity.this, getString(R.string.no_resumable_game), Toast.LENGTH_LONG).show();
+                }
+
+                break;
             default:
+                break;
         }
 
-        final Intent intent = i;
-
+        /*
         if(intent != null) {
             View mainContent = findViewById(R.id.main_content);
             if (mainContent != null) {
@@ -154,6 +280,7 @@ public class MainActivity extends BaseActivity {
             }, MAIN_CONTENT_FADEOUT_DURATION);
 
         }
+        */
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

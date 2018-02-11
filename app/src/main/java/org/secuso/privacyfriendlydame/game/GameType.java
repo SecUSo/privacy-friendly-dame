@@ -20,12 +20,13 @@ package org.secuso.privacyfriendlydame.game;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
 import org.secuso.privacyfriendlydame.R;
 
 // TODO: javadoc
-public enum GameType implements Parcelable{
+public enum GameType implements Parcelable, Serializable{
     Bot(R.string.game_type_bot,R.drawable.icon_bot),
     Human(R.string.game_type_human,R.drawable.icon_human);
 

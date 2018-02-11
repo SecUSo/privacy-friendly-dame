@@ -17,15 +17,17 @@
 
 package org.secuso.privacyfriendlydame.game;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * This class models a game of checkers. It keeps track of the board and the active player.
  */
-public class CheckersGame implements Parcelable{
+public class CheckersGame implements Parcelable, Serializable{
     static final int NONE = 0;
     public static final int BLACK = 1;
     public static final int WHITE = 2;
@@ -36,16 +38,42 @@ public class CheckersGame implements Parcelable{
     private int turn;
     private ArrayList<Piece> capturedBlackPieces;
     private ArrayList<Piece> capturedWhitePieces;
+    private boolean isFinished;
+    private transient Context context;
+    private GameType gameType;
 
 
     /**
      * Default constructor which creates a new game with a default board setup and black as the first player
      */
-    public CheckersGame() {
+    public CheckersGame(Context context, GameType gameType) {
+        this.context = context;
         gameBoard = new Board();
         turn = CheckersGame.BLACK;
         capturedBlackPieces = new ArrayList<>();
         capturedWhitePieces = new ArrayList<>();
+        isFinished = false;
+        this.gameType = gameType;
+    }
+
+    public GameType getGameType() {
+        return gameType;
+    }
+
+    public boolean isGameFinished() {
+        return isFinished;
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        isFinished = gameFinished;
+    }
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        if (context != null) this.context = context;
     }
 
     /**

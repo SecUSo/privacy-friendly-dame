@@ -17,11 +17,13 @@
 
 package org.secuso.privacyfriendlydame.game;
 
+import java.io.Serializable;
+
 /**
  * This class models a single game piece for a game of checkers. It can be either black or white
  * and additionally, it can be a normal piece or a kinged piece, which can move in further directions.
  */
-public class Piece {
+public class Piece implements Serializable {
     private int color;
     private boolean isKing;
     private int summaryID;

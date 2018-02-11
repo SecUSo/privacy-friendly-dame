@@ -20,6 +20,8 @@ package org.secuso.privacyfriendlydame.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -42,30 +44,40 @@ import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
 import org.secuso.privacyfriendlydame.game.Position;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 // TODO: javadoc
 public class GameActivity extends AppCompatActivity {
     private CheckersGame game;
     private CheckersLayout checkersView;
-    private GameType gameType;
     private TextView currentPlayerText;
     private LinearLayout capturedBlackPiecesUI;
     private LinearLayout capturedWhitePiecesUI;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle saved)
     {
         super.onCreate(saved);
 
+        game = loadFile();
+
         setContentView(R.layout.activity_game);
+
         if (saved == null) {
-            game = new CheckersGame();
-            Bundle extras = getIntent().getExtras();
-            this.gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
+            if ((game==null || getIntent().getExtras()!=null)) {
+                Bundle extras = getIntent().getExtras();
+                GameType gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
+                game = new CheckersGame(this, gameType);
+            }
         }
-        else
-            game = saved.getParcelable("gameController");
+      //  else game = saved.getParcelable("gameController");
+
 
         // generate new layout for the board
         checkersView = new CheckersLayout(game, this);
@@ -139,7 +151,7 @@ public class GameActivity extends AppCompatActivity {
 
         int turn = game.whoseTurn();
 
-        if (gameType == GameType.Bot && turn == CheckersGame.WHITE) {
+        if (game.getGameType() == GameType.Bot && turn == CheckersGame.WHITE) {
             currentPlayerText.setText(R.string.game_current_player_ai);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -172,6 +184,7 @@ public class GameActivity extends AppCompatActivity {
             );
 
             if (selectablePieces.size() == 0) {
+                game.setGameFinished(true);
                 showWinDialog();
             }
         }
@@ -189,8 +202,10 @@ public class GameActivity extends AppCompatActivity {
                 int num = (int)(moves.length * Math.random());
                 choice = moves[num];
                 game.makeMove(choice);
+                prepTurn();
             } else {
                 // player wins
+                game.setGameFinished(true);
                 showWinDialog();
             }
         }
@@ -367,4 +382,55 @@ public class GameActivity extends AppCompatActivity {
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         //super.onRestoreInstanceState(savedInstanceState);
     }
+
+    public void onPause()
+    {
+        if(dialog!=null && dialog.isShowing())
+        {
+            dialog.dismiss();
+        }
+        //state will be saved in a file
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = openFileOutput("savedata", Context.MODE_PRIVATE);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(game);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (oos != null) try { oos.close(); } catch (IOException ignored) {}
+            if (fos != null) try { fos.close(); } catch (IOException ignored) {}
+        }
+
+        super.onPause();
+    }
+
+    private CheckersGame loadFile() {
+        ObjectInputStream ois = null;
+        FileInputStream fis = null;
+        try {
+            fis = this.openFileInput("savedata");
+            ois = new ObjectInputStream(fis);
+            game = (CheckersGame) ois.readObject();
+            game.setContext(getBaseContext());
+            return game;
+        }
+        catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (ois != null) try { ois.close(); } catch (IOException e) { e.printStackTrace();}
+            if (fis != null) try { fis.close(); } catch (IOException e) { e.printStackTrace();}
+        }
+        return null;
+    }
+
+    public void onBackPressed() {
+        Intent mainActivity = new Intent(GameActivity.this, MainActivity.class);
+        mainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(mainActivity);
+        finish();
+    }
 }
+
+

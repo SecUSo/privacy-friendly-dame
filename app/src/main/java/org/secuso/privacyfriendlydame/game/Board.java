@@ -20,6 +20,7 @@ package org.secuso.privacyfriendlydame.game;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -28,7 +29,7 @@ import java.util.ArrayList;
  * Methods for loading and saving the current board state are available as well as methods for
  * generating lists of allowed moves for a player.
  */
-public class Board implements Parcelable{
+public class Board implements Parcelable, Serializable{
 
     // each data field either contains a game piece or is null
     private Piece board[][];
