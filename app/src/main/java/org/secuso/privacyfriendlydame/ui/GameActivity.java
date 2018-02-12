@@ -184,6 +184,8 @@ public class GameActivity extends AppCompatActivity {
 
             if (selectablePieces.size() == 0) {
                 game.setGameFinished(true);
+                // delete file
+                deleteFile("savedata");
                 showWinDialog();
             }
         }
@@ -344,27 +346,34 @@ public class GameActivity extends AppCompatActivity {
      * Shows the dialog after a game was won with the options of going back to main as well as showing the final game pane
      */
     public void showWinDialog() {
-        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LOCKED);
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // show alertDialog
+        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(GameActivity.this);
+        // Setting Dialog Title
         builder.setTitle(R.string.sWinDialogTitle);
+        // Setting Dialog Message
         builder.setMessage(R.string.sWinDialogText);
-        builder.setIcon(ResourcesCompat.getDrawable(this.getResources(), R.drawable.medal, null));
-        builder.setPositiveButton(R.string.sWinDialogBack, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent intent = new Intent(GameActivity.this.getApplicationContext(), MainActivity.class);
-                GameActivity.this.getApplicationContext().startActivity(intent);
 
+        builder.setPositiveButton(R.string.sWinDialogBack, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // open Settings
+                Intent intent = new Intent(GameActivity.this, MainActivity.class);
+
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                dialog.dismiss();
             }
         });
-        builder.setNegativeButton(R.string.sWinDialogShowBoard, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
+
+        builder.setNegativeButton(R.string.sWinDialogShowBoard, new DialogInterface.OnClickListener()     {
+            public void onClick(DialogInterface dialog, int id) {
+                //do nothing
+                dialog.dismiss();
             }
         });
-        AlertDialog winDialog = builder.create();
-        winDialog.show();
+        if (!this.isFinishing())
+        {
+            builder.show();
+        }
     }
 
     @Override
