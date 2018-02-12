@@ -19,6 +19,7 @@ package org.secuso.privacyfriendlydame.ui;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -34,6 +35,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.secuso.privacyfriendlydame.R;
@@ -69,6 +71,8 @@ public class GameActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_game);
 
+        RelativeLayout content = findViewById((R.id.content_layout));
+
         if (saved == null) {
             if ((game==null || getIntent().getExtras()!=null)) {
                 Bundle extras = getIntent().getExtras();
@@ -78,20 +82,21 @@ public class GameActivity extends AppCompatActivity {
         }
       //  else game = saved.getParcelable("gameController");
 
-
         // generate new layout for the board
         checkersView = new CheckersLayout(game, this);
         checkersView.refresh();
 
-        // layout which contains all items which are displayed ingame
+        // layouts which contain all items displayed ingame
         LinearLayout mainContentLayout = findViewById(R.id.main_content);
+        LinearLayout sideContentLayout = findViewById(R.id.side_content);
+
         mainContentLayout.addView(checkersView);
 
         // text which displays whose turn it is
         currentPlayerText = new TextView(this);
         currentPlayerText.setTextSize(24);
         currentPlayerText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-        mainContentLayout.addView(currentPlayerText);
+        sideContentLayout.addView(currentPlayerText);
 
         // layouts for captured pieces
         capturedBlackPiecesUI = new LinearLayout(this);
@@ -100,14 +105,8 @@ public class GameActivity extends AppCompatActivity {
         capturedWhitePiecesUI = new LinearLayout(this);
         capturedWhitePiecesUI.setOrientation(LinearLayout.HORIZONTAL);
 
-        mainContentLayout.addView(capturedBlackPiecesUI);
-        mainContentLayout.addView(capturedWhitePiecesUI);
-
-        // portrait only
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-
-
+        sideContentLayout.addView(capturedBlackPiecesUI);
+        sideContentLayout.addView(capturedWhitePiecesUI);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferencesChangeListener);

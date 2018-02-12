@@ -16,7 +16,7 @@
         <LinearLayout
             android:id="@+id/main_content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
         </LinearLayout>
@@ -24,9 +24,10 @@
         <LinearLayout
             android:id="@+id/side_content"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/main_content"
-            android:orientation="vertical"></LinearLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/main_content">
+        </LinearLayout>
 
     </RelativeLayout>
 
@@ -37,7 +38,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer">
+        app:menu="@menu/activity_main_drawer" >
 
     </android.support.design.widget.NavigationView>
+
 </android.support.v4.widget.DrawerLayout>

@@ -18,6 +18,7 @@
 package org.secuso.privacyfriendlydame.ui;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,7 +108,7 @@ public class CheckersLayout extends TableLayout {
         if (displayMetrics.heightPixels < dimension) {
             dimension = displayMetrics.heightPixels;
         }
-        int cellDimension = ((dimension - 2) / 8) - 2;
+        int cellDimension = dimension / 8 ;
 
         LayoutParams params;
 
@@ -117,7 +118,7 @@ public class CheckersLayout extends TableLayout {
         params = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(1, 1, 1, 1);
+        params.setMargins(0, 0, 0, 0);
         setLayoutParams(params);
         setBackgroundColor(getResources().getColor(R.color.cellBlack));
 
@@ -140,7 +141,7 @@ public class CheckersLayout extends TableLayout {
                 TableRow.LayoutParams rowParams = new TableRow.LayoutParams(
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT);
-                rowParams.setMargins(1, 1, 1, 1);
+                rowParams.setMargins(0, 0, 0, 0);
                 rowParams.width = cellDimension;
                 rowParams.height = cellDimension;
                 cell.setLayoutParams(rowParams);
@@ -159,6 +160,25 @@ public class CheckersLayout extends TableLayout {
                 row.addView(cell);
             }
             addView(row);
+        }
+    }
+
+    @Override
+    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+        super.onLayout(changed, left, top, right, bottom);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ViewGroup.LayoutParams params = cells[i][j].getLayoutParams();
+                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    params.width = (right - left) / 8;
+                    params.height = (right - left) / 8;
+
+                } else {
+                    params.width = (bottom - top) / 8;
+                    params.height = (bottom - top) / 8;
+                }
+                cells[i][j].setLayoutParams(params);
+            }
         }
     }
 }
