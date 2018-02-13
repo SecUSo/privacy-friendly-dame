@@ -33,6 +33,8 @@ import android.preference.PreferenceManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -158,7 +160,7 @@ public class GameActivity extends AppCompatActivity {
                 public void run() {
                     makeComputerTurn();
                 }
-            }, 1500);
+            }, 1000);
 
         }else{
             if (turn == CheckersGame.WHITE)
@@ -199,11 +201,21 @@ public class GameActivity extends AppCompatActivity {
         if (game.whoseTurn() == CheckersGame.WHITE) {
             Move moves[] = game.getMoves();
             if (moves.length > 0) {
-                Move choice;
                 int num = (int)(moves.length * Math.random());
-                choice = moves[num];
-                game.makeMove(choice);
-                prepTurn();
+                final Move choice = moves[num];
+
+                checkersView.fadeOut(choice);
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        game.makeMove(choice);
+                        prepTurn();
+                    }
+                }, 1000);
+
+
             } else {
                 // player wins
                 game.setGameFinished(true);
@@ -296,22 +308,16 @@ public class GameActivity extends AppCompatActivity {
         // make longest move available
         final Move move = game.getLongestMove(selectedPosition, destination);
         if (move != null) {
-            game.makeMove(move);
-            Position p = move.start();
+            checkersView.fadeOut(move);
 
-            /**
-            final CheckersLayout.CheckerImageView cell = checkersView.getCellViews()[p.x][p.y];
-            cell.animate()
-                    .alpha(0f)
-                    .setDuration(500)
-                    .setListener(new AnimatorListenerAdapter() {
-                        @Override
-                        public void onAnimationEnd(Animator animation) {
-                            prepTurn();
-                        }
-                    });
-             **/
-            prepTurn();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    game.makeMove(move);
+                    prepTurn();
+                }
+            }, 1000);
         }
     }
 
@@ -334,9 +340,6 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
                     // update preferences
-
-
-
 
                     prepTurn();
                 }

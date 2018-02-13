@@ -50,6 +50,14 @@ public class Position {
         }
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     /**
      * Adds the x- and y values of one position to another position
      * Primarily used to traverse the board in a corner-direction by adding e.g. (1, 1).

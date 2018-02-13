@@ -19,9 +19,14 @@ package org.secuso.privacyfriendlydame.ui;
 
 import android.app.Activity;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.widget.AppCompatImageView;
+import android.transition.Fade;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.util.DisplayMetrics;
@@ -29,6 +34,7 @@ import android.util.DisplayMetrics;
 import org.secuso.privacyfriendlydame.R;
 import org.secuso.privacyfriendlydame.game.Board;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
+import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
 import org.secuso.privacyfriendlydame.game.Position;
 
@@ -54,6 +60,37 @@ public class CheckersLayout extends TableLayout {
             myActivity.onClick(view.x, view.y);
         }
     };
+
+    public void fadeOut(Move move) {
+        CheckerImageView cellFrom = cells[move.start().getX()][move.start().getY()];
+        CheckerImageView cellTo = cells[move.end().getX()][move.end().getY()];
+        CheckerImageView capturedPiece;
+
+        int imgID = myGame.getBoard().getPiece(move.start()).getSummaryID();
+
+        switch (imgID) {
+            case 1: cellTo.setImageResource(R.drawable.ic_piece_black); break;
+            case 2: cellTo.setImageResource(R.drawable.ic_piece_white); break;
+            case 3: cellTo.setImageResource(R.drawable.ic_piece_black_king); break;
+            default: cellTo.setImageResource(R.drawable.ic_piece_white_king); break;
+        }
+
+        Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
+        fadeOut.setDuration(1000);
+
+        Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
+        fadeIn.setDuration(1000);
+
+        cellFrom.startAnimation(fadeOut);
+
+        for (Position p: move.capturePositions) {
+            capturedPiece = cells[p.getX()][p.getY()];
+            capturedPiece.startAnimation(fadeOut);
+        }
+
+
+        cellTo.startAnimation(fadeIn);
+    }
 
     public void refresh() {
         Board myBoard = myGame.getBoard();
