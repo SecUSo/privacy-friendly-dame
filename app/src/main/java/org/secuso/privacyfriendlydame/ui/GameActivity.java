@@ -79,7 +79,7 @@ public class GameActivity extends AppCompatActivity {
             if ((game==null || getIntent().getExtras()!=null)) {
                 Bundle extras = getIntent().getExtras();
                 GameType gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
-                game = new CheckersGame(this, gameType);
+                game = new CheckersGame(gameType);
             }
         }
       //  else game = saved.getParcelable("gameController");
@@ -424,7 +424,6 @@ public class GameActivity extends AppCompatActivity {
             fis = this.openFileInput("savedata");
             ois = new ObjectInputStream(fis);
             game = (CheckersGame) ois.readObject();
-            game.setContext(getBaseContext());
             return game;
         }
         catch (IOException | ClassNotFoundException e) {

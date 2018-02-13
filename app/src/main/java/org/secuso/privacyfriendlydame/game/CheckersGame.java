@@ -39,17 +39,15 @@ public class CheckersGame implements Parcelable, Serializable{
     private ArrayList<Piece> capturedBlackPieces;
     private ArrayList<Piece> capturedWhitePieces;
     private boolean isFinished;
-    private transient Context context;
     private GameType gameType;
 
 
     /**
      * Default constructor which creates a new game with a default board setup and black as the first player
      */
-    public CheckersGame(Context context, GameType gameType) {
-        this.context = context;
+    public CheckersGame(GameType gameType) {
         gameBoard = new Board();
-        turn = CheckersGame.BLACK;
+        turn = CheckersGame.WHITE;
         capturedBlackPieces = new ArrayList<>();
         capturedWhitePieces = new ArrayList<>();
         isFinished = false;
@@ -66,14 +64,6 @@ public class CheckersGame implements Parcelable, Serializable{
 
     public void setGameFinished(boolean gameFinished) {
         isFinished = gameFinished;
-    }
-
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        if (context != null) this.context = context;
     }
 
     /**

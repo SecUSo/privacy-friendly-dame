@@ -150,7 +150,6 @@ public class MainActivity extends BaseActivity {
             fis = this.openFileInput("savedata");
             ois = new ObjectInputStream(fis);
             currentGame = (CheckersGame) ois.readObject();
-            currentGame.setContext(getBaseContext());
             return currentGame;
         }
         catch (IOException | ClassNotFoundException e) {

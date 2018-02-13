@@ -54,11 +54,11 @@ public class Move {
         }
     }
 
-    public void add(Position pos) {
-        add(pos.x, pos.y);
+    public Move add(Position pos) {
+        return add(pos.x, pos.y);
     }
 
-    public void add(int x, int y) {
+    public Move add(int x, int y) {
         Position prev = positions.get(positions.size() - 1);
         Position next = new Position(x, y);
         positions.add(next);
@@ -67,6 +67,7 @@ public class Move {
         if (y == 0 || y == 7) {
             kings = true;
         }
+        return this;
     }
 
     /**
@@ -83,6 +84,14 @@ public class Move {
 
     public Position end() {
         return positions.get(positions.size() - 1);
+    }
+
+    public boolean equals(Move other){
+        if(positions.size()!=other.positions.size())return false;
+        for(int i = 0; i<positions.size(); i++){
+            if(!positions.get(i).equals(other.positions.get(i)))return false;
+        }
+        return true;
     }
 
 }

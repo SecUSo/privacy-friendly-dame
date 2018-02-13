@@ -67,4 +67,8 @@ public class Position {
     Position plus(Position to) {
         return new Position(x + to.x, y + to.y);
     }
+
+    public boolean equals(Position other){
+        return x==other.x && y==other.y;
+    }
 }
