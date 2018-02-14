@@ -63,6 +63,7 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout capturedBlackPiecesUI;
     private LinearLayout capturedWhitePiecesUI;
     Dialog dialog;
+    boolean actionInProgress;
 
     @Override
     protected void onCreate(Bundle saved)
@@ -70,6 +71,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(saved);
 
         game = loadFile();
+        actionInProgress = false;
 
         setContentView(R.layout.activity_game);
 
@@ -194,6 +196,7 @@ public class GameActivity extends AppCompatActivity {
 
         updateCapturedPiecesUI();
         checkersView.refresh();
+        actionInProgress = false;
     }
 
     // difficulty easy: randomly pick a move
@@ -323,15 +326,17 @@ public class GameActivity extends AppCompatActivity {
 
     // player makes a click
     public void onClick(int x, int y) {
-        Position location = new Position(x, y);
-        Piece targetPiece = game.getBoard().getPiece(x, y);
+        if (!actionInProgress) {
+            Position location = new Position(x, y);
+            Piece targetPiece = game.getBoard().getPiece(x, y);
 
-        // attempting to make a move
-        if (selectedPiece != null && selectedPosition != null && targetPiece == null) {
-            makeMove(location);
-        }
-        else{
-            selectPiece(targetPiece, location);
+            // attempting to make a move
+            if (selectedPiece != null && selectedPosition != null && targetPiece == null) {
+                makeMove(location);
+                actionInProgress = true;
+            } else {
+                selectPiece(targetPiece, location);
+            }
         }
     }
 
