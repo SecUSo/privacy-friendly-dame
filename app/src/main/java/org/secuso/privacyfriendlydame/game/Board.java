@@ -41,7 +41,7 @@ public class Board implements Parcelable, Serializable{
         board = new Piece[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
-                int side = (y < 3) ? CheckersGame.WHITE : (y > 4) ? CheckersGame.BLACK : 0;
+                int side = (y < 3) ? CheckersGame.BLACK : (y > 4) ? CheckersGame.WHITE : 0;
                 boolean validSquare = this.isGameSquare(x, y);
                 if (side != CheckersGame.NONE && validSquare) {
                     board[x][y] = new Piece(side, false);
@@ -210,9 +210,9 @@ public class Board implements Parcelable, Serializable{
         if (king) {
             return new Position[]{new Position(-1, 1), new Position(1, 1),
                     new Position(-1, -1), new Position(1, -1)};
-        } else if (color == CheckersGame.WHITE) {
-            return new Position[]{new Position(-1, 1), new Position(1, 1)};
         } else if (color == CheckersGame.BLACK) {
+            return new Position[]{new Position(-1, 1), new Position(1, 1)};
+        } else if (color == CheckersGame.WHITE) {
             return new Position[]{new Position(-1, -1), new Position(1, -1)};
         } else {
             return new Position[]{};

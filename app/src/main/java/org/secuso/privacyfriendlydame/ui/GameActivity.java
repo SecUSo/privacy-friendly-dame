@@ -154,7 +154,7 @@ public class GameActivity extends AppCompatActivity {
 
         int turn = game.whoseTurn();
 
-        if (game.getGameType() == GameType.Bot && turn == CheckersGame.WHITE) {
+        if (game.getGameType() == GameType.Bot && turn == CheckersGame.BLACK) {
             currentPlayerText.setText(R.string.game_current_player_ai);
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -165,10 +165,10 @@ public class GameActivity extends AppCompatActivity {
             }, 1000);
 
         }else{
-            if (turn == CheckersGame.WHITE)
-                currentPlayerText.setText(R.string.game_current_player_white);
-            else
+            if (turn == CheckersGame.BLACK)
                 currentPlayerText.setText(R.string.game_current_player_black);
+            else
+                currentPlayerText.setText(R.string.game_current_player_white);
             // prep for human player turn
             ArrayList<Piece> selectablePieces = new ArrayList<>();
             Move moves[] = game.getMoves();
@@ -201,7 +201,7 @@ public class GameActivity extends AppCompatActivity {
 
     // difficulty easy: randomly pick a move
     private void makeComputerTurn() {
-        if (game.whoseTurn() == CheckersGame.WHITE) {
+        if (game.whoseTurn() == CheckersGame.BLACK) {
             Move moves[] = game.getMoves();
             if (moves.length > 0) {
                 int num = (int)(moves.length * Math.random());
