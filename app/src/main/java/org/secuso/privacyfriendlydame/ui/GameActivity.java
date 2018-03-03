@@ -196,7 +196,6 @@ public class GameActivity extends AppCompatActivity {
 
         updateCapturedPiecesUI();
         checkersView.refresh();
-        actionInProgress = false;
     }
 
     // difficulty easy: randomly pick a move
@@ -338,6 +337,7 @@ public class GameActivity extends AppCompatActivity {
                 selectPiece(targetPiece, location);
             }
         }
+        actionInProgress = false;
     }
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferencesChangeListener =
