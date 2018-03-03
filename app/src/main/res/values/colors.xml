@@ -13,7 +13,7 @@
 
     <!-- game colors -->
     <color name="cellWhite">#ffffff</color>
-    <color name="cellBlack">#024265</color>
+    <color name="cellBlack">#0274B2</color>
     <color name="cellSelect">#8aa5ce</color>
     <color name="cellOption">#8aa5ce</color>
 
