@@ -206,7 +206,7 @@ public class GameActivity extends AppCompatActivity {
                 int num = (int)(moves.length * Math.random());
                 final Move choice = moves[num];
 
-                checkersView.fadeOut(choice);
+                checkersView.animateMove(choice);
 
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
@@ -215,7 +215,7 @@ public class GameActivity extends AppCompatActivity {
                         game.makeMove(choice);
                         prepTurn();
                     }
-                }, 1000);
+                }, 1500);
 
 
             } else {
@@ -310,7 +310,7 @@ public class GameActivity extends AppCompatActivity {
         // make longest move available
         final Move move = game.getLongestMove(selectedPosition, destination);
         if (move != null) {
-            checkersView.fadeOut(move);
+            checkersView.animateMove(move);
 
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -319,7 +319,7 @@ public class GameActivity extends AppCompatActivity {
                     game.makeMove(move);
                     prepTurn();
                 }
-            }, 1000);
+            }, 1500);
         }
     }
 

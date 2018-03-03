@@ -61,10 +61,11 @@ public class CheckersLayout extends TableLayout {
         }
     };
 
-    public void fadeOut(Move move) {
+    public void animateMove(Move move) {
         CheckerImageView cellFrom = cells[move.start().getX()][move.start().getY()];
         CheckerImageView cellTo = cells[move.end().getX()][move.end().getY()];
         CheckerImageView capturedPiece;
+        CheckerImageView cellCapturedPiece;
 
         int imgID = myGame.getBoard().getPiece(move.start()).getSummaryID();
 
@@ -76,16 +77,29 @@ public class CheckersLayout extends TableLayout {
         }
 
         Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
-        fadeOut.setDuration(1000);
+        fadeOut.setDuration(1500);
 
         Animation fadeIn = new AlphaAnimation(0.0f, 1.0f);
-        fadeIn.setDuration(1000);
+        fadeIn.setDuration(1500);
 
+        cellFrom.setBackgroundColor(getResources().getColor(R.color.yellow));
+        cellTo.setBackgroundColor(getResources().getColor(R.color.yellow));
         cellFrom.startAnimation(fadeOut);
 
+
+
         for (Position p: move.capturePositions) {
-            capturedPiece = cells[p.getX()][p.getY()];
-            capturedPiece.startAnimation(fadeOut);
+            cellCapturedPiece = cells[p.getX()][p.getY()];
+
+            cellCapturedPiece.setBackgroundColor(getResources().getColor(R.color.yellow));
+            cellCapturedPiece.startAnimation(fadeOut);
+        }
+
+        for (Position p: move.positions) {
+            cellCapturedPiece = cells[p.getX()][p.getY()];
+
+            cellCapturedPiece.setBackgroundColor(getResources().getColor(R.color.yellow));
+            cellCapturedPiece.startAnimation(fadeOut);
         }
 
 
