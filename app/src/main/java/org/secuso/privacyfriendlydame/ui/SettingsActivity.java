@@ -116,10 +116,13 @@ public class SettingsActivity extends BaseActivity {
         overridePendingTransition(0, 0);
     }
 
+
     @Override
     protected int getNavigationDrawerID() {
-        return R.id.nav_settings;
+        return 0;
+        // return R.id.nav_settings;
     }
+
 
     /**
      * This method stops fragment injection in malicious applications.
