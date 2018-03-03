@@ -155,7 +155,7 @@ public class CheckersLayout extends TableLayout {
         params = new LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(0, 0, 0, 0);
+        params.setMargins(4, 4, 4, 4);
         setLayoutParams(params);
         setBackgroundColor(getResources().getColor(R.color.cellBlack));
 
