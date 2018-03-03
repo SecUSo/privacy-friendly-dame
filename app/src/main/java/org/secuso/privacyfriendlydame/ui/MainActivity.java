@@ -60,8 +60,8 @@ public class MainActivity extends BaseActivity {
     private Button newGameBtn;
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
+    protected void onStart() {
+        super.onStart();
         currentGame = loadFile();
         Button game_continue = (Button) findViewById(R.id.continueButton);
         if (currentGame == null || currentGame.isGameFinished())
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity {
         {
             game_continuable = true;
             game_continue.setClickable(true);
-            game_continue.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimary));
+            game_continue.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimaryDark));
         }
     }
 
