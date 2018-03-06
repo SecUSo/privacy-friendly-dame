@@ -337,12 +337,10 @@ public class Board implements Parcelable, Serializable{
         return getPiece(pos.x, pos.y);
     }
 
-    // TODO: not used - remove?
     // find a piece on the board
     public Position getPosition(Piece piece) {
-        int x = 0, y = 0;
-        for (; x < 8; x++) {
-            for (; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            for (int y = 0; y < 8; y++) {
                 if (getPiece(x, y) == piece) {
                     return new Position(x, y);
                 }

@@ -35,6 +35,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -112,6 +113,8 @@ public class GameActivity extends AppCompatActivity {
         sideContentLayout.addView(capturedBlackPiecesUI);
         sideContentLayout.addView(capturedWhitePiecesUI);
 
+
+
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
 
@@ -161,6 +164,7 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     makeComputerTurn();
+                    actionInProgress = false;
                 }
             }, 1000);
 
@@ -318,27 +322,46 @@ public class GameActivity extends AppCompatActivity {
                 public void run() {
                     game.makeMove(move);
                     prepTurn();
+                    actionInProgress = false;
                 }
             }, 1500);
+        }
+        else {
+            actionInProgress = false;
         }
     }
 
     // player makes a click
     public void onClick(int x, int y) {
         if (!actionInProgress) {
-            Position location = new Position(x, y);
-            Piece targetPiece = game.getBoard().getPiece(x, y);
+            if (game.getGameType() == GameType.Bot && game.whoseTurn() == CheckersGame.BLACK)
+                ;
+            else {
+                Position location = new Position(x, y);
+                Piece targetPiece = game.getBoard().getPiece(x, y);
 
-            // attempting to make a move
-            if (selectedPiece != null && selectedPosition != null && targetPiece == null) {
-                makeMove(location);
-                actionInProgress = true;
-            } else {
-                selectPiece(targetPiece, location);
+                // attempting to make a move
+                if (selectedPiece != null && selectedPosition != null && targetPiece == null) {
+                    //game.advanceTurn();
+                    actionInProgress = true;
+                    makeMove(location);
+                } else {
+                    selectPiece(targetPiece, location);
+                    if (selectedPiece == null)
+                        checkersView.highlightSelectablePieces(selectablePieces);
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                checkersView.refresh();
+                            }
+                    }, 500);
+                }
             }
         }
-        actionInProgress = false;
     }
+
+
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferencesChangeListener =
             new SharedPreferences.OnSharedPreferenceChangeListener() {

@@ -61,10 +61,19 @@ public class CheckersLayout extends TableLayout {
         }
     };
 
+    public void highlightSelectablePieces(Piece[] selectablePieces) {
+        for (Piece p: selectablePieces) {
+            Position pos = myGame.getBoard().getPosition(p);
+            CheckerImageView posCell = cells[pos.getX()][pos.getY()];
+
+            posCell.setBackgroundColor(getResources().getColor(R.color.yellow));
+        }
+
+    }
+
     public void animateMove(Move move) {
         CheckerImageView cellFrom = cells[move.start().getX()][move.start().getY()];
         CheckerImageView cellTo = cells[move.end().getX()][move.end().getY()];
-        CheckerImageView capturedPiece;
         CheckerImageView cellCapturedPiece;
 
         int imgID = myGame.getBoard().getPiece(move.start()).getSummaryID();
