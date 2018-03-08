@@ -153,7 +153,7 @@ public class Board implements Parcelable, Serializable{
 
         // create longer moves from existing ones
         for (Move move : expand) {
-            Position[] directions = getDirections(color, isKing || move.kings);
+            Position[] directions = getDirections(color, isKing || move.isKinged());
             Position current = move.end();
             boolean continues = false;
             for (Position dir : directions)
@@ -389,38 +389,9 @@ public class Board implements Parcelable, Serializable{
         // place at end position
         board[end.x][end.y] = piece;
         // check if piece was kinged
-        if (move.kings) {
+        if (move.isKinged()) {
             piece.makeKing();
         }
-    }
-
-    // TODO: ?
-    int pseudoScore() {
-        int score = 0;
-        int blackPieces = 0;
-        int redPieces = 0;
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                Piece piece = board[x][y];
-                if (piece != null) {
-                    int weight = piece.isKing() ? 5 : 2;
-                    if (piece.getColor() == CheckersGame.WHITE) {
-                        weight *= -1;
-                        redPieces++;
-                    } else {
-                        blackPieces++;
-                    }
-                    score += weight;
-                }
-            }
-        }
-        if (blackPieces == 0) {
-            score = -1000;
-        } else if (redPieces == 0) {
-            score = 1000;
-        }
-
-        return score;
     }
 
     /**

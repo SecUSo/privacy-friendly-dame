@@ -19,10 +19,7 @@ package org.secuso.privacyfriendlydame.ui;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.graphics.Color;
-import android.os.Handler;
 import android.support.v7.widget.AppCompatImageView;
-import android.transition.Fade;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -38,7 +35,13 @@ import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
 import org.secuso.privacyfriendlydame.game.Position;
 
-// TODO: javadoc
+/**
+ * This class is used to generate a custom view of the checkers board. The size of each cell is
+ * adjusted to the size of the screen and is updated whenever the layout changes, i.e. when the
+ * device is rotated. The refresh method is called whenever the board state has changed and the view
+ * has to be updated. Additionally, moves are animated by using a fade-out and fade-in animation
+ * to improve the visibility of moves.
+ */
 public class CheckersLayout extends TableLayout {
 
     public class CheckerImageView extends AppCompatImageView {
@@ -123,21 +126,13 @@ public class CheckersLayout extends TableLayout {
                     CheckerImageView cell = cells[x][y];
                     Piece piece = myBoard.getPiece(x, y);
                     if (piece != null) {
-                        int color = piece.getColor();
-                        boolean king = piece.isKing();
+                        int id = piece.getSummaryID();
                         // set the correct image
-                        if (color == CheckersGame.WHITE) {
-                            if (king) {
-                                cell.setImageResource(R.drawable.ic_piece_white_king);
-                            } else {
-                                cell.setImageResource(R.drawable.ic_piece_white);
-                            }
-                        } else if (color == CheckersGame.BLACK) {
-                            if (king) {
-                                cell.setImageResource(R.drawable.ic_piece_black_king);
-                            } else {
-                                cell.setImageResource(R.drawable.ic_piece_black);
-                            }
+                        switch(id) {
+                            case 1: cell.setImageResource(R.drawable.ic_piece_black); break;
+                            case 2: cell.setImageResource(R.drawable.ic_piece_white); break;
+                            case 3: cell.setImageResource(R.drawable.ic_piece_black_king); break;
+                            default: cell.setImageResource(R.drawable.ic_piece_white_king); break;
                         }
                         // set the background color
                         if (myActivity.isSelected(piece)) {
@@ -149,7 +144,7 @@ public class CheckersLayout extends TableLayout {
                         // clear the image
                         cell.setImageDrawable(null);
                         Position curPos = new Position(x, y);
-                        if (myActivity.isOption(curPos) /* && highlightsEnabled */) {
+                        if (myActivity.isOption(curPos)) {
                             cell.setBackgroundColor(getResources().getColor(R.color.cellOption));
                         } else {
                             cell.setBackgroundColor(getResources().getColor(R.color.cellBlack));

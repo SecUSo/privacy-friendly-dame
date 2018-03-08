@@ -18,7 +18,8 @@
 package org.secuso.privacyfriendlydame.game;
 
 /**
- * This class models a position of a square on the game board
+ * This class models a position of a square on the game board. The x and y coordinate values range
+ * from 0 to 7.
  */
 public class Position {
     // x and y coordinates of position
@@ -60,7 +61,7 @@ public class Position {
 
     /**
      * Adds the x- and y values of one position to another position
-     * Primarily used to traverse the board in a corner-direction by adding e.g. (1, 1).
+     * Primarily used to traverse the board by adding e.g. (1, 1) or (-1, 1).
      * @param to position whose x- and y values are added to this position
      * @return new position which resulted from adding the x- and y-coordinates respectively.
      */

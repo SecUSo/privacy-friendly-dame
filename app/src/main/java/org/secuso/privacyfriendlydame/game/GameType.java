@@ -25,7 +25,10 @@ import java.util.LinkedList;
 
 import org.secuso.privacyfriendlydame.R;
 
-// TODO: javadoc
+/**
+ * This enum is used to identify the gametype of a game. Currently, two gametypes are supported;
+ * playing against a human and playing against a bot.
+ */
 public enum GameType implements Parcelable, Serializable{
     Bot(R.string.game_type_bot,R.drawable.icon_bot),
     Human(R.string.game_type_human,R.drawable.icon_human);

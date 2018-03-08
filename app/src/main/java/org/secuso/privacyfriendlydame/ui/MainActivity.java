@@ -36,7 +36,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.secuso.privacyfriendlydame.R;
-import org.secuso.privacyfriendlydame.game.Board;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
 import org.secuso.privacyfriendlydame.game.GameType;
 
@@ -57,7 +56,6 @@ public class MainActivity extends BaseActivity {
     private ImageView mArrowRight;
     private Boolean game_continuable;
     private CheckersGame currentGame;
-    private Button newGameBtn;
 
     @Override
     protected void onStart() {
@@ -97,7 +95,7 @@ public class MainActivity extends BaseActivity {
         mViewPager.setCurrentItem(index);
         mArrowLeft = (ImageView) findViewById(R.id.arrow_left);
         mArrowRight = (ImageView) findViewById(R.id.arrow_right);
-        newGameBtn = findViewById(R.id.play_button);
+        Button newGameBtn = findViewById(R.id.play_button);
 
         //care for initial postiton of the ViewPager
         mArrowLeft.setVisibility((index==0)?View.INVISIBLE:View.VISIBLE);
@@ -191,14 +189,6 @@ public class MainActivity extends BaseActivity {
                 mViewPager.arrowScroll(View.FOCUS_RIGHT);
                 break;
             case R.id.play_button:
-                /*
-                GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
-
-                i = new Intent(getApplicationContext(), GameActivity.class);
-                i.putExtra("gameType", gameType.name());
-                // TODO pass settings here
-                break;
-                */
 
                 if (game_continuable)
                 {
@@ -264,22 +254,6 @@ public class MainActivity extends BaseActivity {
                 break;
         }
 
-        /*
-        if(intent != null) {
-            View mainContent = findViewById(R.id.main_content);
-            if (mainContent != null) {
-                mainContent.animate().alpha(0).setDuration(MAIN_CONTENT_FADEOUT_DURATION);
-            }
-
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(intent);
-                }
-            }, MAIN_CONTENT_FADEOUT_DURATION);
-
-        }
-        */
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {

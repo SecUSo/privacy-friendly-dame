@@ -28,6 +28,7 @@ public class Piece implements Serializable {
     private boolean isKing;
     private int summaryID;
 
+    // summary IDs
     public final int EMPTY = 0;
     public final int BLACK = 1;
     public final int WHITE = 2;
@@ -41,7 +42,7 @@ public class Piece implements Serializable {
      */
     Piece(int color, boolean king) {
         this.color = color;
-        isKing = king;
+        this.isKing = king;
 
         summaryID = color;
 

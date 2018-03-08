@@ -17,7 +17,6 @@
 
 package org.secuso.privacyfriendlydame.game;
 
-import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -25,7 +24,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- * This class models a game of checkers. It keeps track of the board and the active player.
+ * This class models a game of checkers. It contains information about the game board, the current
+ * player, the game type and the captured pieces of both players.
  */
 public class CheckersGame implements Parcelable, Serializable{
     static final int NONE = 0;

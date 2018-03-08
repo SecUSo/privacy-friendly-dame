@@ -19,31 +19,23 @@ package org.secuso.privacyfriendlydame.game;
 import java.util.ArrayList;
 
 
-// TODO: javadoc
+/**
+ * This class is used to model a move in a game of checkers. A move keeps track of each board
+ * position which is traversed as well as each position where an opposing piece is located which is
+ * captured when that move is executed.
+ */
 public class Move {
     public ArrayList<Position> positions;
     public ArrayList<Position> capturePositions;
-    public boolean kings;
+    private boolean kinged;
 
     public Move(Position pos) {
         init(pos.x, pos.y);
     }
 
-    public Move(int x, int y) {
-        init(x, y);
-    }
-
-    private void init(int x, int y) {
-        Position first = new Position(x, y);
-        positions = new ArrayList();
-        positions.add(first);
-        kings = false;
-        capturePositions = new ArrayList();
-    }
-
     // copy constructor
     public Move(Move clone) {
-        kings = clone.kings;
+        kinged = clone.kinged;
         positions = new ArrayList<>();
         for (Position position : clone.positions) {
             positions.add(position);
@@ -54,20 +46,31 @@ public class Move {
         }
     }
 
+    private void init(int x, int y) {
+        Position first = new Position(x, y);
+        positions = new ArrayList<>();
+        positions.add(first);
+        kinged = false;
+        capturePositions = new ArrayList<>();
+    }
+
     public Move add(Position pos) {
         return add(pos.x, pos.y);
     }
 
     public Move add(int x, int y) {
-        Position prev = positions.get(positions.size() - 1);
         Position next = new Position(x, y);
         positions.add(next);
 
         // check if move results in a new king
         if (y == 0 || y == 7) {
-            kings = true;
+            kinged = true;
         }
         return this;
+    }
+
+    public boolean isKinged() {
+        return kinged;
     }
 
     /**

@@ -19,15 +19,8 @@ package org.secuso.privacyfriendlydame.ui;
 
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.widget.ExpandableListView;
 
 import org.secuso.privacyfriendlydame.R;
-import org.secuso.privacyfriendlydame.helpers.ExpandableListAdapter;
-import org.secuso.privacyfriendlydame.helpers.HelpDataDump;
-
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 public class HelpActivity extends BaseActivity {
 
