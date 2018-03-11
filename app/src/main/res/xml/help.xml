@@ -28,6 +28,17 @@
             android:selectable="false"/>
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/help_game_rules_title">
+        <Preference
+            android:summary="@string/help_captures_descripting"
+            android:title="@string/help_captures_title"
+            android:selectable="false"/>
+        <Preference
+            android:summary="@string/help_dame_description"
+            android:title="@string/help_dame_title"
+            android:selectable="false"/>
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/sHelpWin">
         <Preference
             android:summary="@string/sHelpWinSummary"

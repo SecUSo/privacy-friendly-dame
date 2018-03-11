@@ -105,4 +105,9 @@
     <string name="sWinDialogText">Sie haben Ihren Gegner besiegt!</string>
     <string name="sWinDialogBack">Zurück zum Hauptmenü</string>
     <string name="sWinDialogShowBoard">Spielfeld anzeigen</string>
+    <string name="help_captures_title">Schlagen</string>
+    <string name="help_captures_descripting">Es besteht Schlagzwang. Wenn man schlagen kann, so muss man dies tun. Bei mehreren Schlagmöglichkeiten wird der Zug bevorzugt, bei dem mehrere gegnerische Steine geschlagen werden. Man kann nur nach vorne schlagen.</string>
+    <string name="help_dame_title">Dame</string>
+    <string name="help_dame_description">Erreicht ein Stein die vorderste reihe, so wird er zur Dame promoted. Eine Dame kann sich in jede Richtung beliebig weit bewegen. Schlägt Dame ein Stein, so landet sie auf das Feld direkt hinter dem geschlagenen Stein.</string>
+    <string name="help_game_rules_title">Spielregeln</string>
 </resources>

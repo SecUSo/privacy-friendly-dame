@@ -105,4 +105,9 @@
     <string name="sWinDialogText">You defeated your opponent!</string>
     <string name="sWinDialogBack">Back to Main Menu</string>
     <string name="sWinDialogShowBoard">Show Board</string>
+    <string name="help_captures_title">Capturing</string>
+    <string name="help_captures_descripting">Capturing is mandatory. A sequence must capture the maximum possible number of pieces. A regular piece can only capture forward, no backward capturing is allowed.</string>
+    <string name="help_dame_title">Queen</string>
+    <string name="help_dame_description">When a regular piece reaches the farthest row forward it gets promoted queen. A queen can move any number of fields in any direction. If the queen captures, it lands one square behinde the captured piece.</string>
+    <string name="help_game_rules_title">Game Rules</string>
 </resources>
