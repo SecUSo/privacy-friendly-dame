@@ -43,27 +43,11 @@ public class CheckersGame implements Parcelable, Serializable{
     private boolean isFinished;
     private GameType gameType;
 
-    public int getBlackNormalIconId() {
-        return blackNormalIconId;
-    }
-
-    public int getBlackKingIconId() {
-        return blackKingIconId;
-    }
-
-    public int getWhiteNormalIconId() {
-        return whiteNormalIconId;
-    }
-
-    public int getWhiteKingIconId() {
-        return whiteKingIconId;
-    }
-
+    // Piece image resource IDs
     private int blackNormalIconId = R.drawable.ic_piece_black;
     private int blackKingIconId = R.drawable.ic_piece_black_king;
     private int whiteNormalIconId = R.drawable.ic_piece_white;
     private int whiteKingIconId = R.drawable.ic_piece_white_king;
-
 
     /**
      * Default constructor which creates a new game with a default board setup and black as the first player
@@ -171,6 +155,22 @@ public class CheckersGame implements Parcelable, Serializable{
      */
     public int whoseTurn() {
         return turn;
+    }
+
+    public int getBlackNormalIconId() {
+        return blackNormalIconId;
+    }
+
+    public int getBlackKingIconId() {
+        return blackKingIconId;
+    }
+
+    public int getWhiteNormalIconId() {
+        return whiteNormalIconId;
+    }
+
+    public int getWhiteKingIconId() {
+        return whiteKingIconId;
     }
 
     @Override
