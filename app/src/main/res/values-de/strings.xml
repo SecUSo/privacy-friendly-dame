@@ -110,6 +110,6 @@
     <string name="help_dame_title">Dame</string>
     <string name="help_dame_description">Erreicht ein Stein die vorderste reihe, so wird er zur Dame promoted. Eine Dame kann sich in jede Richtung beliebig weit bewegen. Schlägt Dame ein Stein, so landet sie auf das Feld direkt hinter dem geschlagenen Stein.</string>
     <string name="help_game_rules_title">Spielregeln</string>
-    <string name="help_game_setup_title">Spiel Grundlagen</string>
+    <string name="help_game_setup_title">Gameplay</string>
     <string name="help_game_setup_description">Dame wird gespielt von zwei Spielern. Einer spielt die wiessen Steine und der andere die Schwarzen. Spieler machen Züge nacheineander. Ein Spieler darf nicht gegnerische Steine bewegen. Ein zug erfolgt wenn ein Stein auf das vordere diagonale Nachbarfeld gesetzt wird, was noch nicht besetzt ist. Befindet sich auf dem Nachbarfeld ein gegnerischer Stein, so kann dieser übersprungen/geschlagen werden, wenn das Feld hinter ihm frei ist.</string>
 </resources>
