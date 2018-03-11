@@ -74,15 +74,22 @@
     <string name="sModesCategory">Spielmodus</string>
     <string name="sModeSummary">Die Applikation bietet die Möglichkeit, unterschiedliche Spielmodi durch wischen oder über die Pfeile im Hauptmenü auszuwählen</string>
     <string name="sMode1">Dame - Spiel gegen Bot</string>
-    <string name="sMode1Summary">Dieser Spielmodus erlaubt das SPielen gegen einen computergesteuerten Gegner.</string>
+    <string name="sMode1Summary">Dieser Spielmodus erlaubt das Spielen gegen einen computergesteuerten Gegner.</string>
     <string name="sMode2">Dame - Multiplayer</string>
-    <string name="sMode2Summary">Dieser Spielmodus erlaubt das Spielen gegen einen zweiten SPieler am selben Gerät.</string>
+    <string name="sMode2Summary">Dieser Spielmodus erlaubt das Spielen gegen einen zweiten Spieler am selben Gerät.</string>
     <string name="sHelpMoveCategory">Bewegung</string>
     <string name="sHelpMoveTap">Bewegung durch Antippen</string>
     <string name="sHelpMoveTapSummary">Figuren können durch das Antippen eines Steines und das Antippen eines freien Feldes bewegt werden. Nach der Auswahl einer Figur, werden erlaubte Zielfelder farblich hervorgehoben.</string>
     <string name="sHelpWin">Ziel des Spiels</string>
     <string name="sHelpWinCondition">Siegesanforderung</string>
     <string name="sHelpWinSummary">Das Spiel ist gewonnen, sobald alle Figuren des Gegners gefangen worden sind oder der Gegner keinen gültigen Zug mehr durchführen kann.</string>
+    <string name="help_captures_title">Schlagen</string>
+    <string name="help_captures_descripting">Es besteht Schlagzwang. Wenn man schlagen kann, so muss man dies tun. Bei mehreren Schlagmöglichkeiten wird der Zug bevorzugt, bei dem mehrere gegnerische Steine geschlagen werden. Man kann nur nach vorne schlagen.</string>
+    <string name="help_dame_title">Dame</string>
+    <string name="help_dame_description">Erreicht ein Spielstein die gegnerische Grundlinie, wird er zur Dame befördert. Eine Dame kann sich in jede der vier Richtungen beliebig weit bewegen. Schlägt eine Dame einen gegnerischen Spielstein, so landet sie auf dem Feld hinter dem geschlagenen Stein.</string>
+    <string name="help_game_rules_title">Spielregeln</string>
+    <string name="help_game_setup_title">Gameplay</string>
+    <string name="help_game_setup_description">Das Spiel Dame wird von zwei Spielern gespielt. Ein Spieler kontrolliert die hellen Spielsteine und der andere Spieler hat die dunklen Spielsteine. Der weiße Spieler macht den ersten Zug des Spiels und anschließend wechseln sich die Spieler ab. Ein Spieler darf nicht die gegnerischen Spielsteine bewegen. Ein Zug erfolgt, wenn ein Spielstein auf ein diagonales, freies Nachbarfeld bewegt wird. Befindet sich auf dem Nachbarfeld ein gegnerischer Spielstein, so kann dieser übersprungen und vom Spiel entfernt werden, wenn das dahinterliegende Feld frei ist.</string>
 
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Einstellungen</string>
@@ -105,11 +112,4 @@
     <string name="sWinDialogText">Sie haben Ihren Gegner besiegt!</string>
     <string name="sWinDialogBack">Zurück zum Hauptmenü</string>
     <string name="sWinDialogShowBoard">Spielfeld anzeigen</string>
-    <string name="help_captures_title">Schlagen</string>
-    <string name="help_captures_descripting">Es besteht Schlagzwang. Wenn man schlagen kann, so muss man dies tun. Bei mehreren Schlagmöglichkeiten wird der Zug bevorzugt, bei dem mehrere gegnerische Steine geschlagen werden. Man kann nur nach vorne schlagen.</string>
-    <string name="help_dame_title">Dame</string>
-    <string name="help_dame_description">Erreicht ein Stein die vorderste reihe, so wird er zur Dame promoted. Eine Dame kann sich in jede Richtung beliebig weit bewegen. Schlägt Dame ein Stein, so landet sie auf das Feld direkt hinter dem geschlagenen Stein.</string>
-    <string name="help_game_rules_title">Spielregeln</string>
-    <string name="help_game_setup_title">Gameplay</string>
-    <string name="help_game_setup_description">Dame wird gespielt von zwei Spielern. Einer spielt die wiessen Steine und der andere die Schwarzen. Spieler machen Züge nacheineander. Ein Spieler darf nicht gegnerische Steine bewegen. Ein zug erfolgt wenn ein Stein auf das vordere diagonale Nachbarfeld gesetzt wird, was noch nicht besetzt ist. Befindet sich auf dem Nachbarfeld ein gegnerischer Stein, so kann dieser übersprungen/geschlagen werden, wenn das Feld hinter ihm frei ist.</string>
 </resources>
