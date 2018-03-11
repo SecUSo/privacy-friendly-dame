@@ -85,7 +85,7 @@
     <string name="sHelpWinSummary">The game is won when you ether capture all pieces of your opponent, or if your opponent cannot move any piece.</string>
     <string name="help_captures_title">Capturing</string>
     <string name="help_captures_descripting">Capturing is mandatory. A sequence must capture the maximum possible number of pieces. A regular piece can only capture forward, no backward capturing is allowed.</string>
-    <string name="help_dame_title">Queen</string>
+    <string name="help_dame_title">King</string>
     <string name="help_dame_description">When a regular piece reaches the farthest row forward it gets promoted to queen. A queen can move any number of fields in any direction. If the queen captures, it lands one square behinde the captured piece.</string>
     <string name="help_game_rules_title">Game Rules</string>
     <string name="help_game_setup_title">Gameplay</string>
