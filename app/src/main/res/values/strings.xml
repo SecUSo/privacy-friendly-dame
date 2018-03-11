@@ -108,6 +108,8 @@
     <string name="help_captures_title">Capturing</string>
     <string name="help_captures_descripting">Capturing is mandatory. A sequence must capture the maximum possible number of pieces. A regular piece can only capture forward, no backward capturing is allowed.</string>
     <string name="help_dame_title">Queen</string>
-    <string name="help_dame_description">When a regular piece reaches the farthest row forward it gets promoted queen. A queen can move any number of fields in any direction. If the queen captures, it lands one square behinde the captured piece.</string>
+    <string name="help_dame_description">When a regular piece reaches the farthest row forward it gets promoted to queen. A queen can move any number of fields in any direction. If the queen captures, it lands one square behinde the captured piece.</string>
     <string name="help_game_rules_title">Game Rules</string>
+    <string name="help_game_setup_title">Game Setup</string>
+    <string name="help_game_setup_description">Checkers is played by two opponents, on opposite sides of the gameboard. One player has the dark pieces, the other has the light pieces. Players alternate turns. A player may not move an opponent\'s piece. A move consists of moving a piece diagonally to an adjacent unoccupied square. If the adjacent square contains an opponent\'s piece, and the square immediately beyond it is vacant, the piece may be captured (and removed from the game) by jumping over it.</string>
 </resources>
