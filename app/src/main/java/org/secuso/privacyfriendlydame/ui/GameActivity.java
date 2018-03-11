@@ -114,10 +114,10 @@ public class GameActivity extends AppCompatActivity {
         ImageView image = new ImageView(this);
         image.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
         switch(id) {
-            case 1: image.setImageResource(R.drawable.ic_piece_black); break;
-            case 2: image.setImageResource(R.drawable.ic_piece_white); break;
-            case 3: image.setImageResource(R.drawable.ic_piece_black_king); break;
-            default: image.setImageResource(R.drawable.ic_piece_white_king); break;
+            case 1: image.setImageResource(game.getBlackNormalIconId()); break;
+            case 2: image.setImageResource(game.getWhiteNormalIconId()); break;
+            case 3: image.setImageResource(game.getBlackKingIconId()); break;
+            default: image.setImageResource(game.getWhiteKingIconId()); break;
         }
 
 

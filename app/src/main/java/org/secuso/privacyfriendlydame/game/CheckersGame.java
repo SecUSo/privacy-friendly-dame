@@ -20,6 +20,8 @@ package org.secuso.privacyfriendlydame.game;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.secuso.privacyfriendlydame.R;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -40,6 +42,27 @@ public class CheckersGame implements Parcelable, Serializable{
     private ArrayList<Piece> capturedWhitePieces;
     private boolean isFinished;
     private GameType gameType;
+
+    public int getBlackNormalIconId() {
+        return blackNormalIconId;
+    }
+
+    public int getBlackKingIconId() {
+        return blackKingIconId;
+    }
+
+    public int getWhiteNormalIconId() {
+        return whiteNormalIconId;
+    }
+
+    public int getWhiteKingIconId() {
+        return whiteKingIconId;
+    }
+
+    private int blackNormalIconId = R.drawable.ic_piece_black;
+    private int blackKingIconId = R.drawable.ic_piece_black_king;
+    private int whiteNormalIconId = R.drawable.ic_piece_white;
+    private int whiteKingIconId = R.drawable.ic_piece_white_king;
 
 
     /**
