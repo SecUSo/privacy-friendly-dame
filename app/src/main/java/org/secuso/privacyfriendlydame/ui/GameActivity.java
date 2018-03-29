@@ -50,6 +50,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
+
 public class GameActivity extends AppCompatActivity {
     private Handler mHandler;
 
@@ -131,7 +133,10 @@ public class GameActivity extends AppCompatActivity {
     private ImageView generatePieceImage(int id) {
         ImageView image = new ImageView(this);
 
-        int pixels = Resources.getSystem().getDisplayMetrics().widthPixels / 12;
+
+        int pixels = getResources().getConfiguration().orientation != ORIENTATION_LANDSCAPE ?
+                Resources.getSystem().getDisplayMetrics().widthPixels / 12:
+                Resources.getSystem().getDisplayMetrics().widthPixels / 12 / 2;
 
         image.setLayoutParams(new LinearLayout.LayoutParams(pixels, pixels));
         switch (id) {
