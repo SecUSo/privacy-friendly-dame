@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Checkers</string>
-    <string name="app_name_long">Privacy Friendly Dame</string>
-    <string name="Dame" translatable="false">Dame</string>
+    <string name="app_name_long">Privacy Friendly Checkers</string>
+    <string name="Dame">Checkers</string>
 
     <!-- ###MainActivity### -->
     <string name="chose_opponent">Chose your opponent:</string>
@@ -23,7 +23,7 @@
 
     <!-- ### Tutorial ###-->
     <string name="slide1_heading">Welcome!</string>
-    <string name="slide1_text">Welcome to Privacy Friendly Dame!</string>
+    <string name="slide1_text">Welcome to Privacy Friendly Checkers! This app is a board game for up to two players</string>
     <string name="slide2_heading">Game mode</string>
     <string name="slide2_text">Swipe or press the arrow buttons on the left and right to change the game mode. You can either play versus bot or versus player.</string>
     <string name="next">Next</string>
@@ -56,12 +56,12 @@
 
     <!-- ###HELP### -->
     <string name="help">Help</string>
-    <string name="help_whatis">What is Privacy Friendly Dame?</string>
-    <string name="help_whatis_answer">Privacy Firendly Dame is an implementation of the board game checkers</string>
+    <string name="help_whatis">What is Privacy Friendly Checkers?</string>
+    <string name="help_whatis_answer">Privacy Firendly Checkers is an implementation of the board game checkers. Either two player play against each other or one player plays against a computer.</string>
     <string name="help_feature_one">Feature 1</string>
     <string name="help_feature_one_answer">Description of Feature 1</string>
     <string name="help_privacy">Why is this application privacy friendly?</string>
-    <string name="help_privacy_answer">Privacy Friendly Dame does not require additional permissions and it does not use advertisements.</string>
+    <string name="help_privacy_answer">Privacy Friendly Checkers does not require additional permissions and it does not use advertisements.</string>
     <string name="help_permission">Which permissions does this application require?</string>
     <string name="help_permission_answer">None.</string>
     <string name="sHelpOverviewHeading">Overview</string>
@@ -69,10 +69,10 @@
     <string name="sHelpCategoryExample">Example Help Category</string>
     <string name="sHelpPrivacyHeading">Privacy Info</string>
     <string name="sHelpPermissionsHeading">Permissions</string>
-    <string name="sHelpPermissionsDescription">Privacy Friendly Dame does not use any permissions</string>
-    <string name="sHelpIntro">Welcome to the help page. This app is a variant of the famous board game Dame. Along with the bot game mode it features a single device multiplayer.</string>
-    <string name="sModesCategory">Gamemode</string>
-    <string name="sModeSummary">The app features several gamemodes that can be accessed by either swiping in the main menu or tapping the arrow buttons</string>
+    <string name="sHelpPermissionsDescription">Privacy Friendly Checkers does not use any permissions</string>
+    <string name="sHelpIntro">Welcome to the help page. This app is a variant of the famous board game Checkers. Along with the bot game mode it features a single device multiplayer.</string>
+    <string name="sModesCategory">Game Mode</string>
+    <string name="sModeSummary">The app features several game modes that can be accessed by either swiping in the main menu or tapping the arrow buttons</string>
     <string name="sMode1">Checkers - Bot game</string>
     <string name="sMode1Summary">This game mode features a game versus AI controlled bot.</string>
     <string name="sMode2">Checkers - Multiplayer</string>
@@ -86,9 +86,9 @@
     <string name="help_captures_title">Capturing</string>
     <string name="help_captures_descripting">Capturing is mandatory. A sequence must capture the maximum possible number of pieces. A regular piece can only capture forward, no backward capturing is allowed.</string>
     <string name="help_dame_title">King</string>
-    <string name="help_dame_description">When a regular piece reaches the farthest row forward it gets promoted to queen. A queen can move any number of fields in any direction. If the queen captures, it lands one square behinde the captured piece.</string>
+    <string name="help_dame_description">When a regular piece reaches the farthest row forward it gets promoted to a king. A king can move any number of fields in any direction. If the king captures, it lands one square behind the captured piece.</string>
     <string name="help_game_rules_title">Game Rules</string>
-    <string name="help_game_setup_title">Gameplay</string>
+    <string name="help_game_setup_title">Game Play</string>
     <string name="help_game_setup_description">Checkers is played by two opponents, on opposite sides of the gameboard. One player has the dark pieces, the other has the light pieces. The white player begins the game and has to make a move, afterwards both players alternate taking turns. A player may not move an opponent\'s piece. A move consists of moving a piece diagonally to an adjacent unoccupied square. If the adjacent square contains an opponent\'s piece, and the square immediately beyond it is vacant, the piece may be captured (and removed from the game) by jumping over it.</string>
 
     <!-- ###SETTINGS### -->
