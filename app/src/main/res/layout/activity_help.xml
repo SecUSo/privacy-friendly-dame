@@ -27,11 +27,7 @@
             tools:context=".activities.HelpActivity"
             android:weightSum="1">
 
-            <fragment
-                android:name="org.secuso.privacyfriendlydame.ui.HelpActivity$HelpFragment"
-                android:id="@+id/help_fragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <include layout="@layout/activity_help_content" />
 
         </LinearLayout>
 

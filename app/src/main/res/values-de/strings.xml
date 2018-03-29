@@ -108,4 +108,7 @@
     <string name="sWinDialogText">Sie haben Ihren Gegner besiegt!</string>
     <string name="sWinDialogBack">Zurück zum Hauptmenü</string>
     <string name="sWinDialogShowBoard">Spielfeld anzeigen</string>
+    <string name="help_how_does_the_game_work">Wie sind die Regeln von Dame?</string>
+    <string name="help_what_modes_are_there">Was für Spielmodi gibt es?</string>
+    <string name="help_how_can_you_move">Wie kann ich die Figuren bewegen?</string>
 </resources>

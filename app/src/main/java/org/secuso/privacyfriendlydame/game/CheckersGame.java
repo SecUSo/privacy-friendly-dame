@@ -45,9 +45,9 @@ public class CheckersGame implements Parcelable, Serializable{
 
     // Piece image resource IDs
     private int blackNormalIconId = R.drawable.ic_piece_black;
-    private int blackKingIconId = R.drawable.ic_piece_black_king;
+    private int blackKingIconId = R.drawable.ic_piece_black_queen;
     private int whiteNormalIconId = R.drawable.ic_piece_white;
-    private int whiteKingIconId = R.drawable.ic_piece_white_king;
+    private int whiteKingIconId = R.drawable.ic_piece_white_queen;
 
     /**
      * Default constructor which creates a new game with a default board setup and black as the first player

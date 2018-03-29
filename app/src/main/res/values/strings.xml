@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dame</string>
+    <string name="app_name">Checkers</string>
     <string name="app_name_long">Privacy Friendly Dame</string>
     <string name="Dame" translatable="false">Dame</string>
 
@@ -73,9 +73,9 @@
     <string name="sHelpIntro">Welcome to the help page. This app is a variant of the famous board game Dame. Along with the bot game mode it features a single device multiplayer.</string>
     <string name="sModesCategory">Gamemode</string>
     <string name="sModeSummary">The app features several gamemodes that can be accessed by either swiping in the main menu or tapping the arrow buttons</string>
-    <string name="sMode1">Dame - Bot game</string>
+    <string name="sMode1">Checkers - Bot game</string>
     <string name="sMode1Summary">This game mode features a game versus AI controlled bot.</string>
-    <string name="sMode2">Dame - Multiplayer</string>
+    <string name="sMode2">Checkers - Multiplayer</string>
     <string name="sMode2Summary">This game mode features the game for two players on single device.</string>
     <string name="sHelpMoveCategory">Moving</string>
     <string name="sHelpMoveTap">Moving by tapping</string>
@@ -112,4 +112,7 @@
     <string name="sWinDialogText">You defeated your opponent!</string>
     <string name="sWinDialogBack">Back to Main Menu</string>
     <string name="sWinDialogShowBoard">Show Board</string>
+    <string name="help_how_does_the_game_work">What are the rules of checkers?</string>
+    <string name="help_how_can_you_move">How can I move my figures?</string>
+    <string name="help_what_modes_are_there">What game modes are there?</string>
 </resources>

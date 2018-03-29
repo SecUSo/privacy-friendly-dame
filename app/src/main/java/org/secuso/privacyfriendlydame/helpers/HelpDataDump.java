@@ -44,14 +44,30 @@ public class HelpDataDump {
         LinkedHashMap<String, List<String>> expandableListDetail = new LinkedHashMap<String, List<String>>();
 
         List<String> general = new ArrayList<String>();
-        general.add(context.getResources().getString(R.string.help_whatis_answer));
+        general.add(context.getResources().getString(R.string.sHelpIntro));
 
         expandableListDetail.put(context.getResources().getString(R.string.help_whatis), general);
 
-        List<String> features = new ArrayList<String>();
-        features.add(context.getResources().getString(R.string.help_feature_one_answer));
+        List<String> f1 = new ArrayList<String>();
+        f1.add(context.getResources().getString(R.string.sMode1));
+        f1.add(context.getResources().getString(R.string.sMode1Summary));
+        f1.add(context.getResources().getString(R.string.sMode2));
+        f1.add(context.getResources().getString(R.string.sMode2Summary));
 
-        expandableListDetail.put(context.getResources().getString(R.string.help_feature_one), features);
+        expandableListDetail.put(context.getResources().getString(R.string.help_what_modes_are_there), f1);
+
+        List<String> f2 = new ArrayList<String>();
+        f2.add(context.getResources().getString(R.string.sHelpMoveTapSummary));
+
+        expandableListDetail.put(context.getResources().getString(R.string.help_how_can_you_move), f2);
+
+        List<String> rules = new ArrayList<String>();
+        rules.add(context.getResources().getString(R.string.help_game_setup_description));
+        rules.add(context.getResources().getString(R.string.help_captures_descripting));
+        rules.add(context.getResources().getString(R.string.help_dame_description));
+        rules.add(context.getResources().getString(R.string.sHelpWinSummary));
+
+        expandableListDetail.put(context.getResources().getString(R.string.help_how_does_the_game_work), rules);
 
         List<String> privacy = new ArrayList<String>();
         privacy.add(context.getResources().getString(R.string.help_privacy_answer));
@@ -59,7 +75,7 @@ public class HelpDataDump {
         expandableListDetail.put(context.getResources().getString(R.string.help_privacy), privacy);
 
         List<String> permissions = new ArrayList<String>();
-        permissions.add(context.getResources().getString(R.string.help_permission_answer));
+        permissions.add(context.getResources().getString(R.string.sHelpPermissionsDescription));
 
         expandableListDetail.put(context.getResources().getString(R.string.help_permission), permissions);
 

@@ -22,6 +22,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -31,6 +32,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import org.secuso.privacyfriendlydame.R;
 import org.secuso.privacyfriendlydame.game.Board;
@@ -48,6 +51,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity {
+    private Handler mHandler;
+
     private CheckersGame game;
     private CheckersLayout checkersView;
     private TextView currentPlayerText;
@@ -60,6 +65,8 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle saved)
     {
         super.onCreate(saved);
+
+        mHandler = new Handler();
 
         game = loadFile();
         actionInProgress = false;
@@ -110,16 +117,29 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        mHandler.removeCallbacksAndMessages(null);
+        game = null;
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPreferences.unregisterOnSharedPreferenceChangeListener(preferencesChangeListener);
+    }
+
     private ImageView generatePieceImage(int id) {
         ImageView image = new ImageView(this);
-        image.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        switch(id) {
-            case 1: image.setImageResource(game.getBlackNormalIconId()); break;
-            case 2: image.setImageResource(game.getWhiteNormalIconId()); break;
-            case 3: image.setImageResource(game.getBlackKingIconId()); break;
-            default: image.setImageResource(game.getWhiteKingIconId()); break;
-        }
 
+        int pixels = Resources.getSystem().getDisplayMetrics().widthPixels / 12;
+
+        image.setLayoutParams(new LinearLayout.LayoutParams(pixels, pixels));
+        switch (id) {
+            case 1: Glide.with(this).load(game.getBlackNormalIconId()).into(image); break;
+            case 2: Glide.with(this).load(game.getWhiteNormalIconId()).into(image); break;
+            case 3: Glide.with(this).load(game.getBlackKingIconId()).into(image); break;
+            default: Glide.with(this).load(game.getWhiteKingIconId()).into(image); break;
+        }
 
         return image;
     }
@@ -149,8 +169,8 @@ public class GameActivity extends AppCompatActivity {
 
         if (game.getGameType() == GameType.Bot && turn == CheckersGame.BLACK) {
             currentPlayerText.setText(R.string.game_current_player_ai);
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     makeComputerTurn();
@@ -202,12 +222,13 @@ public class GameActivity extends AppCompatActivity {
 
                 checkersView.animateMove(choice);
 
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        game.makeMove(choice);
-                        prepTurn();
+                        if(game != null) {
+                            game.makeMove(choice);
+                            prepTurn();
+                        }
                     }
                 }, 1500);
 
@@ -306,13 +327,14 @@ public class GameActivity extends AppCompatActivity {
         if (move != null) {
             checkersView.animateMove(move);
 
-            final Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    game.makeMove(move);
-                    prepTurn();
-                    actionInProgress = false;
+                    if(game != null) {
+                        game.makeMove(move);
+                        prepTurn();
+                        actionInProgress = false;
+                    }
                 }
             }, 1500);
         }
@@ -339,8 +361,7 @@ public class GameActivity extends AppCompatActivity {
                     selectPiece(targetPiece, location);
                     if (selectedPiece == null)
                         checkersView.highlightSelectablePieces(selectablePieces);
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
+                        mHandler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
                                 checkersView.refresh();

@@ -18,35 +18,45 @@
 package org.secuso.privacyfriendlydame.ui;
 
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
+import android.widget.ExpandableListView;
 
 import org.secuso.privacyfriendlydame.R;
+import org.secuso.privacyfriendlydame.helpers.ExpandableListAdapter;
+import org.secuso.privacyfriendlydame.helpers.HelpDataDump;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+
+/**
+ * @author Karola Marky
+ * @version 20171016
+ * Class structure taken from tutorial at http://www.journaldev.com/9942/android-expandablelistview-example-tutorial
+ * last access 27th October 2016
+ */
 
 public class HelpActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_help);
-        //getFragmentManager().beginTransaction().replace(android.R.id.content, new HelpFragment()).commit();
+
+        ExpandableListAdapter expandableListAdapter;
+        HelpDataDump helpDataDump = new HelpDataDump(this);
+
+        ExpandableListView generalExpandableListView = (ExpandableListView) findViewById(R.id.generalExpandableListView);
+
+        LinkedHashMap<String, List<String>> expandableListDetail = helpDataDump.getDataGeneral();
+        List<String> expandableListTitleGeneral = new ArrayList<String>(expandableListDetail.keySet());
+        expandableListAdapter = new ExpandableListAdapter(this, expandableListTitleGeneral, expandableListDetail);
+        generalExpandableListView.setAdapter(expandableListAdapter);
 
         overridePendingTransition(0, 0);
     }
 
-    @Override
     protected int getNavigationDrawerID() {
         return R.id.nav_help;
-    }
-
-    public static class HelpFragment extends PreferenceFragment {
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-            addPreferencesFromResource(R.xml.help);
-        }
     }
 
 }

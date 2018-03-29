@@ -28,6 +28,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.util.DisplayMetrics;
 
+import com.bumptech.glide.Glide;
+
 import org.secuso.privacyfriendlydame.R;
 import org.secuso.privacyfriendlydame.game.Board;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
@@ -82,10 +84,10 @@ public class CheckersLayout extends TableLayout {
         int imgID = myGame.getBoard().getPiece(move.start()).getSummaryID();
 
         switch (imgID) {
-            case 1: cellTo.setImageResource(myGame.getBlackNormalIconId()); break;
-            case 2: cellTo.setImageResource(myGame.getWhiteNormalIconId()); break;
-            case 3: cellTo.setImageResource(myGame.getBlackKingIconId()); break;
-            default: cellTo.setImageResource(myGame.getWhiteKingIconId()); break;
+            case 1: Glide.with(this).load(myGame.getBlackNormalIconId()).into(cellTo); break;
+            case 2: Glide.with(this).load(myGame.getWhiteNormalIconId()).into(cellTo); break;
+            case 3: Glide.with(this).load(myGame.getBlackKingIconId()).into(cellTo); break;
+            default: Glide.with(this).load(myGame.getWhiteKingIconId()).into(cellTo); break;
         }
 
         Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
@@ -128,11 +130,11 @@ public class CheckersLayout extends TableLayout {
                     if (piece != null) {
                         int id = piece.getSummaryID();
                         // set the correct image
-                        switch(id) {
-                            case 1: cell.setImageResource(myGame.getBlackNormalIconId()); break;
-                            case 2: cell.setImageResource(myGame.getWhiteNormalIconId()); break;
-                            case 3: cell.setImageResource(myGame.getBlackKingIconId()); break;
-                            default: cell.setImageResource(myGame.getWhiteKingIconId()); break;
+                        switch (id) {
+                            case 1: Glide.with(this).load(myGame.getBlackNormalIconId()).into(cell); break;
+                            case 2: Glide.with(this).load(myGame.getWhiteNormalIconId()).into(cell); break;
+                            case 3: Glide.with(this).load(myGame.getBlackKingIconId()).into(cell); break;
+                            default: Glide.with(this).load(myGame.getWhiteKingIconId()).into(cell); break;
                         }
                         // set the background color
                         if (myActivity.isSelected(piece)) {
