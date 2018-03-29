@@ -67,13 +67,13 @@ public class MainActivity extends BaseActivity {
             // no saved game available
             game_continuable = false;
             game_continue.setClickable(true);
-            game_continue.setBackgroundColor(ContextCompat.getColor(getBaseContext(),(R.color.middlegrey)));
+            game_continue.setBackgroundResource(R.drawable.button_disabled);
         }
         else
         {
             game_continuable = true;
             game_continue.setClickable(true);
-            game_continue.setBackgroundColor(ContextCompat.getColor(getBaseContext(),R.color.colorPrimaryDark));
+            game_continue.setBackgroundResource(R.drawable.standalone_button);
         }
     }
 
