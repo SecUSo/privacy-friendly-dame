@@ -4,7 +4,7 @@
     <string name="Dame">Checkers</string>
 
     <!-- ###MainActivity### -->
-    <string name="chose_opponent">Chose your opponent:</string>
+    <string name="chose_opponent">Choose your opponent:</string>
     <string name="game_type_human">Human</string>
     <string name="game_type_bot">Bot</string>
     <string name="new_game">New Game</string>
@@ -48,7 +48,7 @@
     <string name="about_author">Authors: </string>
     <string name="about_author_names" translatable="false">Maksim Melnik, Marc Schneider</string>
     <string name="about_author_contributors">and contributors.</string>
-    <string name="about_affiliation">In Zusammenarbeit mit:</string>
+    <string name="about_affiliation">In affiliation with:</string>
     <string name="privacy_friendly">This application belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt. Sourcecode licensed under GPLv3. Images copyright TU Darmstadt and Google Inc.</string>
     <string name="more_info">More information can be found on:</string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-dame">Github-Repo</a></string>
