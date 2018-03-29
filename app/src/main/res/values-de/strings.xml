@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Dame</string>
     <string name="app_name_long">Privacy Friendly Dame</string>
+    <string name="Dame">Dame</string>
 
     <!-- ###MainActivity### -->
     <string name="chose_opponent">Wählen Sie Ihren Gegner:</string>
@@ -22,7 +23,7 @@
 
     <!-- ### Tutorial ###-->
     <string name="slide1_heading">Willkommen!</string>
-    <string name="slide1_text">Willkommen zu Privacy Friendly Dame!</string>
+    <string name="slide1_text">Willkommen zu Privacy Friendly Dame! Diese App ist ein Brettspiel für bis zu zwei Spieler.</string>
     <string name="slide2_heading">Spielmodus</string>
     <string name="slide2_text">Wischen oder drücken Sie auf die Pfeile auf der linken und rechten Seite, um den Spielmodus zu ändern. Sie können entweder gegen einen Menschen oder gegen einen Bot spielen.</string>
     <string name="next">Weiter</string>
