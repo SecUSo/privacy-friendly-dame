@@ -1,6 +1,6 @@
-﻿# Privacy Friendly Dame
+﻿# Privacy Friendly Checkers
 
-Privacy Friendly Dame is a version of the board game checkers and belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt, Germany.
+Privacy Friendly Checkers is a version of the board game checkers and belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt, Germany.
 
 This app is optimized regarding the user's privacy. It doesn't use any tracking mechanisms, neither it displays any advertisement. Also it does not use any permission, as the app can provide its full functionality without the usage of permissions. It also does neither include advertisement nor tracking mechanisms.
 
@@ -10,7 +10,7 @@ As it is part of the Privacy Friendly Apps developed by the SECUSO research grou
 
 ## Download and more Information
 
-Further development requires Android Studio, we recommend to use at least version 2.3.3
+Further development requires Android Studio, we recommend to use at least version 3.1.0
  
 ### API Reference
 
@@ -19,7 +19,7 @@ Target SDK: 26
 
 ## License
 
-Privacy Friendly App Example is licensed under the GPLv3.
+Privacy Friendly Checkers is licensed under the GPLv3.
 Copyright (C) 2017-2018  Maksim Melnik, Marc Schneider
 
 This program is free software: you can redistribute it and/or modify
@@ -35,14 +35,16 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. All other images (the logo of Privacy Friendly Apps, the SECUSO logo and the app logo) copyright [Technische Universtität Darmstadt](www.tu-darmstadt.de) (2018).
+The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. The crown on the pieces to mark the King is licened under the SIL OPEN FONT LICENSE Version 1.1. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the app logo and the game pieces) copyright [Technische Universtität Darmstadt](www.tu-darmstadt.de) (2018).
 
 ## Contributors
 
 App-Icon: <br />
-Markus Hau<br />
+Tatjana Albrandt<br />
 
 Github-Users: <br />
+Yonjuni (Karola Marky)<br />
+Kamuno (Christopher Beckmann)<br />
 keksoe (Maksim Melnik)<br />
 marcsn (Marc Schneider)
 
