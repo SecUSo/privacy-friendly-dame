@@ -1,8 +1,15 @@
-﻿# Privacy Friendly Checkers
+# Privacy Friendly Checkers
 
 Privacy Friendly Checkers is a version of the board game checkers and belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt, Germany.
 
 This app is optimized regarding the user's privacy. It doesn't use any tracking mechanisms, neither it displays any advertisement. Also it does not use any permission, as the app can provide its full functionality without the usage of permissions. It also does neither include advertisement nor tracking mechanisms.
+
+[<img src="https://f-droid.org/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/packages/org.secuso.privacyfriendlydame/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+      alt="Get it on Google Play"
+      height="80">](https://play.google.com/store/apps/details?id=org.secuso.privacyfriendlydame)
 
 ## Motivation
 
