@@ -1,0 +1,118 @@
+<resources>
+    <string name="app_name">Schaken</string>
+    <string name="app_name_long">Privacy-vriendelijk Schaken</string>
+    <string name="Dame">Schaken</string>
+
+    <!-- ###MainActivity### -->
+    <string name="chose_opponent">Kies je tegenstander:</string>
+    <string name="game_type_human">Persoon</string>
+    <string name="game_type_bot">Computer</string>
+    <string name="new_game">Nieuw spel</string>
+    <string name="menu_continue_game">Doorgaan</string>
+    <string name="OverwriteResumableGame">Als je doorgaat, zal het hervatbare spel zal worden overschreven.</string>
+    <string name="OverwriteResumableGameTitle">Hervatbaar spel overschrijven?</string>
+    <string name="yes">ja</string>
+    <string name="cancel">nee</string>
+    <string name="no_resumable_game">Geen hervatbaar spel; start een nieuw spel.</string>
+
+
+
+    <!-- ###Game### -->
+    <string name="pref_header_game">Spel</string>
+    <string name="pref_group_game">Spelinstellingen</string>
+
+    <!-- ### Tutorial ###-->
+    <string name="slide1_heading">Welkom!</string>
+    <string name="slide1_text">Welkom bij Privacy-vriendelijk Schaken! Dit is een bordspel voor maximaal twee spelers.</string>
+    <string name="slide2_heading">Spelmodus</string>
+    <string name="slide2_text">Veeg of druk op de pijltjesknoppen links en rechts om de spelmodus te wijzigen. Je kunt spelen tegen een andere speler of de computer.</string>
+    <string name="next">Volgende</string>
+    <string name="skip">Overslaan</string>
+    <string name="menu_tutorial">Rondleiding</string>
+    <string name="okay">Oké</string>
+    <string name="main_button_welcomedialog">Welkomstscherm tonen</string>
+
+    <!-- ###DRAWER###-->
+    <string name="action_help">Hulp</string>
+    <string name="action_about">Over</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="action_main">Hoofdmenu</string>
+    <string name="action_game">Schaken</string>
+    <string name="action_tutorial">Rondleiding</string>
+    <string name="navigation_drawer_open">Navigatiemenu openen</string>
+    <string name="navigation_drawer_close">Navigatiemenu sluiten</string>
+
+    <!--###ABOUT###-->
+    <string name="about">Over</string>
+    <string name="version_number">Versie</string>
+    <string name="about_author">Auteurs: </string>
+    <string name="about_author_names" translatable="false">Maksim Melnik, Marc Schneider</string>
+    <string name="about_author_contributors">en bijdragers.</string>
+    <string name="about_affiliation">In samenwerking met:</string>
+    <string name="privacy_friendly">Deze app is onderdeel van de groep van privacy-vriendelijke apps, ontwikkeld door de Technische Universität Darmstadt. De broncode wordt verspreid onder de GPLv3-licentie. De afbeeldingen zijn zowel auteursrechtelijk berschermd door TU Darmstadt alsmede gecopyright door Google Inc.</string>
+    <string name="more_info">Meer informatie is te vinden op:</string>
+    <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-dame">Github-Repo</a></string>
+    <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
+
+    <!-- ###HELP### -->
+    <string name="help">Hulp</string>
+    <string name="help_whatis">Wat is Privacy-vriendelijk Schaken?</string>
+    <string name="help_whatis_answer">Privacy-vriendelijk schaken is een implementatie van het bordspel schaken. Twee spelers kunnen tegen elkaar spelen, maar één speler tegen de computer kan ook.</string>
+    <string name="help_feature_one">Functie 1</string>
+    <string name="help_feature_one_answer">Omschrijving van Functie 1</string>
+    <string name="help_privacy">Waarom is deze app privacy-vriendelijk?</string>
+    <string name="help_privacy_answer">Privacy-vriendelijk Schaken vereist geen extra machtigingen en bevat geen reclame.</string>
+    <string name="help_permission">Welke machtigingen vereist deze app?</string>
+    <string name="help_permission_answer">Geen.</string>
+    <string name="sHelpOverviewHeading">Overzicht</string>
+    <string name="sHelpExample">Voorbeeld-hulpitem</string>
+    <string name="sHelpCategoryExample">Voorbeeld-hulpcategorie</string>
+    <string name="sHelpPrivacyHeading">Privacy-informatie</string>
+    <string name="sHelpPermissionsHeading">Machtigingen</string>
+    <string name="sHelpPermissionsDescription">Privacy-vriendelijk Schaken gebruikt geen machtigingen.</string>
+    <string name="sHelpIntro">Welkom op de hulppagina. Deze app is een variant op het bekende bordspel schaken. Je kunt spelen tegen de computer of een andere speler.</string>
+    <string name="sModesCategory">Spelmodus</string>
+    <string name="sModeSummary">De app bevat verschillende spelmodi. Deze kunnen worden gekozen door in het hoofdmenu opzij te vegen of op de pijltjesknoppen te drukken.</string>
+    <string name="sMode1">Schaken - Computerspel</string>
+    <string name="sMode1Summary">In deze spelmodus speel je tegen de computer.</string>
+    <string name="sMode2">Schaken - Multiplayer</string>
+    <string name="sMode2Summary">In deze spelmodus spelen twee spelers op hetzelfde apparaat.</string>
+    <string name="sHelpMoveCategory">Verplaatsen</string>
+    <string name="sHelpMoveTap">Verplaatsen door aanraken</string>
+    <string name="sHelpMoveTapSummary">Je kunt een stuk verplaatsen door het aan te raken en vervolgens te drukken op het bestemmingsvakje. Als je op het stuk drukt, dan krijg je ook mogelijke bestemmingen te zien.</string>
+    <string name="sHelpWin">Het spel winnen</string>
+    <string name="sHelpWinCondition">Winnen</string>
+    <string name="sHelpWinSummary">Je kunt het spel winnen door alle stukken van de tegenstander te veroveren of als je tegenstander geen stuk meer kan verplaatsen.</string>
+    <string name="help_captures_title">Veroveren</string>
+    <string name="help_captures_descripting">Veroveren is vereist. Een zet moet alle mogelijk stukken veroveren. Reguliere stukken mogen alleen voorwaarts veroveren, niet achterwaarts.</string>
+    <string name="help_dame_title">Koning</string>
+    <string name="help_dame_description">Als een regulier stuk de verste rij voorwaars bereikt, dan wordt het gepromoveerd tot koning. Een koning kan zoveel vakjes verplaatsen als je maar wilt en in elke ricting. Als de koning een stuk verovert, dan belandt hij op het vakje erachter.</string>
+    <string name="help_game_rules_title">Spelregels</string>
+    <string name="help_game_setup_title">Spel</string>
+    <string name="help_game_setup_description">Schaken wordt gespeeld door twee tegenstanders, aan elke zijde van het bord. Eén speler heeft zwarte stukken en één heeft witte. De witte speler begint het spel en moet een zet doen. Daarna spelen beide spelers om beurten. Een speler mag geen stuk van de tegenstander verplaatsen. Een zet bestaat uit het diagonaal verplaatsen van een stuk naar een leg vakje. Als het aangrenzende vakje een stuk van de tegenstander bevat en het vakje erachter is leeg, dan mag het stuk worden veroverd (en verwijderd uit het spel) door er overheen te springen.</string>
+
+    <!-- ###SETTINGS### -->
+    <string name="title_activity_settings">Instellingen</string>
+    <string name="pref_header_general">Algemeen</string>
+    <string name="pref_example_switch">Voorbeeldschakelaar</string>
+    <string name="pref_example_switch_summary">Omschrijving van voorbeeldschakelaar</string>
+    <string name="pref_example_summary">Voorbeeldomschrijving</string>
+
+    <!-- ###GAME###-->
+    <string name="title_activity_game">Schaken</string>
+    <string name="game_button_start">Nieuw spel</string>
+    <string name="game_button_continue">Spel hervatten</string>
+    <string name="game_desc">Dit het standaard hoofdmenu voor spelapps. De viewpager hierboven kan worden gebruikt om te schakelen tussen spelmodi.</string>
+    <string name="game_current_player_black">Zwarte speler is aan zet</string>
+    <string name="game_current_player_white">Witte speler is aan zet</string>
+    <string name="game_current_player_ai">Computer is aan zet</string>
+
+    <!-- ###WIN SCREEN###-->
+    <string name="sWinDialogTitle">Gefeliciteerd!</string>
+    <string name="sWinDialogText">Je hebt je tegenstander verslagen!</string>
+    <string name="sWinDialogBack">Terug naar hoofdmenu</string>
+    <string name="sWinDialogShowBoard">Bord tonen</string>
+    <string name="help_how_does_the_game_work">Wat zijn de regels van schaken?</string>
+    <string name="help_how_can_you_move">Hoe kan ik mijn stukken verplaatsen?</string>
+    <string name="help_what_modes_are_there">Uit welke spelmodi kan ik kiezen?</string>
+</resources>
