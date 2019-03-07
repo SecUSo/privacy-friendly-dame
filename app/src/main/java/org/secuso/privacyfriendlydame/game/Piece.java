@@ -75,6 +75,6 @@ public class Piece implements Serializable {
      */
     void makeKing() {
         isKing = true;
-        summaryID += 2;
+        summaryID = color + 2;
     }
 }
