@@ -108,8 +108,12 @@
     <string name="game_current_player_ai">AI player\'s turn</string>
 
     <!-- ###WIN SCREEN###-->
-    <string name="sWinDialogTitle">Congratulations!</string>
-    <string name="sWinDialogText">You defeated your opponent!</string>
+    <string name="playerWinDialogTitle">Congratulations!</string>
+    <string name="playerWinDialogText">You defeated the computer!</string>
+    <string name="botWinDialogTitle">Not this time!</string>
+    <string name="botWinDialogText">You lost to the computer.</string>
+    <string name="whiteWinDialogText">White player wins!</string>
+    <string name="blackWinDialogText">Black player wins!</string>
     <string name="sWinDialogBack">Back to Main Menu</string>
     <string name="sWinDialogShowBoard">Show Board</string>
     <string name="help_how_does_the_game_work">What are the rules of checkers?</string>

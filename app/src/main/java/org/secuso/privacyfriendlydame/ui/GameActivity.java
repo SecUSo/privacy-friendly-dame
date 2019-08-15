@@ -222,8 +222,19 @@ public class GameActivity extends AppCompatActivity {
         if (game.whoseTurn() == CheckersGame.BLACK) {
             Move moves[] = game.getMoves();
             if (moves.length > 0) {
+                //available: moves--> captures
+
+
+
                 int num = (int)(moves.length * Math.random());
                 final Move choice = moves[num];
+
+
+
+
+
+
+
 
                 checkersView.animateMove(choice);
 
@@ -395,10 +406,24 @@ public class GameActivity extends AppCompatActivity {
     public void showWinDialog() {
         // show alertDialog
         final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(GameActivity.this);
-        // Setting Dialog Title
-        builder.setTitle(R.string.sWinDialogTitle);
-        // Setting Dialog Message
-        builder.setMessage(R.string.sWinDialogText);
+
+        // Setting Dialog Title and Message dependent on turn and GameMode
+        if(game.getGameType() == GameType.Bot){
+            if(game.whoseTurn()==CheckersGame.BLACK){
+                builder.setTitle(R.string.playerWinDialogTitle);
+                builder.setMessage(R.string.playerWinDialogText);
+            } else {
+                builder.setTitle(R.string.botWinDialogTitle);
+                builder.setMessage(R.string.botWinDialogText);
+            }
+        } else{
+            builder.setTitle(R.string.playerWinDialogTitle);
+            if(game.whoseTurn()==CheckersGame.BLACK){
+                builder.setMessage(R.string.whiteWinDialogText);
+            } else {
+                builder.setMessage(R.string.blackWinDialogText);
+            }
+        }
 
         builder.setPositiveButton(R.string.sWinDialogBack, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

@@ -105,8 +105,12 @@
     <string name="game_current_player_ai">Computer am Zug</string>
 
     <!-- ###WIN SCREEN###-->
-    <string name="sWinDialogTitle">Glückwunsch!</string>
-    <string name="sWinDialogText">Sie haben Ihren Gegner besiegt!</string>
+    <string name="playerWinDialogTitle">Glückwunsch!</string>
+    <string name="playerWinDialogText">Sie haben den Computer besiegt!</string>
+    <string name="botWinDialogTitle">Spiel beendet!</string>
+    <string name="botWinDialogText">Sie haben gegen den Computer verloren.</string>
+    <string name="whiteWinDialogText">Weiß gewinnt!</string>
+    <string name="blackWinDialogText">Schwarz gewinnt!</string>
     <string name="sWinDialogBack">Zurück zum Hauptmenü</string>
     <string name="sWinDialogShowBoard">Spielfeld anzeigen</string>
     <string name="help_how_does_the_game_work">Wie sind die Regeln von Dame?</string>
