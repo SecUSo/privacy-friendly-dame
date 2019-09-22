@@ -117,7 +117,7 @@ public class CheckersGame implements Parcelable, Serializable{
      */
     public Move getLongestMove(Position start, Position end) {
         Move longest = null;
-        Move moveset[] = getMoves();
+        Move[] moveset = getMoves();
         for (Move move : moveset) {
             if (move.start().equals(start) && move.end().equals(end)) {
                 if (longest == null ||
@@ -133,6 +133,13 @@ public class CheckersGame implements Parcelable, Serializable{
      * @return array of allowed moves for the current player
      */
     public Move[] getMoves() {
+        return gameBoard.getMoves(turn);
+    }
+
+    /**
+     * returns the possible moves for a specified player
+     */
+    public Move[] getMoves(int turn) {
         return gameBoard.getMoves(turn);
     }
 
@@ -201,5 +208,17 @@ public class CheckersGame implements Parcelable, Serializable{
 
         gameBoard = in.readParcelable(Board.class.getClassLoader());
         turn = in.readInt();
+    }
+
+    /**
+     * Copy constructor to create new Game instances for looking into the future possibilities
+     */
+    public CheckersGame(CheckersGame checkersGame){
+        this.gameBoard=new Board(checkersGame.gameBoard.saveBoard());
+        this.turn=checkersGame.turn;
+        this.capturedBlackPieces=new ArrayList<Piece>(checkersGame.capturedBlackPieces);
+        this.capturedWhitePieces=new ArrayList<Piece>(checkersGame.capturedWhitePieces);
+        this.isFinished=checkersGame.isFinished;
+        this.gameType=checkersGame.gameType;
     }
 }

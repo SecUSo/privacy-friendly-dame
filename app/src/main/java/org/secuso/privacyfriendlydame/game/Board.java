@@ -32,7 +32,7 @@ import java.util.ArrayList;
 public class Board implements Parcelable, Serializable{
 
     // each data field either contains a game piece or is null
-    private Piece board[][];
+    private Piece[][] board;
 
     /**
      * Constructs a new default board
@@ -400,7 +400,7 @@ public class Board implements Parcelable, Serializable{
      * @return the current board status as a 2-dimensional int array
      */
     int[][] saveBoard() {
-        int result[][] = new int[8][8];
+        int[][] result = new int[8][8];
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 if (board[x][y] != null) {
@@ -463,5 +463,31 @@ public class Board implements Parcelable, Serializable{
                 }
             }
         }
+    }
+
+    /*
+     **counts occurrences of piece types
+     * returns number of pieces on the board with specified ID
+     */
+    public int getPieceCount(int ID){
+        int counter=0;
+        for(Piece[] row:board){
+            for (Piece p:row){
+                if(p!=null&&p.getSummaryID()==ID)counter++;
+            }
+        }
+        return counter;
+    }
+
+    /*
+     **similar to getPiece().getSummaryID() with null case and always-empty fields handling
+     * returns 0,1,2,3,4 or -1 (if perma-empty field)
+     */
+    public int getPieceID(int x, int y){
+        if(isGameSquare(x, y)){
+            if(board[x][y]==null)return 0;
+            return board[x][y].getSummaryID();
+        }
+        return -1;
     }
 }

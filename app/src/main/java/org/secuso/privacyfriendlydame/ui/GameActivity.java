@@ -62,6 +62,8 @@ public class GameActivity extends AppCompatActivity {
     private LinearLayout capturedWhitePiecesUI;
     Dialog dialog;
     boolean actionInProgress;
+    int maxDepth;
+    int startOwnPieces, startOwnKings, startEnemyPieces, startEnemyKings;
 
     @Override
     protected void onCreate(Bundle saved)
@@ -157,8 +159,8 @@ public class GameActivity extends AppCompatActivity {
 
     Piece selectedPiece;
     Position selectedPosition;
-    Piece selectablePieces[];
-    Position moveOptions[];
+    Piece[] selectablePieces;
+    Position[] moveOptions;
 
 
     // prepare a human or computer turn
@@ -190,7 +192,7 @@ public class GameActivity extends AppCompatActivity {
                 currentPlayerText.setText(R.string.game_current_player_white);
             // prep for human player turn
             ArrayList<Piece> selectablePieces = new ArrayList<>();
-            Move moves[] = game.getMoves();
+            Move[] moves = game.getMoves();
 
             // find pieces which can be moved
             for (Move move : moves) {
@@ -220,19 +222,15 @@ public class GameActivity extends AppCompatActivity {
     // difficulty easy: randomly pick a move
     private void makeComputerTurn() {
         if (game.whoseTurn() == CheckersGame.BLACK) {
-            Move moves[] = game.getMoves();
+            Move[] moves = game.getMoves();
             if (moves.length > 0) {
                 //available: moves--> captures
 
+                maxDepth=5;
 
-
-                int num = (int)(moves.length * Math.random());
-                final Move choice = moves[num];
-
-
-
-
-
+                //int num = (int)(moves.length * Math.random());
+                //final Move choice = moves[num];
+                final Move choice = alphabetaSearch(moves);
 
 
 
@@ -255,6 +253,267 @@ public class GameActivity extends AppCompatActivity {
                 showWinDialog();
             }
         }
+    }
+
+    /**
+     * Move search algorithm that plays out the possible moves' future until maxdepth and returns the move with best value
+     * @param legalMoves the moves to check
+     * @return best move
+     */
+    Move alphabetaSearch(Move[] legalMoves){
+        long start= System.currentTimeMillis();
+        Move best=null;
+        ArrayList<Move> currentBest;
+        int searchDepth=0;
+        startOwnPieces=game.getBoard().getPieceCount(1);
+        startOwnKings=game.getBoard().getPieceCount(3);
+        startEnemyPieces=game.getBoard().getPieceCount(2);
+        startEnemyKings=game.getBoard().getPieceCount(4);
+        //this part could be inserted into the while statement to ensure a fast result
+        //(System.currentTimeMillis()<(start+2000))&&
+        while( searchDepth<maxDepth){
+            currentBest = new ArrayList<Move>();
+            int maxValue=Integer.MIN_VALUE;
+
+            for(Move move:legalMoves){
+                //make move and evaluate resulting game
+                CheckersGame next=new CheckersGame(game);
+                next.makeMove(move);
+
+                int value = min(next,Integer.MAX_VALUE,Integer.MIN_VALUE,searchDepth);
+
+                //is the move valuable?
+                if (value==maxValue){
+                    currentBest.add(move);
+                }else if (value>maxValue){
+                    currentBest.clear();
+                    currentBest.add(move);
+                    maxValue=value;
+                }
+
+            }
+
+            //choose random move from those with best value
+            int ran = (int)(currentBest.size() * Math.random());
+            best=currentBest.get(ran);
+
+            searchDepth++;
+        }
+        return best;
+    }
+
+    /**
+     * Minimizing algorithm (enemies perspective) which alternates with Maximizing (bot perspective).
+     * @param game game which has changed one move from last depth
+     * @param alpha maximum value from previous depths
+     * @param beta minimum value from previous depths
+     * @param depth current tree depth which is break condition
+     * @return minimum possible value for bot in this game given the remaining depth
+     */
+    int min(CheckersGame game,int alpha,int beta,int depth){
+        Move[] legalMoves=game.getMoves();
+        if (legalMoves.length==0||depth==maxDepth){
+            return evaluation(game);
+        }
+        int val=Integer.MAX_VALUE;
+        for (Move move:legalMoves){
+            CheckersGame next = new CheckersGame(game);
+            next.makeMove(move);
+            val=Math.min(val,max(next,alpha,beta,depth+1));
+            if(val<=alpha)return val;
+            beta=Math.min(beta,val);
+        }
+
+        return val;
+    }
+
+    /**
+     * Maximizing (bot perspective) algorithm which alternates with Minimizing (enemies perspective).
+     * @param game game which has changed one move from last depth
+     * @param alpha maximum value from previous depths
+     * @param beta minimum value from previous depths
+     * @param depth current tree depth which is break condition
+     * @return maximum possible value for bot in this game given the remaining depth
+     */
+    int max(CheckersGame game,int alpha,int beta,int depth){
+        Move[] legalMoves=game.getMoves();
+        if (legalMoves.length==0||depth==maxDepth){
+            return evaluation(game);
+        }
+        int val=Integer.MIN_VALUE;
+        for (Move move:legalMoves){
+            CheckersGame next = new CheckersGame(game);
+            next.makeMove(move);
+            val=Math.max(val,min(next,alpha,beta,depth+1));
+            if(val>=beta)return val;
+            alpha=Math.max(alpha,val);
+        }
+        return val;
+    }
+
+    /**
+     * called when maxdepth is reached, puts a value on the game state.
+     * @param game game that has been min-maxed until maxdepth
+     * @return value of that game state for bot
+     */
+    int evaluation(CheckersGame game){
+        int gameValue=0;
+        int ownPieces=0;
+        int ownKings=0;
+        int enemyPieces=0;
+        int enemyKings=0;
+        Board board = game.getBoard();
+
+
+        for (int i=0; i<8;i++){
+            for (int j=0; j<8;j++){
+                switch (board.getPieceID(i,j)){
+                    case 1:
+                        ownPieces++;
+                        gameValue+=defending(i,j,board)*50 + (i==0? 50:0)+ 15*i+ 100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        break;
+                    case 2:
+                        enemyPieces++;
+                        gameValue-=defending(i,j,board)*50 + (i==0? 50:0)+ 15*(7-i)+ 100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        break;
+                    case 3:
+                        ownKings++;
+                        gameValue+=100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        break;
+                    case 4:
+                        enemyKings++;
+                        gameValue-=100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        break;
+
+                }
+            }
+        }
+
+        //trading is encouraged when ahead
+        if(startOwnPieces + startOwnKings > startEnemyPieces + startEnemyKings
+                && enemyPieces + enemyKings != 0
+                && startEnemyPieces + startEnemyKings != 0
+                && startEnemyKings != 1){
+            if((ownPieces+ownKings)/(enemyPieces+enemyKings)>(startOwnPieces+startOwnKings)/(startEnemyPieces+startEnemyKings)){
+                gameValue+=150;
+            }else{
+                gameValue-=150;
+            }
+        }
+
+        //addition of resulting pieces to score
+        gameValue+=600*ownPieces+1000*ownKings-600*enemyPieces-1000*enemyKings;
+
+
+        //check for number of moves (only when players have few pieces)
+        if(startOwnKings+startOwnPieces<5||startEnemyPieces+startEnemyKings<5){
+            Move[] blackMoves=game.getMoves(CheckersGame.BLACK);
+            Move[] whiteMoves=game.getMoves(CheckersGame.WHITE);
+            if(blackMoves.length<1){
+                return Integer.MIN_VALUE;
+            }
+            if(whiteMoves.length<1){
+                return Integer.MAX_VALUE;
+            }
+        }
+
+        //no left pieces cases get considered
+        if(enemyPieces+enemyKings==0 && ownPieces+ownKings>0){
+            gameValue=Integer.MAX_VALUE;
+        }
+        if(ownPieces+ownKings==0 && enemyPieces+enemyKings>0){
+            gameValue=Integer.MIN_VALUE;
+        }
+
+        return gameValue;
+    }
+
+    /**
+     * assigns a value to the "safety" of a certain piece on the board, depending on the defending pieces
+     * @param yrow row position
+     * @param xcolumn column position
+     * @param board board which sets the conditions
+     * @return high value if that piece is well defended, low otherwise
+     */
+    int defending(int yrow, int xcolumn,Board board){
+        int n=0;
+
+        switch (board.getPieceID(xcolumn,yrow)){
+            case 1:
+                if(xcolumn+1 < 8 &&yrow+1<8){
+                    if((board.getPieceID(xcolumn+1,yrow+1)&1)==1){
+                        n++;
+                    }
+                }
+                if(xcolumn+1 <8 &&yrow-1>=0){
+                    if((board.getPieceID(xcolumn+1,yrow-1)&1)==1){
+                        n++;
+                    }
+                }
+                break;
+
+            case 2:
+                if(xcolumn-1 >=0 &&yrow+1<8){
+                    if((board.getPieceID(xcolumn-1,yrow+1)&1)==0){
+                        n++;
+                    }
+                }
+                if(xcolumn-1>=0 &&yrow-1>=0){
+                    if((board.getPieceID(xcolumn-1,yrow-1)&1)==0){
+                        n++;
+                    }
+                }
+                break;
+
+            case 3:
+                if(xcolumn+1 < 8 &&yrow+1<8){
+                    if((board.getPieceID(xcolumn+1,yrow+1)&1)==1){
+                        n++;
+                    }
+                }
+                if(xcolumn+1 <8 &&yrow-1>=0){
+                    if((board.getPieceID(xcolumn+1,yrow-1)&1)==1){
+                        n++;
+                    }
+                }
+                if(xcolumn-1 >=0 &&yrow+1<8){
+                    if((board.getPieceID(xcolumn-1,yrow+1)&1)==1){
+                        n++;
+                    }
+                }
+                if(xcolumn-1>=0 &&yrow-1>=0){
+                    if((board.getPieceID(xcolumn-1,yrow-1)&1)==1){
+                        n++;
+                    }
+                }
+                break;
+
+            case 4:
+                if(xcolumn+1 < 8 &&yrow+1<8){
+                    if((board.getPieceID(xcolumn+1,yrow+1)&1)==0){
+                        n++;
+                    }
+                }
+                if(xcolumn+1 <8 &&yrow-1>=0){
+                    if((board.getPieceID(xcolumn+1,yrow-1)&1)==0){
+                        n++;
+                    }
+                }
+                if(xcolumn-1 >=0 &&yrow+1<8){
+                    if((board.getPieceID(xcolumn-1,yrow+1)&1)==0){
+                        n++;
+                    }
+                }
+                if(xcolumn-1>=0 &&yrow-1>=0){
+                    if((board.getPieceID(xcolumn-1,yrow-1)&1)==0){
+                        n++;
+                    }
+                }
+                break;
+
+        }
+
+        return n;
     }
 
     private void updateCapturedPiecesUI() {
@@ -313,7 +572,7 @@ public class GameActivity extends AppCompatActivity {
 
                 ArrayList<Position> moveOptionsArr = new ArrayList<>();
 
-                Move allMoves[] = game.getMoves();
+                Move[] allMoves = game.getMoves();
 
                 // iterate through moves
                 for (Move checkMove : allMoves) {
