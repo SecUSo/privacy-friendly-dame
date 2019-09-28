@@ -13,21 +13,21 @@ This app is optimized regarding the user's privacy. It doesn't use any tracking 
 
 ## Motivation
 
-As it is part of the Privacy Friendly Apps developed by the SECUSO research group of the Technische Universtität Darmstadt in Germany it is optimized due to user's privacy.
+As it is part of the Privacy Friendly Apps developed by the SECUSO research group of the Karlsruhe Institute of Technology it is optimized due to user's privacy.
 
 ## Download and more Information
 
-Further development requires Android Studio, we recommend to use at least version 3.1.0
+Further development requires Android Studio, we recommend to use the latest version.
  
 ### API Reference
 
 Mininum SDK: 21
-Target SDK: 26 
+Target SDK: 28 
 
 ## License
 
 Privacy Friendly Checkers is licensed under the GPLv3.
-Copyright (C) 2017-2018  Maksim Melnik, Marc Schneider
+Copyright (C) 2017-2019  Maksim Melnik, Marc Schneider
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -53,7 +53,8 @@ Github-Users: <br />
 Yonjuni (Karola Marky)<br />
 Kamuno (Christopher Beckmann)<br />
 keksoe (Maksim Melnik)<br />
-marcsn (Marc Schneider)
+marcsn (Marc Schneider)<br />
+sleep-yearning
 
 
 
