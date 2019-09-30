@@ -7,14 +7,15 @@
             android:id="@+id/nav_example"
             android:icon="@drawable/ic_menu_home"
             android:title="@string/action_main" />
-        <item
-            android:id="@+id/nav_tutorial"
-            android:icon="@drawable/ic_menu_tutorial"
-            android:title="@string/action_tutorial" />
+
     </group>
 
     <group android:id="@+id/nav_group_add"
         android:checkableBehavior="all">
+        <item
+            android:id="@+id/nav_tutorial"
+            android:icon="@drawable/ic_menu_tutorial"
+            android:title="@string/action_tutorial" />
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_menu_help"
