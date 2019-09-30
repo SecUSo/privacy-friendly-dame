@@ -98,8 +98,15 @@ public class Board implements Parcelable, Serializable{
                     Piece targetPiece = getPiece(target);
                     Piece destPiece = getPiece(dest);
 
+                    // if 2 pieces are back-to-back or the position is off-board
+                    // or a piece with same color is in the way
+                    // the search is terminated in the current direction
+                    if(!isGameSquare(target) || (targetPiece != null && (destPiece != null||targetPiece.getColor()==color))) {
+                        break;
+                    }
+
                     // look for a valid landing space with an opposing piece in-between
-                    if (isGameSquare(dest) && destPiece == null &&
+                    else if (isGameSquare(dest) && destPiece == null &&
                             targetPiece != null &&
                             targetPiece.getColor() != color) {
                         Move newMove = new Move(start);
@@ -107,11 +114,7 @@ public class Board implements Parcelable, Serializable{
                         newMove.addCapture(target);
                         base.add(newMove);
                     }
-                    // if 2 pieces are back-to-back or the position is off-board
-                    // the search is terminated in the current direction
-                    else if ((targetPiece != null && destPiece != null) || !isGameSquare(target)) {
-                        break;
-                    }
+
                 }
             }
             else {
