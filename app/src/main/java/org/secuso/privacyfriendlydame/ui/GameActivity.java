@@ -74,7 +74,6 @@ public class GameActivity extends AppCompatActivity {
 
         game = loadFile();
         actionInProgress = false;
-
         setContentView(R.layout.activity_game);
 
         RelativeLayout content = findViewById((R.id.content_layout));
@@ -83,10 +82,12 @@ public class GameActivity extends AppCompatActivity {
             if ((game==null || getIntent().getExtras()!=null)) {
                 Bundle extras = getIntent().getExtras();
                 GameType gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
-                game = new CheckersGame(gameType);
+                game = new CheckersGame(gameType,extras.getInt("level"));
             }
         }
-      //  else game = saved.getParcelable("gameController");
+        maxDepth=game.searchDepth;
+
+        //  else game = saved.getParcelable("gameController");
 
         // generate new layout for the board
         checkersView = new CheckersLayout(game, this);
@@ -226,7 +227,7 @@ public class GameActivity extends AppCompatActivity {
             if (moves.length > 0) {
                 //available: moves--> captures
 
-                maxDepth=5;
+
 
                 //int num = (int)(moves.length * Math.random());
                 //final Move choice = moves[num];
@@ -261,44 +262,38 @@ public class GameActivity extends AppCompatActivity {
      * @return best move
      */
     Move alphabetaSearch(Move[] legalMoves){
-        long start= System.currentTimeMillis();
         Move best=null;
         ArrayList<Move> currentBest;
-        int searchDepth=0;
         startOwnPieces=game.getBoard().getPieceCount(1);
         startOwnKings=game.getBoard().getPieceCount(3);
         startEnemyPieces=game.getBoard().getPieceCount(2);
         startEnemyKings=game.getBoard().getPieceCount(4);
-        //this part could be inserted into the while statement to ensure a fast result
-        //(System.currentTimeMillis()<(start+2000))&&
-        while( searchDepth<maxDepth){
-            currentBest = new ArrayList<Move>();
-            int maxValue=Integer.MIN_VALUE;
 
-            for(Move move:legalMoves){
-                //make move and evaluate resulting game
-                CheckersGame next=new CheckersGame(game);
-                next.makeMove(move);
+        currentBest = new ArrayList<Move>();
+        int maxValue=Integer.MIN_VALUE;
 
-                int value = min(next,Integer.MAX_VALUE,Integer.MIN_VALUE,searchDepth);
+        for(Move move:legalMoves){
+            //make move and evaluate resulting game
+            CheckersGame next=new CheckersGame(game);
+            next.makeMove(move);
 
-                //is the move valuable?
-                if (value==maxValue){
-                    currentBest.add(move);
-                }else if (value>maxValue){
-                    currentBest.clear();
-                    currentBest.add(move);
-                    maxValue=value;
-                }
+            int value = min(next,Integer.MAX_VALUE,Integer.MIN_VALUE,0);
 
+            //is the move valuable?
+            if (value==maxValue){
+                currentBest.add(move);
+            }else if (value>maxValue){
+                currentBest.clear();
+                currentBest.add(move);
+                maxValue=value;
             }
 
-            //choose random move from those with best value
-            int ran = (int)(currentBest.size() * Math.random());
-            best=currentBest.get(ran);
-
-            searchDepth++;
         }
+
+        //choose random move from those with best value
+        int ran = (int)(currentBest.size() * Math.random());
+        best=currentBest.get(ran);
+
         return best;
     }
 
@@ -384,7 +379,6 @@ public class GameActivity extends AppCompatActivity {
                         enemyKings++;
                         gameValue-=100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
                         break;
-
                 }
             }
         }
@@ -406,7 +400,7 @@ public class GameActivity extends AppCompatActivity {
 
 
         //check for number of moves (only when players have few pieces)
-        if(startOwnKings+startOwnPieces<5||startEnemyPieces+startEnemyKings<5){
+        if(startOwnKings+startOwnPieces<6||startEnemyPieces+startEnemyKings<6){
             Move[] blackMoves=game.getMoves(CheckersGame.BLACK);
             Move[] whiteMoves=game.getMoves(CheckersGame.WHITE);
             if(blackMoves.length<1){

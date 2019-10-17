@@ -30,6 +30,8 @@ import java.util.ArrayList;
  * player, the game type and the captured pieces of both players.
  */
 public class CheckersGame implements Parcelable, Serializable{
+    public int searchDepth;
+
     static final int NONE = 0;
     public static final int BLACK = 1;
     public static final int WHITE = 2;
@@ -52,13 +54,14 @@ public class CheckersGame implements Parcelable, Serializable{
     /**
      * Default constructor which creates a new game with a default board setup and black as the first player
      */
-    public CheckersGame(GameType gameType) {
+    public CheckersGame(GameType gameType,int depth) {
         gameBoard = new Board();
         turn = CheckersGame.WHITE;
         capturedBlackPieces = new ArrayList<>();
         capturedWhitePieces = new ArrayList<>();
         isFinished = false;
         this.gameType = gameType;
+        searchDepth=depth;
     }
 
     public GameType getGameType() {
@@ -220,5 +223,6 @@ public class CheckersGame implements Parcelable, Serializable{
         this.capturedWhitePieces=new ArrayList<Piece>(checkersGame.capturedWhitePieces);
         this.isFinished=checkersGame.isFinished;
         this.gameType=checkersGame.gameType;
+        this.searchDepth=checkersGame.searchDepth;
     }
 }

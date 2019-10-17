@@ -119,4 +119,25 @@
     <string name="help_how_does_the_game_work">What are the rules of checkers?</string>
     <string name="help_how_can_you_move">How can I move my figures?</string>
     <string name="help_what_modes_are_there">What game modes are there?</string>
+
+    <!-- ###LEVEL INDICATOR### -->
+    <string name="setLevel">set level</string>
+    <string-array name="levels">
+        <item>easy</item>
+        <item>easy+</item>
+        <item>easy++</item>
+        <item>easy+++</item>
+        <item>moderate</item>
+        <item>moderate+</item>
+        <item>moderate++</item>
+        <item>moderate+++</item>
+        <item>hard</item>
+        <item>hard+</item>
+        <item>hard++</item>
+        <item>hard+++</item>
+        <item>challenge</item>
+        <item>challenge+</item>
+        <item>challenge++</item>
+        <item>challenge+++</item>
+    </string-array>
 </resources>

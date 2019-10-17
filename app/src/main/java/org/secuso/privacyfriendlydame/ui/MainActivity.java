@@ -24,7 +24,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -32,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +61,7 @@ public class MainActivity extends BaseActivity {
     protected void onStart() {
         super.onStart();
         currentGame = loadFile();
-        Button game_continue = (Button) findViewById(R.id.continueButton);
+        Button game_continue = findViewById(R.id.continueButton);
         if (currentGame == null || currentGame.isGameFinished())
         {
             // no saved game available
@@ -85,7 +85,7 @@ public class MainActivity extends BaseActivity {
         overridePendingTransition(0, 0);
         final SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.scroller);
+        mViewPager = findViewById(R.id.scroller);
         if(mViewPager != null) {
             mViewPager.setAdapter(mSectionsPagerAdapter);
         }
@@ -93,8 +93,8 @@ public class MainActivity extends BaseActivity {
         int index = mSharedPreferences.getInt("lastChosenPage", 0);
 
         mViewPager.setCurrentItem(index);
-        mArrowLeft = (ImageView) findViewById(R.id.arrow_left);
-        mArrowRight = (ImageView) findViewById(R.id.arrow_right);
+        mArrowLeft = findViewById(R.id.arrow_left);
+        mArrowRight = findViewById(R.id.arrow_right);
         Button newGameBtn = findViewById(R.id.play_button);
 
         //care for initial postiton of the ViewPager
@@ -125,7 +125,7 @@ public class MainActivity extends BaseActivity {
         });
 
         currentGame = loadFile();
-        Button game_continue = (Button) findViewById(R.id.continueButton);
+        Button game_continue = findViewById(R.id.continueButton);
         if (currentGame == null || currentGame.isGameFinished())
         {
             // no saved game available
@@ -205,9 +205,11 @@ public class MainActivity extends BaseActivity {
                             deleteFile("savedata");
                             // open Settings
                             Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                            SeekBar diffBar =findViewById(R.id.difficultyBar);
 
                             GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
                             intent.putExtra("gameType", gameType.name());
+                            intent.putExtra("level",diffBar.getProgress());
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             dialog.dismiss();
@@ -277,6 +279,9 @@ public class MainActivity extends BaseActivity {
     }
 
     public static class GameTypeFragment extends Fragment {
+
+        TextView levelText;
+
         /**
          * The fragment argument representing the section number for this
          * fragment.
@@ -307,14 +312,43 @@ public class MainActivity extends BaseActivity {
 
             GameType gameType = GameType.getValidGameTypes().get(getArguments().getInt(ARG_SECTION_NUMBER));
 
-            ImageView imageView = (ImageView) rootView.findViewById(R.id.gameTypeImage);
+            ImageView imageView = rootView.findViewById(R.id.gameTypeImage);
 
             imageView.setImageResource(gameType.getResIDImage());
 
+            SeekBar diffBar= rootView.findViewById(R.id.difficultyBar);
+            diffBar.setOnSeekBarChangeListener(seekBarChangeListener);
+            levelText=rootView.findViewById(R.id.levelText);
+            levelText.setText(getString(R.string.setLevel));
 
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+
+            if(gameType==GameType.Human){
+                diffBar.setVisibility(View.INVISIBLE);
+                levelText.setVisibility(View.INVISIBLE);
+            } else {
+                diffBar.setVisibility(View.VISIBLE);
+                levelText.setVisibility(View.VISIBLE);
+            }
+
+            TextView textView = rootView.findViewById(R.id.section_label);
             textView.setText(gameType.getStringResID());
             return rootView;
         }
+
+        SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                levelText.setText(getResources().getStringArray(R.array.levels)[progress]);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        };
     }
 }

@@ -8,7 +8,10 @@ import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
 import org.secuso.privacyfriendlydame.game.Position;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -21,7 +24,7 @@ public class CheckersGameTest {
 
     @Before
     public void init() {
-        this.game = new CheckersGame(GameType.Human);
+        this.game = new CheckersGame(GameType.Human,0);
     }
 
     @Test

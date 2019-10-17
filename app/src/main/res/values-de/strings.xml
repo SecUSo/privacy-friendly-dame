@@ -116,4 +116,25 @@
     <string name="help_how_does_the_game_work">Wie sind die Regeln von Dame?</string>
     <string name="help_what_modes_are_there">Was für Spielmodi gibt es?</string>
     <string name="help_how_can_you_move">Wie kann ich die Figuren bewegen?</string>
+
+    <!-- ###LEVEL INDICATOR### -->
+    <string name="setLevel">Level einstellen</string>
+    <string-array name="levels">
+        <item>leicht</item>
+        <item>leicht+</item>
+        <item>leicht++</item>
+        <item>leicht+++</item>
+        <item>normal</item>
+        <item>normal+</item>
+        <item>normal++</item>
+        <item>normal+++</item>
+        <item>schwierig</item>
+        <item>schwierig+</item>
+        <item>schwierig++</item>
+        <item>schwierig+++</item>
+        <item>Profi</item>
+        <item>Profi+</item>
+        <item>Profi++</item>
+        <item>Profi+++</item>
+    </string-array>
 </resources>
