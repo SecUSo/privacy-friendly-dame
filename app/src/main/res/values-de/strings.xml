@@ -120,21 +120,10 @@
     <!-- ###LEVEL INDICATOR### -->
     <string name="setLevel">Level einstellen</string>
     <string-array name="levels">
-        <item>leicht</item>
-        <item>leicht+</item>
-        <item>leicht++</item>
-        <item>leicht+++</item>
-        <item>normal</item>
-        <item>normal+</item>
-        <item>normal++</item>
-        <item>normal+++</item>
-        <item>schwierig</item>
-        <item>schwierig+</item>
-        <item>schwierig++</item>
-        <item>schwierig+++</item>
+        <item>Leicht</item>
+        <item>Normal</item>
+        <item>Schwierig</item>
+        <item>Herausforderung</item>
         <item>Profi</item>
-        <item>Profi+</item>
-        <item>Profi++</item>
-        <item>Profi+++</item>
     </string-array>
 </resources>
