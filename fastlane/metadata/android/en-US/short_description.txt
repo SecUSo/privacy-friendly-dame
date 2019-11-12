@@ -1,0 +1,1 @@
+Strategy board game for 2 players. Play against an AI or each other!

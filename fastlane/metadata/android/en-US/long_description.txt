@@ -1,0 +1,15 @@
+Privacy Friendly Checkers is a strategy board game for two players. The objective of the game is to either capture all opposing game pieces by jumping over them or by creating a situation in which the opponent cannot make a move anymore due to being blocked.
+
+Privacy Friendly Checkers features two game modes: one game mode allows playing versus a computer-controlled opponent and the second game mode is for two human-controlled players using the same device. The game board consists of 8x8 squares and each player starts with 12 game pieces. The white player begins and then both players alternate taking turns. Furthermore, color-highlighting is used to graphically emphasize which moves are allowed to be made and the interface displays which game pieces have already been captured so the game progress can be tracked more easily. Additionally, the app automatically saves the last game status so it is possible to resume a previously started game at a later time.
+
+How does Privacy Friendly Checkers differ from other similar apps?
+
+1) No permissions
+
+Privacy Friendly Dame does not require any permissions.
+
+2) No advertisement
+
+Moreover, Privacy Friendly Dame completely relinquishes advertisement. Many other apps in the Google Play Store display advertisement and therefore might violate the users privacy, shorten battery life or use mobile data.
+
+Privacy Friendly Checkers is part of the Privacy Friendly Apps group developed by the research group SECUSO at Technische Universität Darmstadt. More information at: https://secuso.org/pfa
