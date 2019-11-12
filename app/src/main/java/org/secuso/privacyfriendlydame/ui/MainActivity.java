@@ -209,7 +209,7 @@ public class MainActivity extends BaseActivity {
 
                             GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
                             intent.putExtra("gameType", gameType.name());
-                            intent.putExtra("level",diffBar.getProgress());
+                            intent.putExtra("level",diffBar.getProgress()*4);
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
                             dialog.dismiss();
@@ -233,6 +233,8 @@ public class MainActivity extends BaseActivity {
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
                     intent.putExtra("gameType", gameType.name());
+                    SeekBar diffBar =findViewById(R.id.difficultyBar);
+                    intent.putExtra("level",diffBar.getProgress()*4);
                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
                 }

@@ -49,6 +49,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
@@ -231,6 +232,28 @@ public class GameActivity extends AppCompatActivity {
 
                 //int num = (int)(moves.length * Math.random());
                 //final Move choice = moves[num];
+                switch (game.searchDepth){
+                    case 0:
+                        //0-1
+                        maxDepth = new Random().nextInt(2);
+                        break;
+                    case 4:
+                        //3-5
+                        maxDepth = new Random().nextInt(3)+3;
+                        break;
+                    case 8:
+                        //7-9
+                        maxDepth = new Random().nextInt(3)+7;
+                        break;
+                    case 12:
+                        //10-14
+                        maxDepth = new Random().nextInt(5)+10;
+                        break;
+                    case 16:
+                        //15-20
+                        maxDepth = new Random().nextInt(6)+15;
+                        break;
+                }
                 final Move choice = alphabetaSearch(moves);
 
 
@@ -365,7 +388,7 @@ public class GameActivity extends AppCompatActivity {
                 switch (board.getPieceID(i,j)){
                     case 1:
                         ownPieces++;
-                        gameValue+=defending(i,j,board)*50 + (i==0? 50:0)+ 15*i+ 100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        gameValue+=defending(i,j,board)*50 + (i==0? 50:0)+ 15*i+ 100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10 );
                         break;
                     case 2:
                         enemyPieces++;
