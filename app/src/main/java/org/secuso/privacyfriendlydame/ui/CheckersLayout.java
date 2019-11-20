@@ -20,13 +20,13 @@ package org.secuso.privacyfriendlydame.ui;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.support.v7.widget.AppCompatImageView;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.util.DisplayMetrics;
 
 import com.bumptech.glide.Glide;
 
@@ -56,7 +56,7 @@ public class CheckersLayout extends TableLayout {
 
     protected GameActivity myActivity;
     protected CheckersGame myGame;
-    protected CheckerImageView cells[][];
+    protected CheckerImageView[][] cells;
 
     private final OnClickListener CellClick = new OnClickListener() {
         @Override
@@ -223,18 +223,21 @@ public class CheckersLayout extends TableLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                ViewGroup.LayoutParams params = cells[i][j].getLayoutParams();
-                if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    params.width = (right - left) / 8;
-                    params.height = (right - left) / 8;
 
-                } else {
-                    params.width = (bottom - top) / 8;
-                    params.height = (bottom - top) / 8;
+        if(changed) {
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j < 8; j++) {
+                    ViewGroup.LayoutParams params = cells[i][j].getLayoutParams();
+                    if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                        params.width = (right - left) / 8;
+                        params.height = (right - left) / 8;
+
+                    } else {
+                        params.width = (bottom - top) / 8;
+                        params.height = (bottom - top) / 8;
+                    }
+                    //cells[i][j].setLayoutParams(params);
                 }
-                cells[i][j].setLayoutParams(params);
             }
         }
     }

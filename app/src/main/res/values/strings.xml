@@ -124,9 +124,9 @@
     <string name="setLevel">set level</string>
     <string-array name="levels">
         <item>easy</item>
-        <item>relaxed</item>
         <item>moderate</item>
         <item>hard</item>
         <item>challenge</item>
+        <item>professional</item>
     </string-array>
 </resources>

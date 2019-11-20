@@ -21,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -190,8 +191,7 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.play_button:
 
-                if (game_continuable)
-                {
+                if (game_continuable) {
                     // show alertDialog
                     final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                     // Setting Dialog Title
@@ -203,40 +203,17 @@ public class MainActivity extends BaseActivity {
                         public void onClick(DialogInterface dialog, int id) {
                             // delete file
                             deleteFile("savedata");
-                            // open Settings
-                            Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                            SeekBar diffBar =findViewById(R.id.difficultyBar);
-
-                            GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
-                            intent.putExtra("gameType", gameType.name());
-                            intent.putExtra("level",diffBar.getProgress()*4);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+                            startGame();
                             dialog.dismiss();
                         }
                     });
 
-                    builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()     {
-                        public void onClick(DialogInterface dialog, int id) {
-                            //do nothing
-                            dialog.dismiss();
-                        }
-                    });
-                    if (!this.isFinishing())
-                    {
+                    builder.setNegativeButton(R.string.cancel, null);
+                    if (!this.isFinishing()) {
                         builder.show();
                     }
-
-                }
-                else
-                {
-                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                    GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
-                    intent.putExtra("gameType", gameType.name());
-                    SeekBar diffBar =findViewById(R.id.difficultyBar);
-                    intent.putExtra("level",diffBar.getProgress()*4);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(intent);
+                } else {
+                    startGame();
                 }
 
                 break;
@@ -257,7 +234,22 @@ public class MainActivity extends BaseActivity {
             default:
                 break;
         }
+    }
 
+    private void startGame() {
+        GameType gameType = GameType.getValidGameTypes().get(mViewPager.getCurrentItem());
+
+        Intent intent = new Intent(MainActivity.this, GameActivity.class);
+        intent.putExtra("gameType", gameType.name());
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        if(gameType == GameType.Bot) {
+                SeekBar diffBar = findViewById(R.id.difficultyBar);
+                mSharedPreferences.edit().putInt("lastChosenDifficulty", diffBar.getProgress()).apply();
+                intent.putExtra("level",diffBar.getProgress());
+        }
+
+        startActivity(intent);
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
@@ -283,6 +275,7 @@ public class MainActivity extends BaseActivity {
     public static class GameTypeFragment extends Fragment {
 
         TextView levelText;
+        SeekBar diffBar;
 
         /**
          * The fragment argument representing the section number for this
@@ -306,7 +299,6 @@ public class MainActivity extends BaseActivity {
 
         }
 
-
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -314,15 +306,19 @@ public class MainActivity extends BaseActivity {
 
             GameType gameType = GameType.getValidGameTypes().get(getArguments().getInt(ARG_SECTION_NUMBER));
 
+            TextView textView = rootView.findViewById(R.id.section_label);
             ImageView imageView = rootView.findViewById(R.id.gameTypeImage);
+            diffBar= rootView.findViewById(R.id.difficultyBar);
+            levelText=rootView.findViewById(R.id.levelText);
 
             imageView.setImageResource(gameType.getResIDImage());
 
-            SeekBar diffBar= rootView.findViewById(R.id.difficultyBar);
-            diffBar.setOnSeekBarChangeListener(seekBarChangeListener);
-            levelText=rootView.findViewById(R.id.levelText);
-            levelText.setText(getString(R.string.setLevel));
+            int difficulty = PreferenceManager.getDefaultSharedPreferences(getContext()).getInt("lastChosenDifficulty", 1);
 
+            if(diffBar != null) {
+                diffBar.setOnSeekBarChangeListener(seekBarChangeListener);
+                diffBar.setProgress(difficulty);
+            }
 
             if(gameType==GameType.Human){
                 diffBar.setVisibility(View.INVISIBLE);
@@ -332,13 +328,11 @@ public class MainActivity extends BaseActivity {
                 levelText.setVisibility(View.VISIBLE);
             }
 
-            TextView textView = rootView.findViewById(R.id.section_label);
             textView.setText(gameType.getStringResID());
             return rootView;
         }
 
         SeekBar.OnSeekBarChangeListener seekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
-
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 levelText.setText(getResources().getStringArray(R.array.levels)[progress]);
