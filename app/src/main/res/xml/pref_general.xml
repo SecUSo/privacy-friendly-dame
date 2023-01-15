@@ -15,11 +15,5 @@
             android:title="@string/pref_title_rule_white_begins"
             android:summary="@string/pref_desc_rule_white_begins"
             android:defaultValue="false"/>
-        <SwitchPreference
-            android:id="@+id/pref_rule_white_begins"
-            android:key="pref_rule_white_begins"
-            android:title="@string/pref_title_rule_white_begins"
-            android:summary="@string/pref_desc_rule_white_begins"
-            android:defaultValue="false"/>
     </PreferenceCategory>
 </PreferenceScreen>
