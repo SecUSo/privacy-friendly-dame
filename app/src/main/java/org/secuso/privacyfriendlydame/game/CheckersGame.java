@@ -45,6 +45,9 @@ public class CheckersGame implements Parcelable, Serializable{
     private boolean isFinished;
     private GameType gameType;
 
+    // rules
+    private GameRules rules;
+
     // Piece image resource IDs
     private int blackNormalIconId = R.drawable.ic_piece_black;
     private int blackKingIconId = R.drawable.ic_piece_black_queen;
@@ -54,8 +57,10 @@ public class CheckersGame implements Parcelable, Serializable{
     /**
      * Default constructor which creates a new game with a default board setup and black as the first player
      */
-    public CheckersGame(GameType gameType,int depth) {
-        gameBoard = new Board();
+    public CheckersGame(GameType gameType,int depth, GameRules rules) {
+
+        this.rules = rules;
+        gameBoard = new Board(rules);
         turn = CheckersGame.WHITE;
         capturedBlackPieces = new ArrayList<>();
         capturedWhitePieces = new ArrayList<>();
@@ -217,7 +222,7 @@ public class CheckersGame implements Parcelable, Serializable{
      * Copy constructor to create new Game instances for looking into the future possibilities
      */
     public CheckersGame(CheckersGame checkersGame){
-        this.gameBoard=new Board(checkersGame.gameBoard.saveBoard());
+        this.gameBoard=new Board(checkersGame.gameBoard.saveBoard(), checkersGame.rules);
         this.turn=checkersGame.turn;
         this.capturedBlackPieces=new ArrayList<Piece>(checkersGame.capturedBlackPieces);
         this.capturedWhitePieces=new ArrayList<Piece>(checkersGame.capturedWhitePieces);
