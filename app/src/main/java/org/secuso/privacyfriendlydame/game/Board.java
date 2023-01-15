@@ -33,12 +33,14 @@ public class Board implements Parcelable, Serializable{
 
     // each data field either contains a game piece or is null
     private Piece[][] board;
+    private GameRules rules;
 
     /**
      * Constructs a new default board
      */
-    Board() {
+    Board(GameRules rules) {
         board = new Piece[8][8];
+        this.rules = rules;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 int side = (y < 3) ? CheckersGame.BLACK : (y > 4) ? CheckersGame.WHITE : 0;
@@ -56,9 +58,10 @@ public class Board implements Parcelable, Serializable{
      * Reconstructs a board with a two dimensional array containing information for each position
      * @param positions each field represents a position on board
      */
-    Board(int[][] positions) {
+    Board(int[][] positions, GameRules rules) {
         //this.checkersGame = checkersGame;
         board = new Piece[8][8];
+        this.rules = rules;
         for (int x = 0; x < 8; x++) {
             for (int y = 0; y < 8; y++) {
                 if (positions[x][y] > CheckersGame.NONE) {
@@ -89,7 +92,9 @@ public class Board implements Parcelable, Serializable{
         for (Position dir : directions) {
             // if the current piece is a king the search range is increased by one in each iteration
             if (isKing) {
-                for (int i = 0; i < 8; i++) {
+                int lastCapture = -1;
+                int reach = rules.getFlyingDame() ? 8 : 1;
+                for (int i = 0; i < reach; i++) {
                     Position target = start.plus(dir);
                     for (int j = 0; j < i; j++) {
                         target = target.plus(dir);
@@ -97,6 +102,11 @@ public class Board implements Parcelable, Serializable{
                     Position dest = target.plus(dir);
                     Piece targetPiece = getPiece(target);
                     Piece destPiece = getPiece(dest);
+
+                    // Only allow single movements and back-to-back capture after the first capture
+                    if (lastCapture > 0 && lastCapture < i - 1) {
+                        break;
+                    }
 
                     // if 2 pieces are back-to-back or the position is off-board
                     // or a piece with same color is in the way
@@ -113,6 +123,7 @@ public class Board implements Parcelable, Serializable{
                         newMove.add(dest);
                         newMove.addCapture(target);
                         base.add(newMove);
+                        lastCapture = i;
                     }
 
                 }
@@ -238,7 +249,8 @@ public class Board implements Parcelable, Serializable{
         for (Position pos : neighbors) {
             // check each square if it is free to move to
             if (piece.isKing()) {
-                for (int i = 0; i < 8; i++) {
+                int reach = rules.getFlyingDame() ? 8 : 1;
+                for (int i = 0; i < reach; i++) {
                     Position dest = start.plus(pos);
                     for (int j = 0; j < i; j++) {
                         dest = dest.plus(pos);
@@ -428,6 +440,7 @@ public class Board implements Parcelable, Serializable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
+        rules.writeToParcel(dest, flags);
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j] == null)
@@ -452,8 +465,9 @@ public class Board implements Parcelable, Serializable{
     /** recreate object from parcel */
     private Board(Parcel in) {
         board = new Piece[8][8];
-        int cellID = 0;
+        rules = GameRules.CREATOR.createFromParcel(in);
 
+        int cellID = 0;
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 cellID = in.readInt();
