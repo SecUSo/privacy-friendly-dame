@@ -31,13 +31,16 @@ import java.io.Serializable;
 public class GameRules implements Parcelable, Serializable {
 
     private final boolean flying_dame;
+    private final boolean white_begins;
 
-    public GameRules(boolean flying_dame) {
+    public GameRules(boolean flying_dame, boolean white_begins) {
         this.flying_dame = flying_dame;
+        this.white_begins = white_begins;
     }
 
     private GameRules(Parcel parcel) {
         flying_dame = parcel.readInt() != 0;
+        white_begins = parcel.readInt() != 0;
     }
 
     @Override
@@ -48,6 +51,7 @@ public class GameRules implements Parcelable, Serializable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(flying_dame ? 1 : 0);
+        parcel.writeInt(white_begins ? 1 : 0);
     }
 
     public static final Parcelable.Creator<GameRules> CREATOR
@@ -66,5 +70,9 @@ public class GameRules implements Parcelable, Serializable {
 
     public boolean getFlyingDame() {
         return this.flying_dame;
+    }
+
+    public boolean getWhiteBegins() {
+        return this.white_begins;
     }
 }

@@ -61,7 +61,7 @@ public class CheckersGame implements Parcelable, Serializable{
 
         this.rules = rules;
         gameBoard = new Board(rules);
-        turn = CheckersGame.WHITE;
+        turn = rules.getWhiteBegins() ? CheckersGame.WHITE : CheckersGame.BLACK;
         capturedBlackPieces = new ArrayList<>();
         capturedWhitePieces = new ArrayList<>();
         isFinished = false;
