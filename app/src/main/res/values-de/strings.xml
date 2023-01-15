@@ -126,9 +126,4 @@
         <item>Herausforderung</item>
         <item>Profi</item>
     </string-array>
-    <string name="title_game_rules">Spielregeln</string>
-    <string name="pref_title_rule_flying_king">Fliegende Dame</string>
-    <string name="pref_desc_rule_flying_king">Falls aktiviert darf eine Dame diagonal beliebig viele Felder in einem Zug ziehen</string>
-    <string name="pref_title_rule_white_begins">Weiß beginnt</string>
-    <string name="pref_desc_rule_white_begins">Der erste Zug wird von Weiß gemacht</string>
 </resources>

@@ -129,9 +129,4 @@
         <item>challenge</item>
         <item>professional</item>
     </string-array>
-    <string name="title_game_rules">Rules</string>
-    <string name="pref_title_rule_flying_king">Flying King</string>
-    <string name="pref_desc_rule_flying_king">If enabled, a king may move as far as wished diagonally</string>
-    <string name="pref_title_rule_white_begins">White begins</string>
-    <string name="pref_desc_rule_white_begins">The first turn is made by white instead of black</string>
 </resources>

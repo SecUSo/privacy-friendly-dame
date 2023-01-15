@@ -37,9 +37,6 @@ public class PrefManager {
 
     private static final String IS_FIRST_TIME_LAUNCH = "IsFirstTimeLaunch";
 
-    public final static String PREF_RULE_FLYING_KING = "pref_rule_flying_king";
-    public final static String PREF_RULE_WHITE_BEGINS = "pref_rule_white_begins";
-
     public PrefManager(Context context) {
         pref = context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
@@ -53,4 +50,5 @@ public class PrefManager {
     public boolean isFirstTimeLaunch() {
         return pref.getBoolean(IS_FIRST_TIME_LAUNCH, true);
     }
+
 }

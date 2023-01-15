@@ -38,7 +38,6 @@ import com.bumptech.glide.Glide;
 import org.secuso.privacyfriendlydame.R;
 import org.secuso.privacyfriendlydame.game.Board;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
-import org.secuso.privacyfriendlydame.game.GameRules;
 import org.secuso.privacyfriendlydame.game.GameType;
 import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
@@ -84,11 +83,7 @@ public class GameActivity extends AppCompatActivity {
             if ((game==null || getIntent().getExtras()!=null)) {
                 Bundle extras = getIntent().getExtras();
                 GameType gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
-                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-                boolean flying_dame = sp.getBoolean(PrefManager.PREF_RULE_FLYING_KING, false);
-                boolean white_begins = sp.getBoolean(PrefManager.PREF_RULE_WHITE_BEGINS, false);
-                GameRules rules = new GameRules(flying_dame, white_begins);
-                game = new CheckersGame(gameType,extras.getInt("level"), rules);
+                game = new CheckersGame(gameType,extras.getInt("level"));
             }
         }
         maxDepth=game.searchDepth;
