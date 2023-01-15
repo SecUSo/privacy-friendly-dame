@@ -92,6 +92,7 @@ public class Board implements Parcelable, Serializable{
         for (Position dir : directions) {
             // if the current piece is a king the search range is increased by one in each iteration
             if (isKing) {
+                int lastCapture = -1;
                 int reach = rules.getFlyingDame() ? 8 : 1;
                 for (int i = 0; i < reach; i++) {
                     Position target = start.plus(dir);
@@ -101,6 +102,11 @@ public class Board implements Parcelable, Serializable{
                     Position dest = target.plus(dir);
                     Piece targetPiece = getPiece(target);
                     Piece destPiece = getPiece(dest);
+
+                    // Only allow single movements and back-to-back capture after the first capture
+                    if (lastCapture > 0 && lastCapture < i - 1) {
+                        break;
+                    }
 
                     // if 2 pieces are back-to-back or the position is off-board
                     // or a piece with same color is in the way
@@ -117,6 +123,7 @@ public class Board implements Parcelable, Serializable{
                         newMove.add(dest);
                         newMove.addCapture(target);
                         base.add(newMove);
+                        lastCapture = i;
                     }
 
                 }
