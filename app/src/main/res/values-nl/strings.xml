@@ -108,8 +108,6 @@
     <string name="game_current_player_ai">Computer is aan zet</string>
 
     <!-- ###WIN SCREEN###-->
-    <string name="sWinDialogTitle">Gefeliciteerd!</string>
-    <string name="sWinDialogText">Je hebt je tegenstander verslagen!</string>
     <string name="sWinDialogBack">Terug naar hoofdmenu</string>
     <string name="sWinDialogShowBoard">Bord tonen</string>
     <string name="help_how_does_the_game_work">Wat zijn de regels van dammen?</string>

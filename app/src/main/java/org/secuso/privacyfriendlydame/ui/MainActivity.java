@@ -51,6 +51,7 @@ import java.io.ObjectInputStream;
 
 public class MainActivity extends BaseActivity {
 
+    public final static String SAVE_FILE = "savedata";
 
     private ViewPager mViewPager;
     private ImageView mArrowLeft;
@@ -146,7 +147,7 @@ public class MainActivity extends BaseActivity {
         ObjectInputStream ois = null;
         FileInputStream fis = null;
         try {
-            fis = this.openFileInput("savedata");
+            fis = this.openFileInput(SAVE_FILE);
             ois = new ObjectInputStream(fis);
             currentGame = (CheckersGame) ois.readObject();
             return currentGame;
@@ -202,7 +203,7 @@ public class MainActivity extends BaseActivity {
                     builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // delete file
-                            deleteFile("savedata");
+                            deleteFile(SAVE_FILE);
                             startGame();
                             dialog.dismiss();
                         }
