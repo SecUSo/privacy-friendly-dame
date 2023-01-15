@@ -4,10 +4,10 @@
     <PreferenceCategory
         android:title="@string/title_game_rules">
         <SwitchPreference
-            android:id="@+id/pref_rule_flying_dame"
-            android:key="pref_rule_flying_dame"
-            android:title="@string/pref_title_rule_flying_dame"
-            android:summary="@string/pref_desc_rule_flying_dame"
+            android:id="@+id/pref_rule_flying_king"
+            android:key="pref_rule_flying_king"
+            android:title="@string/pref_title_rule_flying_king"
+            android:summary="@string/pref_desc_rule_flying_king"
             android:defaultValue="false"/>
         <SwitchPreference
             android:id="@+id/pref_rule_white_begins"
