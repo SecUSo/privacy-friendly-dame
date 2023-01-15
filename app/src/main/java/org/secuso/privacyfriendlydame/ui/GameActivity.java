@@ -85,8 +85,8 @@ public class GameActivity extends AppCompatActivity {
                 Bundle extras = getIntent().getExtras();
                 GameType gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-                boolean flying_dame = sp.getBoolean(PrefManager.PREF_RULE_FLYING_DAME, false);
-                boolean white_begins = sp.getBoolean(PrefManager.PREF_RULE_WHITE_STARTS, false);
+                boolean flying_dame = sp.getBoolean(PrefManager.PREF_RULE_FLYING_KING, false);
+                boolean white_begins = sp.getBoolean(PrefManager.PREF_RULE_WHITE_BEGINS, false);
                 GameRules rules = new GameRules(flying_dame, white_begins);
                 game = new CheckersGame(gameType,extras.getInt("level"), rules);
             }

@@ -116,8 +116,8 @@
     <string name="help_how_can_you_move">Hoe kan ik mijn stukken verplaatsen?</string>
     <string name="help_what_modes_are_there">Uit welke spelmodi kan ik kiezen?</string>
     <string name="title_game_rules">Spelregels</string>
-    <string name="pref_title_rule_flying_dame">Vliegende Dame</string>
-    <string name="pref_desc_rule_flying_dame">Indien geactiveerd, kan een dame een willekeurig aantal velden diagonaal in één beurt tekenen</string>
+    <string name="pref_title_rule_flying_king">Vliegende Dame</string>
+    <string name="pref_desc_rule_flying_king">Indien geactiveerd, kan een dame een willekeurig aantal velden diagonaal in één beurt tekenen</string>
     <string name="pref_title_rule_white_begins">Wit begint</string>
     <string name="pref_desc_rule_white_begins">De eerste zet wordt gedaan door wit</string>
 </resources>
