@@ -198,6 +198,7 @@ public class CheckersGame implements Parcelable, Serializable{
 
         dest.writeParcelable(gameBoard, 0);
         dest.writeInt(whoseTurn());
+        rules.writeToParcel(dest, flags);
     }
 
     public static final Parcelable.Creator<CheckersGame> CREATOR
@@ -216,12 +217,14 @@ public class CheckersGame implements Parcelable, Serializable{
 
         gameBoard = in.readParcelable(Board.class.getClassLoader());
         turn = in.readInt();
+        rules = GameRules.CREATOR.createFromParcel(in);
     }
 
     /**
      * Copy constructor to create new Game instances for looking into the future possibilities
      */
     public CheckersGame(CheckersGame checkersGame){
+        this.rules = checkersGame.rules;
         this.gameBoard=new Board(checkersGame.gameBoard.saveBoard(), checkersGame.rules);
         this.turn=checkersGame.turn;
         this.capturedBlackPieces=new ArrayList<Piece>(checkersGame.capturedBlackPieces);

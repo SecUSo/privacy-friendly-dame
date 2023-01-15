@@ -433,6 +433,7 @@ public class Board implements Parcelable, Serializable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
+        rules.writeToParcel(dest, flags);
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 if (board[i][j] == null)
@@ -457,8 +458,9 @@ public class Board implements Parcelable, Serializable{
     /** recreate object from parcel */
     private Board(Parcel in) {
         board = new Piece[8][8];
-        int cellID = 0;
+        rules = GameRules.CREATOR.createFromParcel(in);
 
+        int cellID = 0;
         for(int i = 0; i < board.length; i++) {
             for (int j = 0; j < board.length; j++) {
                 cellID = in.readInt();
