@@ -26,7 +26,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -686,7 +686,7 @@ public class GameActivity extends AppCompatActivity {
      */
     public void showWinDialog() {
         // show alertDialog
-        final android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(GameActivity.this);
+        final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(GameActivity.this);
 
         // Setting Dialog Title and Message dependent on turn and GameMode
         if(game.getGameType() == GameType.Bot){

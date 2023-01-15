@@ -19,7 +19,7 @@ package org.secuso.privacyfriendlydame.ui;
 
 import android.app.Activity;
 import android.content.res.Configuration;
-import android.support.v7.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatImageView;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
