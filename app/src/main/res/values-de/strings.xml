@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Dame</string>
+    <string name="app_name">Dame STL</string>
     <string name="app_name_long">Privacy Friendly Dame</string>
-    <string name="Dame">Dame</string>
+    <string name="Dame">Dame STL</string>
 
     <!-- ###MainActivity### -->
     <string name="chose_opponent">Wählen Sie Ihren Gegner:</string>
@@ -37,7 +37,7 @@
     <string name="action_about">Über</string>
     <string name="action_settings">Einstellungen</string>
     <string name="action_main">Hauptmenü</string>
-    <string name="action_game">Dame</string>
+    <string name="action_game">Dame STL</string>
     <string name="action_tutorial">Tutorial</string>
     <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
     <string name="navigation_drawer_close">Navigationsleiste schließen</string>
@@ -96,7 +96,7 @@
     <string name="pref_example_summary">Beispiel Zusammenfassung</string>
 
     <!-- ###GAME###-->
-    <string name="title_activity_game">Dame</string>
+    <string name="title_activity_game">Dame STL</string>
     <string name="game_button_start">Neues Spiel</string>
     <string name="game_button_continue">Fortsetzen</string>
     <string name="game_desc">Das ist das Hauptmenü. Der Viewpager soll dazu genutzt werden, den Spielmodus zu ändern.</string>

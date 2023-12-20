@@ -23,10 +23,19 @@
 
         <LinearLayout
             android:id="@+id/side_content"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_toRightOf="@+id/main_content">
+            <ImageButton
+                android:id="@+id/prevMoveButton"
+                android:textColor="@color/white"
+                android:layout_margin="12dp"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
+                android:clickable="false"
+                android:src="@drawable/ic_back"
+                android:background="@drawable/standalone_button"/>
         </LinearLayout>
 
     </RelativeLayout>
@@ -38,7 +47,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/activity_main_drawer" >
+        app:menu="@menu/activity_main_drawer"
+        tools:visibility="gone">
 
     </com.google.android.material.navigation.NavigationView>
 

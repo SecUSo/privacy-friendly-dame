@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -62,6 +63,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView currentPlayerText;
     private LinearLayout capturedBlackPiecesUI;
     private LinearLayout capturedWhitePiecesUI;
+    private ImageButton prevMoveButton;
     Dialog dialog;
     boolean actionInProgress;
     int maxDepth;
@@ -108,7 +110,7 @@ public class GameActivity extends AppCompatActivity {
         // text which displays whose turn it is
         currentPlayerText = new TextView(this);
         currentPlayerText.setTextSize(24);
-        currentPlayerText.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        currentPlayerText.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_START);
         sideContentLayout.addView(currentPlayerText);
 
         // layouts for captured pieces
@@ -125,6 +127,24 @@ public class GameActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
+
+        prevMoveButton = findViewById(R.id.prevMoveButton);
+        prevMoveButton.setClickable(false);
+        prevMoveButton.setBackgroundResource(R.drawable.button_disabled);
+        prevMoveButton.setOnClickListener(v -> {
+            if (game.getMovesHistorySize() >= 1) {
+                game.prevMove();
+                mHandler.removeCallbacksAndMessages(null);
+                restoreCapturedPiecesUI();
+                checkersView.refresh();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        prepTurn();
+                    }
+                }, 1000);
+            }
+        });
 
     }
 
@@ -162,6 +182,12 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         prepTurn();
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        checkersView.refresh();
     }
 
     Piece selectedPiece;
@@ -224,6 +250,13 @@ public class GameActivity extends AppCompatActivity {
 
         updateCapturedPiecesUI();
         checkersView.refresh();
+        if (game.getMovesHistorySize() >= 1) {
+            prevMoveButton.setClickable(true);
+            prevMoveButton.setBackgroundResource(R.drawable.button_normal);
+        } else {
+            prevMoveButton.setClickable(false);
+            prevMoveButton.setBackgroundResource(R.drawable.button_disabled);
+        }
     }
 
     // difficulty easy: randomly pick a move
@@ -269,6 +302,7 @@ public class GameActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         if(game != null) {
+                            game.saveHistory(choice);
                             game.makeMove(choice);
                             prepTurn();
                         }
@@ -548,8 +582,20 @@ public class GameActivity extends AppCompatActivity {
             index = capturedWhitePiecesUI.getChildCount();
             capturedWhitePiecesUI.addView(generatePieceImage(game.getCapturedWhitePieces().get(index).getSummaryID()));
         }
+    }
 
-
+    private void restoreCapturedPiecesUI() {
+        capturedBlackPiecesUI.removeAllViews();
+        capturedWhitePiecesUI.removeAllViews();
+        int index;
+        while (game.getCapturedBlackPieces().size() > capturedBlackPiecesUI.getChildCount()) {
+            index = capturedBlackPiecesUI.getChildCount();
+            capturedBlackPiecesUI.addView(generatePieceImage(game.getCapturedBlackPieces().get(index).getSummaryID()));
+        }
+        while (game.getCapturedWhitePieces().size() > capturedWhitePiecesUI.getChildCount()) {
+            index = capturedWhitePiecesUI.getChildCount();
+            capturedWhitePiecesUI.addView(generatePieceImage(game.getCapturedWhitePieces().get(index).getSummaryID()));
+        }
     }
 
     // check which piece is selected
@@ -628,6 +674,7 @@ public class GameActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     if(game != null) {
+                        game.saveHistory(move);
                         game.makeMove(move);
                         prepTurn();
                         actionInProgress = false;

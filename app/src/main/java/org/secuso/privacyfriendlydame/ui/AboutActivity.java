@@ -49,6 +49,7 @@ public class AboutActivity extends AppCompatActivity {
         ((TextView)findViewById(R.id.secusoWebsite)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView)findViewById(R.id.githubURL)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView)findViewById(R.id.textFieldVersionName)).setText(BuildConfig.VERSION_NAME);
+        ((TextView)findViewById(R.id.modifiedGithubURL)).setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
 
