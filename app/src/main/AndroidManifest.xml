@@ -43,8 +43,7 @@
         <activity
             android:name=".ui.AboutActivity"
             android:label="@string/about"
-            android:parentActivityName=".ui.MainActivity"
-            android:screenOrientation="portrait">
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
@@ -68,21 +67,6 @@
                 android:value=".ui.MainActivity" />
         </activity>
 
-        <service
-            android:name=".backup.PFABackupService"
-            android:enabled="true"
-            android:exported="true"
-            android:process=":backup"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="org.secuso.privacyfriendlybackup.api.pfa.PFAAuthService" />
-            </intent-filter>
-        </service>
-
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="${applicationId}.androidx-startup"
-            tools:node="remove" />
     </application>
 
 </manifest>

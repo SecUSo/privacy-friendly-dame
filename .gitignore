@@ -36,3 +36,8 @@ Thumbs.db
 # APKs
 *.apk
 
+# Captures
+captures/
+
+# App
+app/

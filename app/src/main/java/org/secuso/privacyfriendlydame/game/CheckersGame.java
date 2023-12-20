@@ -24,6 +24,7 @@ import org.secuso.privacyfriendlydame.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * This class models a game of checkers. It contains information about the game board, the current
@@ -44,6 +45,13 @@ public class CheckersGame implements Parcelable, Serializable{
     private ArrayList<Piece> capturedWhitePieces;
     private boolean isFinished;
     private GameType gameType;
+    private Stack<Move> moveHistory;
+    private Stack<Board> boardHistory;
+
+    private Stack<Integer> turnHistory;
+
+    private Stack<ArrayList<Piece>> capturedBlackPiecesHistory;
+    private Stack<ArrayList<Piece>> capturedWhitePiecesHistory;
 
     // rules
     private GameRules rules;
@@ -64,6 +72,11 @@ public class CheckersGame implements Parcelable, Serializable{
         turn = rules.getWhiteBegins() ? CheckersGame.WHITE : CheckersGame.BLACK;
         capturedBlackPieces = new ArrayList<>();
         capturedWhitePieces = new ArrayList<>();
+        moveHistory = new Stack<Move>();
+        boardHistory = new Stack<Board>();
+        turnHistory  = new Stack<Integer>();
+        capturedBlackPiecesHistory = new Stack<>();
+        capturedWhitePiecesHistory = new Stack<>();
         isFinished = false;
         this.gameType = gameType;
         searchDepth=depth;
@@ -164,6 +177,30 @@ public class CheckersGame implements Parcelable, Serializable{
         advanceTurn();
     }
 
+    public void saveHistory(Move move) {
+        moveHistory.add(move);
+        boardHistory.add(new Board(gameBoard.saveBoard(), rules));
+        turnHistory.add(whoseTurn());
+        capturedWhitePiecesHistory.add(new ArrayList<>(capturedWhitePieces));
+        capturedBlackPiecesHistory.add(new ArrayList<>(capturedBlackPieces));
+    }
+
+    public void prevMove() {
+        if (getMovesHistorySize() < 1) {
+            return;
+        }
+        // Pop and restores move
+        Move move = moveHistory.pop();
+        gameBoard = boardHistory.pop();
+        turn = turnHistory.pop();
+        capturedWhitePieces = capturedWhitePiecesHistory.pop();
+        capturedBlackPieces = capturedBlackPiecesHistory.pop();
+    }
+
+    public int getMovesHistorySize() {
+        return moveHistory.size();
+    }
+
     /**
      * Returns the ID of the current player
      * @return ID of the current player
@@ -218,6 +255,11 @@ public class CheckersGame implements Parcelable, Serializable{
         gameBoard = in.readParcelable(Board.class.getClassLoader());
         turn = in.readInt();
         rules = GameRules.CREATOR.createFromParcel(in);
+        moveHistory = new Stack<Move>();
+        boardHistory = new Stack<Board>();
+        turnHistory  = new Stack<Integer>();
+        capturedBlackPiecesHistory = new Stack<>();
+        capturedWhitePiecesHistory = new Stack<>();
     }
 
     /**
@@ -232,5 +274,10 @@ public class CheckersGame implements Parcelable, Serializable{
         this.isFinished=checkersGame.isFinished;
         this.gameType=checkersGame.gameType;
         this.searchDepth=checkersGame.searchDepth;
+        moveHistory = new Stack<Move>();
+        boardHistory = new Stack<Board>();
+        turnHistory  = new Stack<Integer>();
+        capturedBlackPiecesHistory = new Stack<>();
+        capturedWhitePiecesHistory = new Stack<>();
     }
 }

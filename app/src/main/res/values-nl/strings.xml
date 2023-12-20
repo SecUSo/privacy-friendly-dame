@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Dammen</string>
-    <string name="app_name_long">Privacybeschermend dammen</string>
-    <string name="Dame">Dammen</string>
+    <string name="app_name">Dammen STL</string>
+    <string name="app_name_long">Privacybeschermend dammen STL</string>
+    <string name="Dame">Dammen STL</string>
 
     <!-- ###MainActivity### -->
     <string name="chose_opponent">Kies je tegenstander:</string>
@@ -37,7 +37,7 @@
     <string name="action_about">Over</string>
     <string name="action_settings">Instellingen</string>
     <string name="action_main">Hoofdmenu</string>
-    <string name="action_game">Dammen</string>
+    <string name="action_game">Dammen STL</string>
     <string name="action_tutorial">Rondleiding</string>
     <string name="navigation_drawer_open">Navigatiemenu openen</string>
     <string name="navigation_drawer_close">Navigatiemenu sluiten</string>
@@ -99,7 +99,7 @@
     <string name="pref_example_summary">Voorbeeldomschrijving</string>
 
     <!-- ###GAME###-->
-    <string name="title_activity_game">Dammen</string>
+    <string name="title_activity_game">Dammen STL</string>
     <string name="game_button_start">Nieuw spel</string>
     <string name="game_button_continue">Spel hervatten</string>
     <string name="game_desc">Dit het standaard hoofdmenu voor spelapps. De viewpager hierboven kan worden gebruikt om te schakelen tussen spelmodi.</string>
