@@ -49,7 +49,7 @@
     <string name="about_author_names" translatable="false">Maksim Melnik, Marc Schneider</string>
     <string name="about_author_contributors">en bijdragers.</string>
     <string name="about_affiliation">In samenwerking met:</string>
-    <string name="privacy_friendly">Deze app is onderdeel van de groep van privacybeschermende apps, ontwikkeld door de Technische Universität Darmstadt. De broncode wordt verspreid onder de GPLv3-licentie. De afbeeldingen zijn zowel auteursrechtelijk berschermd door TU Darmstadt alsmede gecopyright door Google Inc.</string>
+    <string name="privacy_friendly">Deze app is onderdeel van de groep van privacybeschermende apps, ontwikkeld door de Karlsruhe Institute of Technology. De broncode wordt verspreid onder de GPLv3-licentie. De afbeeldingen zijn zowel auteursrechtelijk berschermd door KIT alsmede gecopyright door Google Inc.</string>
     <string name="more_info">Meer informatie is te vinden op:</string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-dame">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>

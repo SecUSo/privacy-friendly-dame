@@ -13,7 +13,7 @@ style="float: right; margin-right: 10px;" />
 
 # Privacy Friendly Checkers
 
-Privacy Friendly Checkers is a version of the board game checkers and belongs to the group of Privacy Friendly Apps developed by Technische Universität Darmstadt, Germany.
+Privacy Friendly Checkers is a version of the board game checkers and belongs to the group of Privacy Friendly Apps developed by Karlsruhe Institute of Technology, Germany.
 
 This app is optimized regarding the user's privacy. It doesn't use any tracking mechanisms, neither it displays any advertisement. Also it does not use any permission, as the app can provide its full functionality without the usage of permissions. It also does neither include advertisement nor tracking mechanisms.
 
@@ -59,7 +59,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. The crown on the pieces to mark the King is licened under the SIL OPEN FONT LICENSE Version 1.1. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the app logo and the game pieces) copyright [Technische Universtität Darmstadt](www.tu-darmstadt.de) (2018).
+The icons used in the nagivation drawer are licensed under the [CC BY 2.5](http://creativecommons.org/licenses/by/2.5/). In addition to them the app uses icons from [Google Design Material Icons](https://design.google.com/icons/index.html) licensed under Apache License Version 2.0. The crown on the pieces to mark the King is licened under the SIL OPEN FONT LICENSE Version 1.1. All other images (the logo of Privacy Friendly Apps, the SECUSO logo, the app logo and the game pieces) copyright [SECUSO](www.secuso.org) (2019).
 
 ## Contributors
 

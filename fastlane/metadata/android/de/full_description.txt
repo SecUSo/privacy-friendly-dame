@@ -1,6 +1,4 @@
-Privacy Friendly Dame ist ein strategisches Brettspiel für einen oder zwei Spieler. Das Ziel des Spiels ist es entweder alle gegnerischen Spielsteine durch das Überspringen zu schlagen oder eine Situation zu schaffen, in der der Gegner keinen Zug mehr machen kann, weil alle Steine blockiert sind.
 
-Die App beinhaltet zwei Spielmodi: Ein Spielmodus erlaubt das Spielen gegen einen computergesteuerten Gegner und der zweite Spielmodus ist für zwei menschliche Spieler am selben Gerät. Das Spielfeld besteht aus 8x8 Feldern und jeder Spieler beginnt mit 12 Spielsteinen. Der weiße Spieler beginnt und dann wechseln sich beide Spieler nach jedem Zug ab. Weiterhin werden zur Veranschaulichung erlaubter Spielzüge farbliche Hervorhebungen verwendet und die Oberfläche zeigt außerdem die bereits geschlagenen Spielsteine an, damit der Spielfortschritt besser nachvollzogen werden kann. Zusätzlich speichert die App automatisch den letzten Spielfortschritt, sodass es möglich ist, ein angefangenes Spiel zu einem späteren Zeitpunkt fortzusetzen.
 
 Was unterscheidet Privacy Friendly Dame von anderen, ähnlichen Apps?
 
@@ -11,3 +9,9 @@ Die Dame-App verzichtet komplett auf Berechtigungen - bei voller Funktionalität
 Viele andere kostenlose Apps im Google Play Store blenden störende Werbung ein, die unter anderem auch die Akkulaufzeit verkürzt und Datenvolumen verbrauchen kann.
 
 Die App gehört zur Gruppe der Privacy Friendly Apps, die von der Forschungsgruppe SECUSO am Karlsruher Institut für Technologie entwickelt werden. Mehr Informationen unter: https://secuso.org/pfa
+
+
+Kontaktieren Sie uns gerne über:
+Twitter - @SECUSOResearch https://twitter.com/secusoresearc)
+Mastodon - @SECUSO_Research@bawü.social https://xn--baw-joa.social/@SECUSO_Research/
+Offene Stellen - https://secuso.aifb.kit.edu/83_1557.php
