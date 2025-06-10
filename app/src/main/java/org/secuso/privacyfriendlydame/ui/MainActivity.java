@@ -36,6 +36,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.secuso.privacyfriendlydame.GoodbyeGoogleHelperKt;
 import org.secuso.privacyfriendlydame.R;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
 import org.secuso.privacyfriendlydame.game.GameType;
@@ -141,6 +142,7 @@ public class MainActivity extends BaseActivity {
             game_continue.setClickable(true);
             game_continue.setBackgroundResource(R.drawable.button_normal);
         }
+        GoodbyeGoogleHelperKt.checkGoodbyeGoogle(this, getLayoutInflater());
     }
 
     private CheckersGame loadFile() {
