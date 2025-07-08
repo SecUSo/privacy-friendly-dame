@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="org.secuso.privacyfriendlydame">
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:name=".PFDameApplication"
         android:allowBackup="true"

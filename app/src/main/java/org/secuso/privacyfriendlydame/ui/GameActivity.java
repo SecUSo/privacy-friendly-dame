@@ -26,7 +26,9 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,8 +70,7 @@ public class GameActivity extends AppCompatActivity {
     int startOwnPieces, startOwnKings, startEnemyPieces, startEnemyKings;
 
     @Override
-    protected void onCreate(Bundle saved)
-    {
+    protected void onCreate(Bundle saved) {
         super.onCreate(saved);
 
         mHandler = new Handler();
@@ -81,17 +82,17 @@ public class GameActivity extends AppCompatActivity {
         RelativeLayout content = findViewById((R.id.content_layout));
 
         if (saved == null) {
-            if ((game==null || getIntent().getExtras()!=null)) {
+            if ((game == null || getIntent().getExtras() != null)) {
                 Bundle extras = getIntent().getExtras();
                 GameType gameType = GameType.valueOf(extras.getString("gameType", GameType.Bot.name()));
                 SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
                 boolean flying_dame = sp.getBoolean(PrefManager.PREF_RULE_FLYING_KING, false);
                 boolean white_begins = sp.getBoolean(PrefManager.PREF_RULE_WHITE_BEGINS, false);
                 GameRules rules = new GameRules(flying_dame, white_begins);
-                game = new CheckersGame(gameType,extras.getInt("level"), rules);
+                game = new CheckersGame(gameType, extras.getInt("level"), rules);
             }
         }
-        maxDepth=game.searchDepth;
+        maxDepth = game.searchDepth;
 
         //  else game = saved.getParcelable("gameController");
 
@@ -122,7 +123,6 @@ public class GameActivity extends AppCompatActivity {
         sideContentLayout.addView(capturedWhitePiecesUI);
 
 
-
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPreferences.registerOnSharedPreferenceChangeListener(preferencesChangeListener);
 
@@ -144,15 +144,23 @@ public class GameActivity extends AppCompatActivity {
 
 
         int pixels = getResources().getConfiguration().orientation != ORIENTATION_LANDSCAPE ?
-                Resources.getSystem().getDisplayMetrics().widthPixels / 12:
+                Resources.getSystem().getDisplayMetrics().widthPixels / 12 :
                 Resources.getSystem().getDisplayMetrics().widthPixels / 12 / 2;
 
         image.setLayoutParams(new LinearLayout.LayoutParams(pixels, pixels));
         switch (id) {
-            case 1: Glide.with(this).load(game.getBlackNormalIconId()).into(image); break;
-            case 2: Glide.with(this).load(game.getWhiteNormalIconId()).into(image); break;
-            case 3: Glide.with(this).load(game.getBlackKingIconId()).into(image); break;
-            default: Glide.with(this).load(game.getWhiteKingIconId()).into(image); break;
+            case 1:
+                Glide.with(this).load(game.getBlackNormalIconId()).into(image);
+                break;
+            case 2:
+                Glide.with(this).load(game.getWhiteNormalIconId()).into(image);
+                break;
+            case 3:
+                Glide.with(this).load(game.getBlackKingIconId()).into(image);
+                break;
+            default:
+                Glide.with(this).load(game.getWhiteKingIconId()).into(image);
+                break;
         }
 
         return image;
@@ -192,7 +200,7 @@ public class GameActivity extends AppCompatActivity {
                 }
             }, 1000);
 
-        }else{
+        } else {
             if (turn == CheckersGame.BLACK)
                 currentPlayerText.setText(R.string.game_current_player_black);
             else
@@ -234,33 +242,31 @@ public class GameActivity extends AppCompatActivity {
                 //available: moves--> captures
 
 
-
                 //int num = (int)(moves.length * Math.random());
                 //final Move choice = moves[num];
-                switch (game.searchDepth){
+                switch (game.searchDepth) {
                     case 0:
                         //0-1
                         maxDepth = new Random().nextInt(2);
                         break;
                     case 4:
                         //3-5
-                        maxDepth = new Random().nextInt(3)+3;
+                        maxDepth = new Random().nextInt(3) + 3;
                         break;
                     case 8:
                         //7-9
-                        maxDepth = new Random().nextInt(3)+7;
+                        maxDepth = new Random().nextInt(3) + 7;
                         break;
                     case 12:
                         //10-14
-                        maxDepth = new Random().nextInt(5)+10;
+                        maxDepth = new Random().nextInt(5) + 10;
                         break;
                     case 16:
                         //15-20
-                        maxDepth = new Random().nextInt(6)+15;
+                        maxDepth = new Random().nextInt(6) + 15;
                         break;
                 }
                 final Move choice = alphabetaSearch(moves);
-
 
 
                 checkersView.animateMove(choice);
@@ -268,7 +274,7 @@ public class GameActivity extends AppCompatActivity {
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(game != null) {
+                        if (game != null) {
                             game.makeMove(choice);
                             prepTurn();
                         }
@@ -286,65 +292,67 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Move search algorithm that plays out the possible moves' future until maxdepth and returns the move with best value
+     *
      * @param legalMoves the moves to check
      * @return best move
      */
-    Move alphabetaSearch(Move[] legalMoves){
-        Move best=null;
+    Move alphabetaSearch(Move[] legalMoves) {
+        Move best = null;
         ArrayList<Move> currentBest;
-        startOwnPieces=game.getBoard().getPieceCount(1);
-        startOwnKings=game.getBoard().getPieceCount(3);
-        startEnemyPieces=game.getBoard().getPieceCount(2);
-        startEnemyKings=game.getBoard().getPieceCount(4);
+        startOwnPieces = game.getBoard().getPieceCount(1);
+        startOwnKings = game.getBoard().getPieceCount(3);
+        startEnemyPieces = game.getBoard().getPieceCount(2);
+        startEnemyKings = game.getBoard().getPieceCount(4);
 
         currentBest = new ArrayList<Move>();
-        int maxValue=Integer.MIN_VALUE;
+        int maxValue = Integer.MIN_VALUE;
 
-        for(Move move:legalMoves){
+        for (Move move : legalMoves) {
             //make move and evaluate resulting game
-            CheckersGame next=new CheckersGame(game);
+            CheckersGame next = new CheckersGame(game);
             next.makeMove(move);
 
-            int value = min(next,Integer.MAX_VALUE,Integer.MIN_VALUE,0);
+            int value = min(next, Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
 
             //is the move valuable?
-            if (value==maxValue){
+            if (value == maxValue) {
                 currentBest.add(move);
-            }else if (value>maxValue){
+            } else if (value > maxValue) {
                 currentBest.clear();
                 currentBest.add(move);
-                maxValue=value;
+                maxValue = value;
             }
 
         }
 
         //choose random move from those with best value
-        int ran = (int)(currentBest.size() * Math.random());
-        best=currentBest.get(ran);
+        int ran = (int) (currentBest.size() * Math.random());
+        best = currentBest.get(ran);
 
         return best;
     }
 
     /**
      * Minimizing algorithm (enemies perspective) which alternates with Maximizing (bot perspective).
-     * @param game game which has changed one move from last depth
+     *
+     * @param game  game which has changed one move from last depth
      * @param alpha maximum value from previous depths
-     * @param beta minimum value from previous depths
+     * @param beta  minimum value from previous depths
      * @param depth current tree depth which is break condition
      * @return minimum possible value for bot in this game given the remaining depth
      */
-    int min(CheckersGame game,int alpha,int beta,int depth){
-        Move[] legalMoves=game.getMoves();
-        if (legalMoves.length==0||depth==maxDepth){
+    int min(CheckersGame game, int alpha, int beta, int depth) {
+        Move[] legalMoves = game.getMoves();
+        if (legalMoves.length == 0 || depth == maxDepth) {
             return evaluation(game);
         }
-        int val=Integer.MAX_VALUE;
-        for (Move move:legalMoves){
+        int val = Integer.MAX_VALUE;
+        for (Move move : legalMoves) {
             CheckersGame next = new CheckersGame(game);
             next.makeMove(move);
-            val=Math.min(val,max(next,alpha,beta,depth+1));
-            if(val<=alpha)return val;
-            beta=Math.min(beta,val);
+            val = Math.min(val, max(next, alpha, beta, depth + 1));
+            if (val <= alpha) return val;
+            beta = Math.min(beta, val);
         }
 
         return val;
@@ -352,99 +360,101 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * Maximizing (bot perspective) algorithm which alternates with Minimizing (enemies perspective).
-     * @param game game which has changed one move from last depth
+     *
+     * @param game  game which has changed one move from last depth
      * @param alpha maximum value from previous depths
-     * @param beta minimum value from previous depths
+     * @param beta  minimum value from previous depths
      * @param depth current tree depth which is break condition
      * @return maximum possible value for bot in this game given the remaining depth
      */
-    int max(CheckersGame game,int alpha,int beta,int depth){
-        Move[] legalMoves=game.getMoves();
-        if (legalMoves.length==0||depth==maxDepth){
+    int max(CheckersGame game, int alpha, int beta, int depth) {
+        Move[] legalMoves = game.getMoves();
+        if (legalMoves.length == 0 || depth == maxDepth) {
             return evaluation(game);
         }
-        int val=Integer.MIN_VALUE;
-        for (Move move:legalMoves){
+        int val = Integer.MIN_VALUE;
+        for (Move move : legalMoves) {
             CheckersGame next = new CheckersGame(game);
             next.makeMove(move);
-            val=Math.max(val,min(next,alpha,beta,depth+1));
-            if(val>=beta)return val;
-            alpha=Math.max(alpha,val);
+            val = Math.max(val, min(next, alpha, beta, depth + 1));
+            if (val >= beta) return val;
+            alpha = Math.max(alpha, val);
         }
         return val;
     }
 
     /**
      * called when maxdepth is reached, puts a value on the game state.
+     *
      * @param game game that has been min-maxed until maxdepth
      * @return value of that game state for bot
      */
-    int evaluation(CheckersGame game){
-        int gameValue=0;
-        int ownPieces=0;
-        int ownKings=0;
-        int enemyPieces=0;
-        int enemyKings=0;
+    int evaluation(CheckersGame game) {
+        int gameValue = 0;
+        int ownPieces = 0;
+        int ownKings = 0;
+        int enemyPieces = 0;
+        int enemyKings = 0;
         Board board = game.getBoard();
 
 
-        for (int i=0; i<8;i++){
-            for (int j=0; j<8;j++){
-                switch (board.getPieceID(i,j)){
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                switch (board.getPieceID(i, j)) {
                     case 1:
                         ownPieces++;
-                        gameValue+=defending(i,j,board)*50 + (i==0? 50:0)+ 15*i+ 100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10 );
+                        gameValue += defending(i, j, board) * 50 + (i == 0 ? 50 : 0) + 15 * i + 100 - ((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
                         break;
                     case 2:
                         enemyPieces++;
-                        gameValue-=defending(i,j,board)*50 + (i==0? 50:0)+ 15*(7-i)+ 100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        gameValue -= defending(i, j, board) * 50 + (i == 0 ? 50 : 0) + 15 * (7 - i) + 100 - ((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
                         break;
                     case 3:
                         ownKings++;
-                        gameValue+=100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        gameValue += 100 - ((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
                         break;
                     case 4:
                         enemyKings++;
-                        gameValue-=100 -((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
+                        gameValue -= 100 - ((Math.abs(4 - i) + Math.abs(4 - j)) * 10);
                         break;
                 }
             }
         }
 
         //trading is encouraged when ahead
-        if(startOwnPieces + startOwnKings > startEnemyPieces + startEnemyKings
+        if (startOwnPieces + startOwnKings > startEnemyPieces + startEnemyKings
                 && enemyPieces + enemyKings != 0
                 && startEnemyPieces + startEnemyKings != 0
-                && startEnemyKings != 1){
-            if((ownPieces+ownKings)/(enemyPieces+enemyKings)>(startOwnPieces+startOwnKings)/(startEnemyPieces+startEnemyKings)){
-                gameValue+=150;
-            }else{
-                gameValue-=150;
+                && startEnemyKings != 1) {
+            if ((ownPieces + ownKings) / (enemyPieces + enemyKings) > (startOwnPieces + startOwnKings) / (startEnemyPieces + startEnemyKings)) {
+                gameValue += 150;
+            } else {
+                gameValue -= 150;
             }
         }
 
         //addition of resulting pieces to score
-        gameValue+=600*ownPieces+1000*ownKings-600*enemyPieces-1000*enemyKings;
+        gameValue += 600 * ownPieces + 1000 * ownKings - 600 * enemyPieces - 1000 * enemyKings;
 
 
         //check for number of moves (only when players have few pieces)
-        if(startOwnKings+startOwnPieces<6||startEnemyPieces+startEnemyKings<6){
-            Move[] blackMoves=game.getMoves(CheckersGame.BLACK);
-            Move[] whiteMoves=game.getMoves(CheckersGame.WHITE);
-            if(blackMoves.length<1){
+        if (startOwnKings + startOwnPieces < 6 || startEnemyPieces + startEnemyKings < 6) {
+            Move[] blackMoves = game.getMoves(CheckersGame.BLACK);
+            Move[] whiteMoves = game.getMoves(CheckersGame.WHITE);
+            if (blackMoves.length < 1) {
                 return Integer.MIN_VALUE;
             }
-            if(whiteMoves.length<1){
+            if (whiteMoves.length < 1) {
                 return Integer.MAX_VALUE;
             }
         }
 
         //no left pieces cases get considered
-        if(enemyPieces+enemyKings==0 && ownPieces+ownKings>0){
-            gameValue=Integer.MAX_VALUE;
+        if (enemyPieces + enemyKings == 0 && ownPieces + ownKings > 0) {
+            gameValue = Integer.MAX_VALUE;
         }
-        if(ownPieces+ownKings==0 && enemyPieces+enemyKings>0){
-            gameValue=Integer.MIN_VALUE;
+        if (ownPieces + ownKings == 0 && enemyPieces + enemyKings > 0) {
+            gameValue = Integer.MIN_VALUE;
         }
 
         return gameValue;
@@ -452,82 +462,83 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * assigns a value to the "safety" of a certain piece on the board, depending on the defending pieces
-     * @param yrow row position
+     *
+     * @param yrow    row position
      * @param xcolumn column position
-     * @param board board which sets the conditions
+     * @param board   board which sets the conditions
      * @return high value if that piece is well defended, low otherwise
      */
-    int defending(int yrow, int xcolumn,Board board){
-        int n=0;
+    int defending(int yrow, int xcolumn, Board board) {
+        int n = 0;
 
-        switch (board.getPieceID(xcolumn,yrow)){
+        switch (board.getPieceID(xcolumn, yrow)) {
             case 1:
-                if(xcolumn+1 < 8 &&yrow+1<8){
-                    if((board.getPieceID(xcolumn+1,yrow+1)&1)==1){
+                if (xcolumn + 1 < 8 && yrow + 1 < 8) {
+                    if ((board.getPieceID(xcolumn + 1, yrow + 1) & 1) == 1) {
                         n++;
                     }
                 }
-                if(xcolumn+1 <8 &&yrow-1>=0){
-                    if((board.getPieceID(xcolumn+1,yrow-1)&1)==1){
+                if (xcolumn + 1 < 8 && yrow - 1 >= 0) {
+                    if ((board.getPieceID(xcolumn + 1, yrow - 1) & 1) == 1) {
                         n++;
                     }
                 }
                 break;
 
             case 2:
-                if(xcolumn-1 >=0 &&yrow+1<8){
-                    if((board.getPieceID(xcolumn-1,yrow+1)&1)==0){
+                if (xcolumn - 1 >= 0 && yrow + 1 < 8) {
+                    if ((board.getPieceID(xcolumn - 1, yrow + 1) & 1) == 0) {
                         n++;
                     }
                 }
-                if(xcolumn-1>=0 &&yrow-1>=0){
-                    if((board.getPieceID(xcolumn-1,yrow-1)&1)==0){
+                if (xcolumn - 1 >= 0 && yrow - 1 >= 0) {
+                    if ((board.getPieceID(xcolumn - 1, yrow - 1) & 1) == 0) {
                         n++;
                     }
                 }
                 break;
 
             case 3:
-                if(xcolumn+1 < 8 &&yrow+1<8){
-                    if((board.getPieceID(xcolumn+1,yrow+1)&1)==1){
+                if (xcolumn + 1 < 8 && yrow + 1 < 8) {
+                    if ((board.getPieceID(xcolumn + 1, yrow + 1) & 1) == 1) {
                         n++;
                     }
                 }
-                if(xcolumn+1 <8 &&yrow-1>=0){
-                    if((board.getPieceID(xcolumn+1,yrow-1)&1)==1){
+                if (xcolumn + 1 < 8 && yrow - 1 >= 0) {
+                    if ((board.getPieceID(xcolumn + 1, yrow - 1) & 1) == 1) {
                         n++;
                     }
                 }
-                if(xcolumn-1 >=0 &&yrow+1<8){
-                    if((board.getPieceID(xcolumn-1,yrow+1)&1)==1){
+                if (xcolumn - 1 >= 0 && yrow + 1 < 8) {
+                    if ((board.getPieceID(xcolumn - 1, yrow + 1) & 1) == 1) {
                         n++;
                     }
                 }
-                if(xcolumn-1>=0 &&yrow-1>=0){
-                    if((board.getPieceID(xcolumn-1,yrow-1)&1)==1){
+                if (xcolumn - 1 >= 0 && yrow - 1 >= 0) {
+                    if ((board.getPieceID(xcolumn - 1, yrow - 1) & 1) == 1) {
                         n++;
                     }
                 }
                 break;
 
             case 4:
-                if(xcolumn+1 < 8 &&yrow+1<8){
-                    if((board.getPieceID(xcolumn+1,yrow+1)&1)==0){
+                if (xcolumn + 1 < 8 && yrow + 1 < 8) {
+                    if ((board.getPieceID(xcolumn + 1, yrow + 1) & 1) == 0) {
                         n++;
                     }
                 }
-                if(xcolumn+1 <8 &&yrow-1>=0){
-                    if((board.getPieceID(xcolumn+1,yrow-1)&1)==0){
+                if (xcolumn + 1 < 8 && yrow - 1 >= 0) {
+                    if ((board.getPieceID(xcolumn + 1, yrow - 1) & 1) == 0) {
                         n++;
                     }
                 }
-                if(xcolumn-1 >=0 &&yrow+1<8){
-                    if((board.getPieceID(xcolumn-1,yrow+1)&1)==0){
+                if (xcolumn - 1 >= 0 && yrow + 1 < 8) {
+                    if ((board.getPieceID(xcolumn - 1, yrow + 1) & 1) == 0) {
                         n++;
                     }
                 }
-                if(xcolumn-1>=0 &&yrow-1>=0){
-                    if((board.getPieceID(xcolumn-1,yrow-1)&1)==0){
+                if (xcolumn - 1 >= 0 && yrow - 1 >= 0) {
+                    if ((board.getPieceID(xcolumn - 1, yrow - 1) & 1) == 0) {
                         n++;
                     }
                 }
@@ -570,15 +581,13 @@ public class GameActivity extends AppCompatActivity {
         return false;
     }
 
-    public void selectPiece(Piece piece, Position location)
-    {
+    public void selectPiece(Piece piece, Position location) {
         selectedPiece = null;
         selectedPosition = null;
         moveOptions = null;
 
         if (piece != null && selectablePieces != null
-                && piece.getColor() == game.whoseTurn())
-        {
+                && piece.getColor() == game.whoseTurn()) {
             boolean isSelectable = false;
             for (Piece selectablePiece : selectablePieces) {
                 if (selectablePiece == piece) {
@@ -617,8 +626,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     // player made a move
-    public void makeMove(Position destination)
-    {
+    public void makeMove(Position destination) {
         // make longest move available
         final Move move = game.getLongestMove(selectedPosition, destination);
         if (move != null) {
@@ -627,15 +635,14 @@ public class GameActivity extends AppCompatActivity {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(game != null) {
+                    if (game != null) {
                         game.makeMove(move);
                         prepTurn();
                         actionInProgress = false;
                     }
                 }
             }, 1500);
-        }
-        else {
+        } else {
             actionInProgress = false;
         }
     }
@@ -656,19 +663,19 @@ public class GameActivity extends AppCompatActivity {
                     makeMove(location);
                 } else {
                     selectPiece(targetPiece, location);
-                    if (selectedPiece == null)
+                    if (selectedPiece == null) {
                         checkersView.highlightSelectablePieces(selectablePieces);
-                        mHandler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                checkersView.refresh();
-                            }
+                    }
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            checkersView.refresh();
+                        }
                     }, 500);
                 }
             }
         }
     }
-
 
 
     private SharedPreferences.OnSharedPreferenceChangeListener preferencesChangeListener =
@@ -689,17 +696,17 @@ public class GameActivity extends AppCompatActivity {
         final androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(GameActivity.this);
 
         // Setting Dialog Title and Message dependent on turn and GameMode
-        if(game.getGameType() == GameType.Bot){
-            if(game.whoseTurn()==CheckersGame.BLACK){
+        if (game.getGameType() == GameType.Bot) {
+            if (game.whoseTurn() == CheckersGame.BLACK) {
                 builder.setTitle(R.string.playerWinDialogTitle);
                 builder.setMessage(R.string.playerWinDialogText);
             } else {
                 builder.setTitle(R.string.botWinDialogTitle);
                 builder.setMessage(R.string.botWinDialogText);
             }
-        } else{
+        } else {
             builder.setTitle(R.string.playerWinDialogTitle);
-            if(game.whoseTurn()==CheckersGame.BLACK){
+            if (game.whoseTurn() == CheckersGame.BLACK) {
                 builder.setMessage(R.string.whiteWinDialogText);
             } else {
                 builder.setMessage(R.string.blackWinDialogText);
@@ -717,14 +724,13 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        builder.setNegativeButton(R.string.sWinDialogShowBoard, new DialogInterface.OnClickListener()     {
+        builder.setNegativeButton(R.string.sWinDialogShowBoard, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 //do nothing
                 dialog.dismiss();
             }
         });
-        if (!this.isFinishing())
-        {
+        if (!this.isFinishing()) {
             builder.show();
         }
     }
@@ -744,10 +750,8 @@ public class GameActivity extends AppCompatActivity {
         //super.onRestoreInstanceState(savedInstanceState);
     }
 
-    public void onPause()
-    {
-        if(dialog!=null && dialog.isShowing())
-        {
+    public void onPause() {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         //state will be saved in a file
@@ -760,8 +764,14 @@ public class GameActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if (oos != null) try { oos.close(); } catch (IOException ignored) {}
-            if (fos != null) try { fos.close(); } catch (IOException ignored) {}
+            if (oos != null) try {
+                oos.close();
+            } catch (IOException ignored) {
+            }
+            if (fos != null) try {
+                fos.close();
+            } catch (IOException ignored) {
+            }
         }
 
         super.onPause();
@@ -775,12 +785,19 @@ public class GameActivity extends AppCompatActivity {
             ois = new ObjectInputStream(fis);
             game = (CheckersGame) ois.readObject();
             return game;
-        }
-        catch (IOException | ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
-            if (ois != null) try { ois.close(); } catch (IOException e) { e.printStackTrace();}
-            if (fis != null) try { fis.close(); } catch (IOException e) { e.printStackTrace();}
+            if (ois != null) try {
+                ois.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (fis != null) try {
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }
