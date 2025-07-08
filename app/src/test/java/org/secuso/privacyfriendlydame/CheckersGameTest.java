@@ -3,6 +3,7 @@ package org.secuso.privacyfriendlydame;
 import org.junit.Before;
 import org.junit.Test;
 import org.secuso.privacyfriendlydame.game.CheckersGame;
+import org.secuso.privacyfriendlydame.game.GameRules;
 import org.secuso.privacyfriendlydame.game.GameType;
 import org.secuso.privacyfriendlydame.game.Move;
 import org.secuso.privacyfriendlydame.game.Piece;
@@ -12,6 +13,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Arrays;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -24,24 +27,25 @@ public class CheckersGameTest {
 
     @Before
     public void init() {
-        this.game = new CheckersGame(GameType.Human,0);
+        this.game = new CheckersGame(GameType.Human,0, new GameRules(false, true));
     }
 
     @Test
     public void checkLegalMoves(){
         assertEquals(game.whoseTurn() , CheckersGame.WHITE);
         Move[] moves = {
-                new Move(new Position(1,2)).add(new Position(0,3)),
-                new Move(new Position(1,2)).add(new Position(2,3)),
-                new Move(new Position(3,2)).add(new Position(2,3)),
-                new Move(new Position(3,2)).add(new Position(4,3)),
-                new Move(new Position(5,2)).add(new Position(4,3)),
-                new Move(new Position(5,2)).add(new Position(6,3)),
-                new Move(new Position(7,2)).add(new Position(6,3)),
+                new Move(new Position(0,5)).add(new Position(1,4)),
+                new Move(new Position(2,5)).add(new Position(1,4)),
+                new Move(new Position(2,5)).add(new Position(3,4)),
+                new Move(new Position(4,5)).add(new Position(3,4)),
+                new Move(new Position(4,5)).add(new Position(5,4)),
+                new Move(new Position(6,5)).add(new Position(5,4)),
+                new Move(new Position(6,5)).add(new Position(7,4)),
         };
         Move[] ingame = game.getMoves();
         for(int i = 0; i < moves.length; i++){
-            assertTrue(ingame[i].equals(moves[i]));
+            final int _i = i;
+            assertTrue(Arrays.stream(moves).filter((move) -> move.equals(ingame[_i])).findAny().isPresent());
         }
     }
 
