@@ -3,24 +3,20 @@
     <string name="app_name">Dame</string>
     <string name="app_name_long">Privacy Friendly Dame</string>
     <string name="Dame">Dame</string>
-
     <!-- ###MainActivity### -->
     <string name="chose_opponent">Wählen Sie Ihren Gegner:</string>
     <string name="game_type_human">Mensch</string>
     <string name="game_type_bot">Bot</string>
     <string name="new_game">Neues Spiel</string>
     <string name="menu_continue_game">Fortsetzen</string>
-    <string name="OverwriteResumableGame">Wenn Sie fortfahren, wird das letzte gespeicherte Spiel überschrieben</string>
+    <string name="OverwriteResumableGame">Wenn Sie fortfahren, wird das letzte gespeicherte Spiel überschrieben.</string>
     <string name="OverwriteResumableGameTitle">Gespeichertes Spiel überschreiben?</string>
     <string name="yes">Ja</string>
     <string name="cancel">Abbruch</string>
-    <string name="no_resumable_game">Kein Gespeichertes Spiel vorhanden. Bitte starten Sie ein neues Spiel.</string>
-
-
+    <string name="no_resumable_game">Kein gespeichertes Spiel vorhanden. Bitte starten Sie ein neues Spiel</string>
     <!-- ###Game### -->
     <string name="pref_header_game">Spiel</string>
-    <string name="pref_group_game">Spiel Einstellungen</string>
-
+    <string name="pref_group_game">Spieleinstellungen</string>
     <!-- ### Tutorial ###-->
     <string name="slide1_heading">Willkommen!</string>
     <string name="slide1_text">Willkommen zu Privacy Friendly Dame! Diese App ist ein Brettspiel für bis zu zwei Spieler.</string>
@@ -31,7 +27,6 @@
     <string name="menu_tutorial">Tutorial</string>
     <string name="okay">Okay</string>
     <string name="main_button_welcomedialog">Willkommen anzeigen</string>
-
     <!-- ###DRAWER###-->
     <string name="action_help">Hilfe</string>
     <string name="action_about">Über</string>
@@ -39,9 +34,8 @@
     <string name="action_main">Hauptmenü</string>
     <string name="action_game">Dame</string>
     <string name="action_tutorial">Tutorial</string>
-    <string name="navigation_drawer_open">Navigationsleiste öffnen</string>
-    <string name="navigation_drawer_close">Navigationsleiste schließen</string>
-
+    <string name="navigation_drawer_open">Navigationsmenü öffnen</string>
+    <string name="navigation_drawer_close">Navigationsmenü schließen</string>
     <!--###ABOUT###-->
     <string name="about">Über uns</string>
     <string name="version_number">Version</string>
@@ -50,7 +44,6 @@
     <string name="about_affiliation">In Zusammenarbeit mit:</string>
     <string name="privacy_friendly">Diese App gehört zur Gruppe der Privacy Friendly Apps entwickelt vom Karlsruher Institut für Technologie. Quelltext lizenziert unter GPLv3. Bilder copyright KIT und Google Inc.</string>
     <string name="more_info">Weitere Infos unter:</string>
-
     <!--###HELP###-->
     <string name="help">Help</string>
     <string name="help_whatis">Was ist Privacy Friendly Dame?</string>
@@ -87,14 +80,12 @@
     <string name="help_game_rules_title">Spielregeln</string>
     <string name="help_game_setup_title">Gameplay</string>
     <string name="help_game_setup_description">Das Spiel Dame wird von zwei Spielern gespielt. Ein Spieler kontrolliert die hellen Spielsteine und der andere Spieler hat die dunklen Spielsteine. Der weiße Spieler macht den ersten Zug des Spiels und anschließend wechseln sich die Spieler ab. Ein Spieler darf nicht die gegnerischen Spielsteine bewegen. Ein Zug erfolgt, wenn ein Spielstein auf ein diagonales, freies Nachbarfeld bewegt wird. Befindet sich auf dem Nachbarfeld ein gegnerischer Spielstein, so kann dieser übersprungen und vom Spiel entfernt werden, wenn das dahinterliegende Feld frei ist.</string>
-
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Einstellungen</string>
-    <string name="pref_header_general">Haupt</string>
+    <string name="pref_header_general">Allgemein</string>
     <string name="pref_example_switch">Beispiel Switch</string>
     <string name="pref_example_switch_summary">Beispiel Switch Zusammenfassung</string>
-    <string name="pref_example_summary">Beispiel Zusammenfassung</string>
-
+    <string name="pref_example_summary">Beispielzusammenfassung</string>
     <!-- ###GAME###-->
     <string name="title_activity_game">Dame</string>
     <string name="game_button_start">Neues Spiel</string>
@@ -103,7 +94,6 @@
     <string name="game_current_player_black">Schwarzer Spieler am Zug</string>
     <string name="game_current_player_white">Weißer Spieler am Zug</string>
     <string name="game_current_player_ai">Computer am Zug</string>
-
     <!-- ###WIN SCREEN###-->
     <string name="playerWinDialogTitle">Glückwunsch!</string>
     <string name="playerWinDialogText">Sie haben den Computer besiegt!</string>
@@ -116,7 +106,6 @@
     <string name="help_how_does_the_game_work">Wie sind die Regeln von Dame?</string>
     <string name="help_what_modes_are_there">Was für Spielmodi gibt es?</string>
     <string name="help_how_can_you_move">Wie kann ich die Figuren bewegen?</string>
-
     <!-- ###LEVEL INDICATOR### -->
     <string name="setLevel">Level einstellen</string>
     <string-array name="levels">
