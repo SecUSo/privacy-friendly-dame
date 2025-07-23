@@ -1,5 +1,18 @@
 # Changelog
 
+<a id="v1.3.3"></a>
+## [Checkers (Privacy Friendly) v1.3.3](https://github.com/SecUSo/privacy-friendly-dame/releases/tag/v1.3.3) - 2025-07-23
+
+## What's Changed
+* Adds CI and updates changelog workflow by [@coderPaddyS](https://github.com/coderPaddyS) in [#41](https://github.com/SecUSo/privacy-friendly-dame/pull/41)
+* Change versionCode to differentiate from last Google Play version by [@coderPaddyS](https://github.com/coderPaddyS) in [#42](https://github.com/SecUSo/privacy-friendly-dame/pull/42)
+
+
+**Full Changelog**: https://github.com/SecUSo/privacy-friendly-dame/compare/v1.3.2...v1.3.3
+
+[Changes][v1.3.3]
+
+
 <a id="v1.3.1"></a>
 ## [Checkers (Privacy Friendly) v1.3.1](https://github.com/SecUSo/privacy-friendly-dame/releases/tag/v1.3.1) - 2025-01-03
 
@@ -63,6 +76,7 @@ Privacy Friendly Checkers is part of the Privacy Friendly Apps group developed b
 [Changes][v1.0]
 
 
+[v1.3.3]: https://github.com/SecUSo/privacy-friendly-dame/compare/v1.3.1...v1.3.3
 [v1.3.1]: https://github.com/SecUSo/privacy-friendly-dame/compare/v1.3...v1.3.1
 [v1.3]: https://github.com/SecUSo/privacy-friendly-dame/compare/v1.2...v1.3
 [v1.2]: https://github.com/SecUSo/privacy-friendly-dame/compare/v1.1...v1.2
