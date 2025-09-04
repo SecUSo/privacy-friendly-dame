@@ -9,8 +9,8 @@ android {
         applicationId "org.secuso.privacyfriendlydame"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 100
-        versionName "1.3.3"
+        versionCode 101
+        versionName "1.3.4"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     buildTypes {
