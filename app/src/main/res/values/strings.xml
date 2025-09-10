@@ -18,14 +18,14 @@
     <string name="pref_header_game">Game</string>
     <string name="pref_group_game">Game settings</string>
     <!-- ### Tutorial ###-->
-    <string name="slide1_heading">Bienvenue!</string>
+    <string name="slide1_heading">Welcome!</string>
     <string name="slide1_text">Welcome to Privacy Friendly Checkers! This app is a board game for up to two players</string>
     <string name="slide2_heading">Game mode</string>
     <string name="slide2_text">Swipe or press the arrow buttons on the left and right to change the game mode. You can either play versus bot or versus player.</string>
-    <string name="next">Suivant</string>
-    <string name="skip">Passer</string>
+    <string name="next">Next</string>
+    <string name="skip">Skip</string>
     <string name="menu_tutorial">Tutorial</string>
-    <string name="okay">Ok</string>
+    <string name="okay">Okay</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
     <!-- ###DRAWER###-->
     <string name="action_help">Help</string>
