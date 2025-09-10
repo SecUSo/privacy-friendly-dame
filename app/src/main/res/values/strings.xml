@@ -1,8 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Checkers</string>
     <string name="app_name_long">Privacy Friendly Checkers</string>
     <string name="Dame">Checkers</string>
-
     <!-- ###MainActivity### -->
     <string name="chose_opponent">Choose your opponent:</string>
     <string name="game_type_human">Human</string>
@@ -14,24 +14,19 @@
     <string name="yes">yes</string>
     <string name="cancel">cancel</string>
     <string name="no_resumable_game">No resumable Game. Please start a new game</string>
-
-
-
     <!-- ###Game### -->
     <string name="pref_header_game">Game</string>
     <string name="pref_group_game">Game settings</string>
-
     <!-- ### Tutorial ###-->
-    <string name="slide1_heading">Welcome!</string>
+    <string name="slide1_heading">Bienvenue!</string>
     <string name="slide1_text">Welcome to Privacy Friendly Checkers! This app is a board game for up to two players</string>
     <string name="slide2_heading">Game mode</string>
     <string name="slide2_text">Swipe or press the arrow buttons on the left and right to change the game mode. You can either play versus bot or versus player.</string>
-    <string name="next">Next</string>
-    <string name="skip">Skip</string>
+    <string name="next">Suivant</string>
+    <string name="skip">Passer</string>
     <string name="menu_tutorial">Tutorial</string>
-    <string name="okay">Okay</string>
+    <string name="okay">Ok</string>
     <string name="main_button_welcomedialog">Show Welcome</string>
-
     <!-- ###DRAWER###-->
     <string name="action_help">Help</string>
     <string name="action_about">About</string>
@@ -41,7 +36,6 @@
     <string name="action_tutorial">Tutorial</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <!--###ABOUT###-->
     <string name="about">About</string>
     <string name="version_number">Version</string>
@@ -53,7 +47,6 @@
     <string name="more_info">More information can be found on:</string>
     <string name="github" translatable="false"><a href="https://github.com/SecUSo/privacy-friendly-dame">Github-Repo</a></string>
     <string name="url" translatable="false"><a href="https://www.secuso.org/pfa">SECUSO-Website</a></string>
-
     <!-- ###HELP### -->
     <string name="help">Help</string>
     <string name="help_whatis">What is Privacy Friendly Checkers?</string>
@@ -90,14 +83,12 @@
     <string name="help_game_rules_title">Game Rules</string>
     <string name="help_game_setup_title">Game Play</string>
     <string name="help_game_setup_description">Checkers is played by two opponents, on opposite sides of the gameboard. One player has the dark pieces, the other has the light pieces. The white player begins the game and has to make a move, afterwards both players alternate taking turns. A player may not move an opponent\'s piece. A move consists of moving a piece diagonally to an adjacent unoccupied square. If the adjacent square contains an opponent\'s piece, and the square immediately beyond it is vacant, the piece may be captured (and removed from the game) by jumping over it.</string>
-
     <!-- ###SETTINGS### -->
     <string name="title_activity_settings">Settings</string>
     <string name="pref_header_general">General</string>
     <string name="pref_example_switch">Example Switch</string>
     <string name="pref_example_switch_summary">Example Switch Summary</string>
     <string name="pref_example_summary">Example Summary</string>
-
     <!-- ###GAME###-->
     <string name="title_activity_game">Checkers</string>
     <string name="game_button_start">New Game</string>
@@ -106,7 +97,6 @@
     <string name="game_current_player_black">Black player\'s turn</string>
     <string name="game_current_player_white">White player\'s turn</string>
     <string name="game_current_player_ai">AI player\'s turn</string>
-
     <!-- ###WIN SCREEN###-->
     <string name="playerWinDialogTitle">Congratulations!</string>
     <string name="playerWinDialogText">You defeated the computer!</string>
@@ -119,7 +109,6 @@
     <string name="help_how_does_the_game_work">What are the rules of checkers?</string>
     <string name="help_how_can_you_move">How can I move my figures?</string>
     <string name="help_what_modes_are_there">What game modes are there?</string>
-
     <!-- ###LEVEL INDICATOR### -->
     <string name="setLevel">set level</string>
     <string-array name="levels">
