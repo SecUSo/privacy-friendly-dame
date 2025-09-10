@@ -50,7 +50,7 @@
     <string name="new_game">Новая игра</string>
     <string name="menu_continue_game">Продолжить</string>
     <string name="next">Далее</string>
-    <string name="about">О приложении</string>
+    <string name="about">О программе</string>
     <string name="sHelpPrivacyHeading">Информация о конфиденциальности</string>
     <string name="sHelpExample">Example Help Entry</string>
     <string name="sHelpCategoryExample">Example Help Category</string>
@@ -80,7 +80,7 @@
     <string name="app_name_long">Шашки (PFA)</string>
     <string name="OverwriteResumableGameTitle">Переписать сохранённую игру?</string>
     <string name="action_game">Шашки</string>
-    <string name="help">Справка</string>
+    <string name="help">Помощь</string>
     <string name="OverwriteResumableGame">Сохранённая ранее игра будет перезаписана, если вы продолжите.</string>
     <string name="cancel">отмена</string>
     <string name="no_resumable_game">Нет оставленной игры. Начните новую игру</string>
