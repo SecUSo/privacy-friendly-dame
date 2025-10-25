@@ -1,7 +1,8 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
-
+plugins {
+    alias(libs.plugins.android.app)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+}
 android {
     compileSdk 34
     namespace 'org.secuso.privacyfriendlydame'
@@ -17,6 +18,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+            postprocessing {
+                removeUnusedCode true
+                shrinkResources true
+                obfuscate false
+                optimizeCode true
+            }
         }
     }
     buildFeatures {
@@ -49,20 +57,20 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    implementation libs.ax.appcompat
+    implementation libs.material
+    implementation libs.ax.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ax.test.junit
+    androidTestImplementation libs.espresso
+
+    implementation libs.glide
+    implementation libs.ax.legacy.v4
 
     // Backup API
     implementation project(':backup-api')
-    def work_version = '2.7.1'
-    implementation "androidx.work:work-runtime:$work_version"
-    implementation "androidx.work:work-runtime-ktx:$work_version"
-    androidTestImplementation "androidx.work:work-testing:$work_version"
+    implementation(libs.ax.work.runtime)
+    implementation(libs.ax.work.runtime.ktx)
+    androidTestImplementation(libs.ax.work.testing)
 }
