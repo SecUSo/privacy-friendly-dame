@@ -29,6 +29,8 @@ android {
     }
     buildFeatures {
         buildConfig true
+        dataBinding true
+        viewBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -73,4 +75,7 @@ dependencies {
     implementation(libs.ax.work.runtime)
     implementation(libs.ax.work.runtime.ktx)
     androidTestImplementation(libs.ax.work.testing)
+
+    implementation project(':model')
+    implementation project(':ui-view')
 }
