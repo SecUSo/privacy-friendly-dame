@@ -49,7 +49,7 @@ import java.io.ObjectInputStream
  */
 class MainActivity : BaseActivity() {
     private val mViewPager: ViewPager by lazy { findViewById(R.id.scroller) }
-    private var gameContinuable: Boolean? = null
+    private var gameContinuable: Boolean = false
     private var currentGame: CheckersGame? = null
 
     private val lastChosenPage by lazy { PFApplicationData.instance(this).lastChosenPage }
@@ -69,17 +69,18 @@ class MainActivity : BaseActivity() {
 
     override fun isActiveDrawerElement(element: DrawerElement) = element.icon == R.drawable.ic_menu_home
 
-
     override fun onStart() {
         super.onStart()
         currentGame = loadFile()
         findViewById<Button>(R.id.continueButton).apply {
-            if (currentGame?.isGameFinished == true) {
+            if (currentGame?.isGameFinished != false) {
                 // no saved game available
                 gameContinuable = false
+                isEnabled = false
                 setBackgroundResource(R.drawable.button_disabled)
             } else {
                 gameContinuable = true
+                isEnabled = true
                 setBackgroundResource(R.drawable.standalone_button)
             }
         }
@@ -120,16 +121,18 @@ class MainActivity : BaseActivity() {
         currentGame = loadFile()
 
         findViewById<Button>(R.id.continueButton).apply {
-            if (currentGame?.isGameFinished == true) {
+            if (currentGame?.isGameFinished != false) {
                 // no saved game available
                 gameContinuable = false
+                isEnabled = false
                 setBackgroundResource(R.drawable.button_disabled)
             } else {
                 gameContinuable = true
+                isEnabled = true
                 setBackgroundResource(R.drawable.button_normal)
             }
             setOnClickListener {
-                if (gameContinuable!!) {
+                if (gameContinuable) {
                     Intent(this@MainActivity, GameActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(this)
@@ -145,7 +148,7 @@ class MainActivity : BaseActivity() {
         }
 
         findViewById<Button>(R.id.play_button).setOnClickListener {
-            if (gameContinuable!!) {
+            if (gameContinuable) {
                 overwriteGameDialog.show()
             } else {
                 startGame()

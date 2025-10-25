@@ -19,11 +19,13 @@
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:theme="@style/PrivacyFriendlyCoreTheme.NoActionBar"/>
         <activity
             android:name="org.secuso.privacyfriendlydame.ui.GameActivity"
             android:label="@string/title_activity_game"
-            android:parentActivityName="org.secuso.privacyfriendlydame.ui.MainActivity">
+            android:launchMode="singleTop"
+            android:theme="@style/PrivacyFriendlyCoreTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.secuso.privacyfriendlydame.ui.MainActivity" />

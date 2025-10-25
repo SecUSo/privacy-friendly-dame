@@ -21,14 +21,15 @@ import android.content.res.Configuration
 import android.content.res.Resources
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import org.secuso.pfacore.model.DrawerElement
 import org.secuso.pfacore.model.dialog.AbortElseDialog
-import org.secuso.pfacore.ui.activities.BaseActivity
 import org.secuso.pfacore.ui.dialog.show
 import org.secuso.privacyfriendlydame.PFApplicationData
 import org.secuso.privacyfriendlydame.R
@@ -51,7 +52,7 @@ class GameActivity : BaseActivity() {
     private val mHandler by lazy { Handler() }
 
     private lateinit var game: CheckersGame
-    private val checkersView by lazy { CheckersLayout(game, this) } 
+    private lateinit var checkersView: CheckersLayout
     private lateinit var currentPlayerText: TextView
     private lateinit var capturedBlackPiecesUI: LinearLayout
     private lateinit var capturedWhitePiecesUI: LinearLayout
@@ -91,11 +92,13 @@ class GameActivity : BaseActivity() {
         }
     }
 
+    override fun isActiveDrawerElement(element: DrawerElement) = false
+
 
     override fun onCreate(saved: Bundle?) {
-        setContentView(R.layout.activity_game)
         super.onCreate(saved)
-        
+        setContentView(R.layout.activity_game)
+
         if (saved == null) {
             loadFile().let {
                 if (it == null || intent.extras != null) {
@@ -106,11 +109,14 @@ class GameActivity : BaseActivity() {
                     game = CheckersGame(gameType, intent.extras!!.getInt("level"), rules)
                 }
             }
+        } else {
+            game = saved.getParcelable("game", CheckersGame::class.java)!!
         }
 
         maxDepth = game.searchDepth
 
         // generate new layout for the board
+        checkersView = CheckersLayout(game, this)
         checkersView.refresh()
 
         // layouts which contain all items displayed ingame
@@ -120,19 +126,19 @@ class GameActivity : BaseActivity() {
         mainContentLayout.addView(checkersView)
 
         // text which displays whose turn it is
-        currentPlayerText = TextView(this).apply { 
+        currentPlayerText = TextView(this).apply {
             textSize = 24f
             textAlignment = View.TEXT_ALIGNMENT_CENTER
             sideContentLayout.addView(this)
         }
 
         // layouts for captured pieces
-        capturedBlackPiecesUI = LinearLayout(this).apply { 
+        capturedBlackPiecesUI = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             sideContentLayout.addView(this)
         }
 
-        capturedWhitePiecesUI = LinearLayout(this).apply { 
+        capturedWhitePiecesUI = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             sideContentLayout.addView(this)
         }
@@ -239,7 +245,9 @@ class GameActivity : BaseActivity() {
 
                     mHandler.postDelayed({
                         game.makeMove(choice)
-                        prepTurn()
+                        if (!isFinishing) {
+                            prepTurn()
+                        }
                     }, 1500)
                 }
 
