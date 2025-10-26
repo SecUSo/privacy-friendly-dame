@@ -89,7 +89,19 @@ class PFApplicationData private constructor(context: Context) {
     }
 
     private val help = Help.build(context) {
-
+        listOf(
+            R.string.help_whatis to listOf(R.string.help_whatis_answer),
+            R.string.help_what_modes_are_there to listOf(R.string.sMode1, R.string.sMode1Summary, R.string.sMode2, R.string.sMode2Summary),
+            R.string.help_how_can_you_move to listOf(R.string.sHelpMoveTap),
+            R.string.help_game_rules_title to listOf(R.string.help_game_setup_description, R.string.help_captures_descripting, R.string.help_dame_description, R.string.sHelpWinSummary),
+            R.string.help_privacy to listOf(R.string.help_privacy_answer),
+            R.string.help_permission to listOf(R.string.sHelpPermissionsDescription)
+        ).map {
+            item {
+                title { resource(it.first) }
+                descriptions(context, it.second)
+            }
+        }
     }
 
     private val about = About(
@@ -117,7 +129,7 @@ class PFApplicationData private constructor(context: Context) {
     val data = PFData(
         about = about,
         help = help,
-        settings = preferences.settings,
+        preferences = preferences,
         tutorial = tutorial,
         theme = theme.state.map { Theme.valueOf(it) },
         firstLaunch = firstTimeLaunch,
