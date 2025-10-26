@@ -27,6 +27,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.BundleCompat
 import com.bumptech.glide.Glide
 import org.secuso.pfacore.model.DrawerElement
 import org.secuso.pfacore.model.dialog.AbortElseDialog
@@ -99,7 +100,7 @@ class GameActivity : BaseActivity() {
         super.onCreate(saved)
         setContentView(R.layout.activity_game)
 
-        if (saved == null) {
+        val loadOrNewGame = {
             loadFile().let {
                 if (it == null || intent.extras != null) {
                     val gameType = GameType.valueOf(intent.extras!!.getString("gameType", GameType.Bot.name))
@@ -109,8 +110,17 @@ class GameActivity : BaseActivity() {
                     game = CheckersGame(gameType, intent.extras!!.getInt("level"), rules)
                 }
             }
+        }
+
+        if (saved == null) {
+            loadOrNewGame()
         } else {
-            game = saved.getParcelable("game", CheckersGame::class.java)!!
+            val _game = BundleCompat.getParcelable<CheckersGame>(saved, "game", CheckersGame::class.java)
+            if (_game == null) {
+                loadOrNewGame()
+            } else {
+                game = _game
+            }
         }
 
         maxDepth = game.searchDepth
