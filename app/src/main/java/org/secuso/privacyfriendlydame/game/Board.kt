@@ -14,14 +14,11 @@
  You should have received a copy of the GNU General Public License
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
+package org.secuso.privacyfriendlydame.game
 
-package org.secuso.privacyfriendlydame.game;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.io.Serializable;
-import java.util.ArrayList;
+import android.os.Parcel
+import android.os.Parcelable
+import java.io.Serializable
 
 /**
  * This class is used to model a 8x8 board state for a game of checkers. Each square either contains
@@ -29,26 +26,25 @@ import java.util.ArrayList;
  * Methods for loading and saving the current board state are available as well as methods for
  * generating lists of allowed moves for a player.
  */
-public class Board implements Parcelable, Serializable{
-
+class Board : Parcelable, Serializable {
     // each data field either contains a game piece or is null
-    private Piece[][] board;
-    private GameRules rules;
+    private var board: Array<Array<Piece>?>
+    private val rules: GameRules
 
     /**
      * Constructs a new default board
      */
-    Board(GameRules rules) {
-        board = new Piece[8][8];
-        this.rules = rules;
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                int side = (y < 3) ? CheckersGame.BLACK : (y > 4) ? CheckersGame.WHITE : 0;
-                boolean validSquare = this.isGameSquare(x, y);
+    internal constructor(rules: GameRules) {
+        board = Array<Array<Piece>?>(8) { arrayOfNulls<Piece>(8) }
+        this.rules = rules
+        for (x in 0..7) {
+            for (y in 0..7) {
+                val side = if (y < 3) CheckersGame.BLACK else if (y > 4) CheckersGame.WHITE else 0
+                val validSquare = this.isGameSquare(x, y)
                 if (side != CheckersGame.NONE && validSquare) {
-                    board[x][y] = new Piece(side, false);
+                    board[x]!![y] = Piece(side, false)
                 } else {
-                    board[x][y] = null;
+                    board[x]!![y] = null
                 }
             }
         }
@@ -58,160 +54,146 @@ public class Board implements Parcelable, Serializable{
      * Reconstructs a board with a two dimensional array containing information for each position
      * @param positions each field represents a position on board
      */
-    Board(int[][] positions, GameRules rules) {
+    internal constructor(positions: Array<IntArray?>, rules: GameRules) {
         //this.checkersGame = checkersGame;
-        board = new Piece[8][8];
-        this.rules = rules;
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (positions[x][y] > CheckersGame.NONE) {
-                    int side = positions[x][y] % CheckersGame.KINGED;
-                    boolean kinged = positions[x][y] > CheckersGame.KINGED;
-                    board[x][y] = new Piece(side, kinged);
+        board = Array<Array<Piece>?>(8) { arrayOfNulls<Piece>(8) }
+        this.rules = rules
+        for (x in 0..7) {
+            for (y in 0..7) {
+                if (positions[x]!![y] > CheckersGame.NONE) {
+                    val side = positions[x]!![y] % CheckersGame.KINGED
+                    val kinged = positions[x]!![y] > CheckersGame.KINGED
+                    board[x]!![y] = Piece(side, kinged)
                 } else {
-                    board[x][y] = null;
+                    board[x]!![y] = null
                 }
             }
         }
     }
 
-     /**
-      * Generates a list of moves for a certain position which include at least one capture
-      * @param start starting position of all moves which are generated
-      * @return list of moves which include at least one capture
-      */
-    private ArrayList<Move> getCaptures(Position start)
-    {
-        ArrayList<Move> base = new ArrayList<>();
-        Piece piece = getPiece(start);
-        int color = piece.getColor();
-        boolean isKing = piece.isKing();
+    /**
+     * Generates a list of moves for a certain position which include at least one capture
+     * @param start starting position of all moves which are generated
+     * @return list of moves which include at least one capture
+     */
+    private fun getCaptures(start: Position): ArrayList<Move> {
+        val base = ArrayList<Move>()
+        val piece = getPiece(start)
+        val color = piece.color
+        val isKing = piece.isKing
 
         // add jumps in each direction
-        Position[] directions = getDirections(color, isKing);
-        for (Position dir : directions) {
+        val directions = getDirections(color, isKing)
+        for (dir in directions) {
             // if the current piece is a king the search range is increased by one in each iteration
             if (isKing) {
-                int lastCapture = -1;
-                int reach = rules.getFlyingDame() ? 8 : 1;
-                for (int i = 0; i < reach; i++) {
-                    Position target = start.plus(dir);
-                    for (int j = 0; j < i; j++) {
-                        target = target.plus(dir);
+                var lastCapture = -1
+                val reach = if (rules.getFlyingDame()) 8 else 1
+                for (i in 0..<reach) {
+                    var target = start.plus(dir)
+                    for (j in 0..<i) {
+                        target = target.plus(dir)
                     }
-                    Position dest = target.plus(dir);
-                    Piece targetPiece = getPiece(target);
-                    Piece destPiece = getPiece(dest);
+                    val dest = target.plus(dir)
+                    val targetPiece = getPiece(target)
+                    val destPiece = getPiece(dest)
 
                     // Only allow single movements and back-to-back capture after the first capture
                     if (lastCapture > 0 && lastCapture < i - 1) {
-                        break;
+                        break
                     }
 
                     // if 2 pieces are back-to-back or the position is off-board
                     // or a piece with same color is in the way
                     // the search is terminated in the current direction
-                    if(!isGameSquare(target) || (targetPiece != null && (destPiece != null||targetPiece.getColor()==color))) {
-                        break;
+                    if (!isGameSquare(target) || (targetPiece != null && (destPiece != null || targetPiece.color == color))) {
+                        break
+                    } else if (isGameSquare(dest) && destPiece == null && targetPiece != null && targetPiece.color != color) {
+                        val newMove = Move(start)
+                        newMove.add(dest)
+                        newMove.addCapture(target)
+                        base.add(newMove)
+                        lastCapture = i
                     }
-
-                    // look for a valid landing space with an opposing piece in-between
-                    else if (isGameSquare(dest) && destPiece == null &&
-                            targetPiece != null &&
-                            targetPiece.getColor() != color) {
-                        Move newMove = new Move(start);
-                        newMove.add(dest);
-                        newMove.addCapture(target);
-                        base.add(newMove);
-                        lastCapture = i;
-                    }
-
                 }
-            }
-            else {
-                Position target = start.plus(dir);
-                Position dest = target.plus(dir);
-                Piece targetPiece = getPiece(target);
-                Piece destPiece = getPiece(dest);
+            } else {
+                val target = start.plus(dir)
+                val dest = target.plus(dir)
+                val targetPiece = getPiece(target)
+                val destPiece = getPiece(dest)
 
                 // look for a valid landing space with an opposing piece in-between
-                if (isGameSquare(dest) && destPiece == null &&
-                        targetPiece != null &&
-                        targetPiece.getColor() != color) {
-                    Move newMove = new Move(start);
-                    newMove.add(dest);
-                    newMove.addCapture(target);
-                    base.add(newMove);
+                if (isGameSquare(dest) && destPiece == null && targetPiece != null && targetPiece.color != color) {
+                    val newMove = Move(start)
+                    newMove.add(dest)
+                    newMove.addCapture(target)
+                    base.add(newMove)
                 }
             }
         }
 
         // find longest for each jump choice
-        return getCaptures(start, base);
+        return getCaptures(start, base)
     }
 
-     /**
-      * Tries to extend an existing list of capturePositions(moves) by searching for ways to add more capturePositions
-      * @param start starting position of all moves which are generated
-      * @param expand list of moves which include exactly one capture
-      * @return final list of all moves which have at least one capture
-      */
-    private ArrayList<Move> getCaptures(Position start, ArrayList<Move> expand)
-    {
-        ArrayList<Move> finalCaptures = new ArrayList<>();
-        ArrayList<Move> furtherCaptures = new ArrayList<>();
+    /**
+     * Tries to extend an existing list of capturePositions(moves) by searching for ways to add more capturePositions
+     * @param start starting position of all moves which are generated
+     * @param expand list of moves which include exactly one capture
+     * @return final list of all moves which have at least one capture
+     */
+    private fun getCaptures(start: Position, expand: ArrayList<Move>): ArrayList<Move> {
+        val finalCaptures = ArrayList<Move>()
+        var furtherCaptures = ArrayList<Move>()
 
-        Piece piece = getPiece(start);
-        int color = piece.getColor();
-        boolean isKing = piece.isKing();
+        val piece = getPiece(start)
+        val color = piece.color
+        val isKing = piece.isKing
 
         // create longer moves from existing ones
-        for (Move move : expand) {
-            Position[] directions = getDirections(color, isKing || move.isKinged());
-            Position current = move.end();
-            boolean continues = false;
-            for (Position dir : directions)
-            {
-                Position target = current.plus(dir);
-                Position dest = target.plus(dir);
-                Piece targetPiece = getPiece(target);
-                Piece destPiece = getPiece(dest);
+        for (move in expand) {
+            val directions = getDirections(color, isKing || move.isKinged())
+            val current = move.end()
+            var continues = false
+            for (dir in directions) {
+                val target = current.plus(dir)
+                val dest = target.plus(dir)
+                val targetPiece = getPiece(target)
+                val destPiece = getPiece(dest)
 
                 // look for a valid landing space with an opposing piece in-between
-                if (isGameSquare(dest) && destPiece == null &&
-                        targetPiece != null &&
-                        targetPiece.getColor() != color) {
+                if (isGameSquare(dest) && destPiece == null && targetPiece != null && targetPiece.color != color) {
                     // check that the 'opposing piece' hasn't been captured in this move sequence yet
-                    boolean valid = true;
-                    for (Position captured : move.capturePositions) {
+                    var valid = true
+                    for (captured in move.capturePositions) {
                         if (captured.equals(target)) {
-                            valid = false;
-                            break;
+                            valid = false
+                            break
                         }
                     }
                     // valid piece to capture
                     if (valid) {
-                        Move newMove = new Move(move);
-                        newMove.add(dest);
-                        newMove.addCapture(target);
-                        furtherCaptures.add(newMove);
-                        continues = true;
+                        val newMove = Move(move)
+                        newMove.add(dest)
+                        newMove.addCapture(target)
+                        furtherCaptures.add(newMove)
+                        continues = true
                     }
                 }
             }
 
             // only add this move if there are no longer alternatives
             if (!continues) {
-                finalCaptures.add(move);
+                finalCaptures.add(move)
             }
         }
 
-        if (furtherCaptures.size() > 0) {
-            furtherCaptures = getCaptures(start, furtherCaptures);
+        if (furtherCaptures.size > 0) {
+            furtherCaptures = getCaptures(start, furtherCaptures)
         }
-        finalCaptures.addAll(furtherCaptures);
+        finalCaptures.addAll(furtherCaptures)
 
-        return finalCaptures;
+        return finalCaptures
     }
 
     /**
@@ -220,117 +202,114 @@ public class Board implements Parcelable, Serializable{
      * @param king is the piece a king
      * @return allowed directions a piece can move towards
      */
-    private Position[] getDirections(int color, boolean king) {
+    private fun getDirections(color: Int, king: Boolean): Array<Position> {
         if (king) {
-            return new Position[]{new Position(-1, 1), new Position(1, 1),
-                    new Position(-1, -1), new Position(1, -1)};
+            return arrayOf<Position>(
+                Position(-1, 1), Position(1, 1),
+                Position(-1, -1), Position(1, -1)
+            )
         } else if (color == CheckersGame.BLACK) {
-            return new Position[]{new Position(-1, 1), new Position(1, 1)};
+            return arrayOf<Position>(Position(-1, 1), Position(1, 1))
         } else if (color == CheckersGame.WHITE) {
-            return new Position[]{new Position(-1, -1), new Position(1, -1)};
+            return arrayOf<Position>(Position(-1, -1), Position(1, -1))
         } else {
-            return new Position[]{};
+            return arrayOf<Position>()
         }
     }
 
-     /**
-      * Generates a list of all possible moves for a certain position on the board
-      * @param start starting position of all moves which are generated
-      * @return ArrayList of executable moves
-      */
-    private ArrayList<Move> getMoves(Position start)
-    {
-        Piece piece = getPiece(start);
+    /**
+     * Generates a list of all possible moves for a certain position on the board
+     * @param start starting position of all moves which are generated
+     * @return ArrayList of executable moves
+     */
+    private fun getMoves(start: Position): ArrayList<Move> {
+        val piece = getPiece(start)
 
-        ArrayList<Move> immediateMoves = new ArrayList<>();
+        val immediateMoves = ArrayList<Move>()
 
         // check neighboring positions
-        Position[] neighbors = getDirections(piece.getColor(), piece.isKing());
-        for (Position pos : neighbors) {
+        val neighbors = getDirections(piece.color, piece.isKing)
+        for (pos in neighbors) {
             // check each square if it is free to move to
-            if (piece.isKing()) {
-                int reach = rules.getFlyingDame() ? 8 : 1;
-                for (int i = 0; i < reach; i++) {
-                    Position dest = start.plus(pos);
-                    for (int j = 0; j < i; j++) {
-                        dest = dest.plus(pos);
+            if (piece.isKing) {
+                val reach = if (rules.getFlyingDame()) 8 else 1
+                for (i in 0..<reach) {
+                    var dest = start.plus(pos)
+                    for (j in 0..<i) {
+                        dest = dest.plus(pos)
                     }
-                    Piece destPiece = getPiece(dest);
+                    val destPiece = getPiece(dest)
 
                     // add current square if square is on board and no other piece is on that position
                     if (isGameSquare(dest) && destPiece == null) {
-                        Move newMove = new Move(start);
-                        newMove.add(dest);
-                        immediateMoves.add(newMove);
-                    }
-                    // else position is off board or another piece occupies the position
-                    // so no further checking is required in this direction
-                    else {
-                        break;
+                        val newMove = Move(start)
+                        newMove.add(dest)
+                        immediateMoves.add(newMove)
+                    } else {
+                        break
                     }
                 }
-            }
-            else {
-                Position dest = start.plus(pos);
-                Piece destPiece = getPiece(dest);
+            } else {
+                val dest = start.plus(pos)
+                val destPiece = getPiece(dest)
 
                 if (isGameSquare(dest) && destPiece == null) {
-                    Move newMove = new Move(start);
-                    newMove.add(dest);
-                    immediateMoves.add(newMove);
+                    val newMove = Move(start)
+                    newMove.add(dest)
+                    immediateMoves.add(newMove)
                 }
             }
         }
 
-        ArrayList<Move> captures = getCaptures(start);
-        immediateMoves.addAll(captures);
-        return immediateMoves;
+        val captures = getCaptures(start)
+        immediateMoves.addAll(captures)
+        return immediateMoves
     }
 
-     /**
-      * Generates a list of possible moves for a player
-      * @param currentPlayer current player
-      * @return array of executable moves
-      */
-    Move[] getMoves(int currentPlayer) {
-        ArrayList<Move> finalMoves;
-        ArrayList<Move> potentialMoves = new ArrayList<>();
+    /**
+     * Generates a list of possible moves for a player
+     * @param currentPlayer current player
+     * @return array of executable moves
+     */
+    fun getMoves(currentPlayer: Int): Array<Move?> {
+        var finalMoves: ArrayList<Move>?
+        val potentialMoves = ArrayList<Move>()
 
         // add moves for each matching piece
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                Piece piece = getPiece(x, y);
-                if (piece != null && piece.getColor() == currentPlayer) {
-                    Position start = new Position(x, y);
+        for (x in 0..7) {
+            for (y in 0..7) {
+                val piece = getPiece(x, y)
+                if (piece != null && piece.color == currentPlayer) {
+                    val start = Position(x, y)
                     potentialMoves.addAll(
-                            getMoves(start)
-                    );
+                        getMoves(start)
+                    )
                 }
             }
         }
 
         // check if non-jumping moves need to be removed
-        finalMoves = potentialMoves;
+        finalMoves = potentialMoves
 
-        boolean areCaptures = false;
-        for (Move sequence : potentialMoves) {
-            if (sequence.capturePositions.size() > 0) {
-                areCaptures = true;
-                break;
+        var areCaptures = false
+        for (sequence in potentialMoves) {
+            if (sequence.capturePositions.size > 0) {
+                areCaptures = true
+                break
             }
         }
         if (areCaptures) {
-            finalMoves = new ArrayList<>();
-            for (Move sequence : potentialMoves) {
-                if (sequence.capturePositions.size() > 0) {
-                    finalMoves.add(sequence);
+            finalMoves = ArrayList<Move>()
+            for (sequence in potentialMoves) {
+                if (sequence.capturePositions.size > 0) {
+                    finalMoves.add(sequence)
                 }
             }
         }
 
 
         // return choices as a sequence of positions
-        return finalMoves.toArray(new Move[finalMoves.size()]);
+        return finalMoves.toTypedArray<Move?>()
     }
 
     /**
@@ -339,8 +318,8 @@ public class Board implements Parcelable, Serializable{
      * @param y y-coordinate of the position
      * @return game piece at position or null if position is empty
      */
-    public Piece getPiece(int x, int y) {
-        return (isGameSquare(x, y) ? board[x][y] : null);
+    fun getPiece(x: Int, y: Int): Piece? {
+        return (if (isGameSquare(x, y)) board[x]!![y] else null)
     }
 
     /**
@@ -348,20 +327,20 @@ public class Board implements Parcelable, Serializable{
      * @param pos position on board
      * @return game piece at position or null if position is empty
      */
-    public Piece getPiece(Position pos) {
-        return getPiece(pos.x, pos.y);
+    fun getPiece(pos: Position): Piece {
+        return getPiece(pos.x, pos.y)!!
     }
 
     // find a piece on the board
-    public Position getPosition(Piece piece) {
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (getPiece(x, y) == piece) {
-                    return new Position(x, y);
+    fun getPosition(piece: Piece?): Position? {
+        for (x in 0..7) {
+            for (y in 0..7) {
+                if (getPiece(x, y) === piece) {
+                    return Position(x, y)
                 }
             }
         }
-        return null;
+        return null
     }
 
     /**
@@ -370,9 +349,9 @@ public class Board implements Parcelable, Serializable{
      * @param y y-coordinate of position to check
      * @return true if coordinates represent a position on the board
      */
-    public boolean isGameSquare(int x, int y) {
+    fun isGameSquare(x: Int, y: Int): Boolean {
         // within 8x8 dimensions and is odd-square
-        return (x >= 0 && y >= 0 && x < 8 && y < 8 && (x + y) % 2 > 0);
+        return (x >= 0 && y >= 0 && x < 8 && y < 8 && (x + y) % 2 > 0)
     }
 
     /**
@@ -380,32 +359,32 @@ public class Board implements Parcelable, Serializable{
      * @param pos the position to check
      * @return true if the coordinates which represent the position are on the board
      */
-    private boolean isGameSquare(Position pos) {
-        return isGameSquare(pos.x, pos.y);
+    private fun isGameSquare(pos: Position): Boolean {
+        return isGameSquare(pos.x, pos.y)
     }
 
-     /**
-      * Executes a move by placing a piece to an end position and removing all capturePositions in between
-      * @param move move to execute
-      */
-    void makeMove(Move move) {
-        Position start = move.start();
-        Position end = move.end();
-        Piece piece = getPiece(start);
+    /**
+     * Executes a move by placing a piece to an end position and removing all capturePositions in between
+     * @param move move to execute
+     */
+    fun makeMove(move: Move) {
+        val start = move.start()
+        val end = move.end()
+        val piece = getPiece(start)
 
         // clear visited positions
-        for (Position pos : move.positions) {
-            board[pos.x][pos.y] = null;
+        for (pos in move.positions) {
+            board[pos.x]!![pos.y] = null
         }
         // clear captured positions and decrease piece count
-        for (Position cap : move.capturePositions) {
-            board[cap.x][cap.y] = null;
+        for (cap in move.capturePositions) {
+            board[cap.x]!![cap.y] = null
         }
         // place at end position
-        board[end.x][end.y] = piece;
+        board[end.x]!![end.y] = piece
         // check if piece was kinged
         if (move.isKinged()) {
-            piece.makeKing();
+            piece.makeKing()
         }
     }
 
@@ -414,69 +393,53 @@ public class Board implements Parcelable, Serializable{
      * to be able to be reconstructed
      * @return the current board status as a 2-dimensional int array
      */
-    int[][] saveBoard() {
-        int[][] result = new int[8][8];
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (board[x][y] != null) {
-                    Piece piece = board[x][y];
-                    result[x][y] = piece.getColor();
-                    if (piece.isKing()) {
-                        result[x][y] += CheckersGame.KINGED;
+    fun saveBoard(): Array<IntArray?> {
+        val result = Array<IntArray?>(8) { IntArray(8) }
+        for (x in 0..7) {
+            for (y in 0..7) {
+                if (board[x]!![y] != null) {
+                    val piece = board[x]!![y]
+                    result[x]!![y] = piece.color
+                    if (piece.isKing) {
+                        result[x]!![y] += CheckersGame.KINGED
                     }
                 } else {
-                    result[x][y] = CheckersGame.NONE;
+                    result[x]!![y] = CheckersGame.NONE
                 }
             }
         }
-        return result;
+        return result
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    override fun describeContents(): Int {
+        return 0
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        rules.writeToParcel(dest, flags);
-        for(int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                if (board[i][j] == null)
-                    dest.writeInt(0);
-                else
-                    dest.writeInt(board[i][j].getSummaryID());
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        rules.writeToParcel(dest, flags)
+        for (i in board.indices) {
+            for (j in board.indices) {
+                if (board[i]!![j] == null) dest.writeInt(0)
+                else dest.writeInt(board[i]!![j].getSummaryID())
             }
         }
-
     }
-    public static final Parcelable.Creator<Board> CREATOR
-            = new Parcelable.Creator<Board>() {
-        public Board createFromParcel(Parcel in) {
-            return new Board(in);
-        }
 
-        public Board[] newArray(int size) {
-            return new Board[size];
-        }
-    };
+    /** recreate object from parcel  */
+    private constructor(`in`: Parcel) {
+        board = Array<Array<Piece>?>(8) { arrayOfNulls<Piece>(8) }
+        rules = GameRules.CREATOR.createFromParcel(`in`)
 
-    /** recreate object from parcel */
-    private Board(Parcel in) {
-        board = new Piece[8][8];
-        rules = GameRules.CREATOR.createFromParcel(in);
-
-        int cellID = 0;
-        for(int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                cellID = in.readInt();
-                switch (cellID) {
-                    case 1: board[i][j] = new Piece(1, false); break;
-                    case 2: board[i][j] = new Piece(2, false); break;
-                    case 3: board[i][j] = new Piece(1, true); break;
-                    case 4: board[i][j] = new Piece(2, true); break;
-                    default:
+        var cellID = 0
+        for (i in board.indices) {
+            for (j in board.indices) {
+                cellID = `in`.readInt()
+                when (cellID) {
+                    1 -> board[i]!![j] = Piece(1, false)
+                    2 -> board[i]!![j] = Piece(2, false)
+                    3 -> board[i]!![j] = Piece(1, true)
+                    4 -> board[i]!![j] = Piece(2, true)
+                    else -> {}
                 }
             }
         }
@@ -486,25 +449,38 @@ public class Board implements Parcelable, Serializable{
      **counts occurrences of piece types
      * returns number of pieces on the board with specified ID
      */
-    public int getPieceCount(int ID){
-        int counter=0;
-        for(Piece[] row:board){
-            for (Piece p:row){
-                if(p!=null&&p.getSummaryID()==ID)counter++;
+    fun getPieceCount(ID: Int): Int {
+        var counter = 0
+        for (row in board) {
+            for (p in row!!) {
+                if (p != null && p.getSummaryID() == ID) counter++
             }
         }
-        return counter;
+        return counter
     }
 
     /*
      **similar to getPiece().getSummaryID() with null case and always-empty fields handling
      * returns 0,1,2,3,4 or -1 (if perma-empty field)
      */
-    public int getPieceID(int x, int y){
-        if(isGameSquare(x, y)){
-            if(board[x][y]==null)return 0;
-            return board[x][y].getSummaryID();
+    fun getPieceID(x: Int, y: Int): Int {
+        if (isGameSquare(x, y)) {
+            if (board[x]!![y] == null) return 0
+            return board[x]!![y].getSummaryID()
         }
-        return -1;
+        return -1
+    }
+
+    companion object {
+        val CREATOR
+                : Parcelable.Creator<Board?> = object : Parcelable.Creator<Board?> {
+            override fun createFromParcel(`in`: Parcel): Board {
+                return Board(`in`)
+            }
+
+            override fun newArray(size: Int): Array<Board?> {
+                return arrayOfNulls<Board>(size)
+            }
+        }
     }
 }

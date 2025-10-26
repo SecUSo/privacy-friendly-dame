@@ -228,7 +228,7 @@ class MainActivity : BaseActivity() {
             diffBar = rootView.findViewById(R.id.difficultyBar)
             levelText = rootView.findViewById(R.id.levelText)
 
-            imageView.setImageResource(gameType.getResIDImage())
+            imageView.setImageResource(gameType.resIDImage)
 
             val difficulty = PFApplicationData.instance(requireContext()).lastChosenDifficulty.value
 

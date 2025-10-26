@@ -14,107 +14,85 @@
  You should have received a copy of the GNU General Public License
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
+package org.secuso.privacyfriendlydame.game
 
-package org.secuso.privacyfriendlydame.game;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import org.secuso.privacyfriendlydame.R;
-
-import java.io.Serializable;
-import java.util.ArrayList;
+import android.os.Parcel
+import android.os.Parcelable
+import org.secuso.privacyfriendlydame.R
+import java.io.Serializable
 
 /**
  * This class models a game of checkers. It contains information about the game board, the current
  * player, the game type and the captured pieces of both players.
  */
-public class CheckersGame implements Parcelable, Serializable{
-    public int searchDepth;
-
-    static final int NONE = 0;
-    public static final int BLACK = 1;
-    public static final int WHITE = 2;
-    static final int KINGED = 3;
-
-    // checkers game state
-    private Board gameBoard;
-    private int turn;
-    private ArrayList<Piece> capturedBlackPieces;
-    private ArrayList<Piece> capturedWhitePieces;
-    private boolean isFinished;
-    private GameType gameType;
-
-    // rules
-    private GameRules rules;
-
-    // Piece image resource IDs
-    private int blackNormalIconId = R.drawable.ic_piece_black;
-    private int blackKingIconId = R.drawable.ic_piece_black_queen;
-    private int whiteNormalIconId = R.drawable.ic_piece_white;
-    private int whiteKingIconId = R.drawable.ic_piece_white_queen;
-
-    /**
-     * Default constructor which creates a new game with a default board setup and black as the first player
-     */
-    public CheckersGame(GameType gameType,int depth, GameRules rules) {
-
-        this.rules = rules;
-        gameBoard = new Board(rules);
-        turn = rules.getWhiteBegins() ? CheckersGame.WHITE : CheckersGame.BLACK;
-        capturedBlackPieces = new ArrayList<>();
-        capturedWhitePieces = new ArrayList<>();
-        isFinished = false;
-        this.gameType = gameType;
-        searchDepth=depth;
-    }
-
-    public GameType getGameType() {
-        return gameType;
-    }
-
-    public boolean isGameFinished() {
-        return isFinished;
-    }
-
-    public void setGameFinished(boolean gameFinished) {
-        isFinished = gameFinished;
-    }
-
-    /**
-     * Changes the current player to black if white is active and vice versa
-     */
-    private void advanceTurn() {
-        if (turn == CheckersGame.WHITE) {
-            turn = CheckersGame.BLACK;
-        } else {
-            turn = CheckersGame.WHITE;
-        }
-    }
+class CheckersGame : Parcelable, Serializable {
+    var searchDepth: Int = 0
 
     /**
      * Returns the board of the current game
      * @return board of the current game
      */
-    public Board getBoard() {
-        return this.gameBoard;
+    // checkers game state
+    val board: Board?
+    private var turn: Int
+    private var capturedBlackPieces: ArrayList<Piece?>? = null
+    private var capturedWhitePieces: ArrayList<Piece?>? = null
+    var isGameFinished: Boolean = false
+    var gameType: GameType? = null
+        private set
+
+    // rules
+    private val rules: GameRules
+
+    // Piece image resource IDs
+    @JvmField
+    val blackNormalIconId: Int = R.drawable.ic_piece_black
+    @JvmField
+    val blackKingIconId: Int = R.drawable.ic_piece_black_queen
+    @JvmField
+    val whiteNormalIconId: Int = R.drawable.ic_piece_white
+    @JvmField
+    val whiteKingIconId: Int = R.drawable.ic_piece_white_queen
+
+    /**
+     * Default constructor which creates a new game with a default board setup and black as the first player
+     */
+    constructor(gameType: GameType?, depth: Int, rules: GameRules) {
+        this.rules = rules
+        this.board = Board(rules)
+        turn = if (rules.getWhiteBegins()) WHITE else BLACK
+        capturedBlackPieces = ArrayList<Piece?>()
+        capturedWhitePieces = ArrayList<Piece?>()
+        this.isGameFinished = false
+        this.gameType = gameType
+        searchDepth = depth
     }
 
-    public ArrayList<Piece> getCapturedBlackPieces() {
-        return capturedBlackPieces;
+    /**
+     * Changes the current player to black if white is active and vice versa
+     */
+    private fun advanceTurn() {
+        if (turn == WHITE) {
+            turn = BLACK
+        } else {
+            turn = WHITE
+        }
     }
 
-    public ArrayList<Piece> getCapturedWhitePieces() {
-        return capturedWhitePieces;
+    fun getCapturedBlackPieces(): ArrayList<Piece?> {
+        return capturedBlackPieces!!
     }
 
-    private ArrayList<Piece> getCapturedPiecesForMove(Move move) {
-        ArrayList<Piece> pieces = new ArrayList<>();
+    fun getCapturedWhitePieces(): ArrayList<Piece?> {
+        return capturedWhitePieces!!
+    }
 
-        for (Position p: move.capturePositions)
-            pieces.add(getBoard().getPiece(p));
+    private fun getCapturedPiecesForMove(move: Move): ArrayList<Piece?> {
+        val pieces = ArrayList<Piece?>()
 
-        return pieces;
+        for (p in move.capturePositions) pieces.add(this.board!!.getPiece(p))
+
+        return pieces
     }
 
     /**
@@ -123,114 +101,98 @@ public class CheckersGame implements Parcelable, Serializable{
      * @param end end-position of desired move
      * @return move with most capturePositions for a pair of start- and end-positions
      */
-    public Move getLongestMove(Position start, Position end) {
-        Move longest = null;
-        Move[] moveset = getMoves();
-        for (Move move : moveset) {
+    fun getLongestMove(start: Position, end: Position): Move? {
+        var longest: Move? = null
+        val moveset = this.moves
+        for (move in moveset) {
             if (move.start().equals(start) && move.end().equals(end)) {
                 if (longest == null ||
-                        longest.capturePositions.size() < move.capturePositions.size())
-                    longest = move;
+                    longest.capturePositions.size < move.capturePositions.size
+                ) longest = move
             }
         }
-        return longest;
+        return longest
     }
 
-    /**
-     * Generates an array of allowed moves for the current player
-     * @return array of allowed moves for the current player
-     */
-    public Move[] getMoves() {
-        return gameBoard.getMoves(turn);
-    }
+    val moves: Array<Move>
+        /**
+         * Generates an array of allowed moves for the current player
+         * @return array of allowed moves for the current player
+         */
+        get() = board!!.getMoves(turn)
 
     /**
      * returns the possible moves for a specified player
      */
-    public Move[] getMoves(int turn) {
-        return gameBoard.getMoves(turn);
+    fun getMoves(turn: Int): Array<Move> {
+        return board!!.getMoves(turn)
     }
 
     /**
      * Executes a move on the board and passes the turn to the next player
      * @param move move to execute
      */
-    public void makeMove(Move move) {
-        if (whoseTurn() == BLACK)
-            capturedWhitePieces.addAll(getCapturedPiecesForMove(move));
-        else
-            capturedBlackPieces.addAll(getCapturedPiecesForMove(move));
-        gameBoard.makeMove(move);
-        advanceTurn();
+    fun makeMove(move: Move) {
+        if (whoseTurn() == BLACK) capturedWhitePieces!!.addAll(getCapturedPiecesForMove(move))
+        else capturedBlackPieces!!.addAll(getCapturedPiecesForMove(move))
+        board!!.makeMove(move)
+        advanceTurn()
     }
 
     /**
      * Returns the ID of the current player
      * @return ID of the current player
      */
-    public int whoseTurn() {
-        return turn;
+    fun whoseTurn(): Int {
+        return turn
     }
 
-    public int getBlackNormalIconId() {
-        return blackNormalIconId;
+    override fun describeContents(): Int {
+        return 0
     }
 
-    public int getBlackKingIconId() {
-        return blackKingIconId;
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeParcelable(this.board, 0)
+        dest.writeInt(whoseTurn())
+        rules.writeToParcel(dest, flags)
     }
 
-    public int getWhiteNormalIconId() {
-        return whiteNormalIconId;
-    }
-
-    public int getWhiteKingIconId() {
-        return whiteKingIconId;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeParcelable(gameBoard, 0);
-        dest.writeInt(whoseTurn());
-        rules.writeToParcel(dest, flags);
-    }
-
-    public static final Parcelable.Creator<CheckersGame> CREATOR
-            = new Parcelable.Creator<CheckersGame>() {
-        public CheckersGame createFromParcel(Parcel in) {
-            return new CheckersGame(in);
-        }
-
-        public CheckersGame[] newArray(int size) {
-            return new CheckersGame[size];
-        }
-    };
-
-    /** recreate object from parcel */
-    private CheckersGame(Parcel in) {
-
-        gameBoard = in.readParcelable(Board.class.getClassLoader());
-        turn = in.readInt();
-        rules = GameRules.CREATOR.createFromParcel(in);
+    /** recreate object from parcel  */
+    private constructor(`in`: Parcel) {
+        this.board = `in`.readParcelable<Board?>(Board::class.java.getClassLoader())
+        turn = `in`.readInt()
+        rules = GameRules.CREATOR.createFromParcel(`in`)
     }
 
     /**
      * Copy constructor to create new Game instances for looking into the future possibilities
      */
-    public CheckersGame(CheckersGame checkersGame){
-        this.rules = checkersGame.rules;
-        this.gameBoard=new Board(checkersGame.gameBoard.saveBoard(), checkersGame.rules);
-        this.turn=checkersGame.turn;
-        this.capturedBlackPieces=new ArrayList<Piece>(checkersGame.capturedBlackPieces);
-        this.capturedWhitePieces=new ArrayList<Piece>(checkersGame.capturedWhitePieces);
-        this.isFinished=checkersGame.isFinished;
-        this.gameType=checkersGame.gameType;
-        this.searchDepth=checkersGame.searchDepth;
+    constructor(checkersGame: CheckersGame) {
+        this.rules = checkersGame.rules
+        this.board = Board(checkersGame.board!!.saveBoard(), checkersGame.rules)
+        this.turn = checkersGame.turn
+        this.capturedBlackPieces = ArrayList<Piece?>(checkersGame.capturedBlackPieces)
+        this.capturedWhitePieces = ArrayList<Piece?>(checkersGame.capturedWhitePieces)
+        this.isGameFinished = checkersGame.isGameFinished
+        this.gameType = checkersGame.gameType
+        this.searchDepth = checkersGame.searchDepth
+    }
+
+    companion object {
+        const val NONE: Int = 0
+        const val BLACK: Int = 1
+        const val WHITE: Int = 2
+        const val KINGED: Int = 3
+
+        val CREATOR
+                : Parcelable.Creator<CheckersGame?> = object : Parcelable.Creator<CheckersGame?> {
+            override fun createFromParcel(`in`: Parcel): CheckersGame {
+                return CheckersGame(`in`)
+            }
+
+            override fun newArray(size: Int): Array<CheckersGame?> {
+                return arrayOfNulls<CheckersGame>(size)
+            }
+        }
     }
 }

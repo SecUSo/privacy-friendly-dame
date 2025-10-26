@@ -14,68 +14,52 @@
  You should have received a copy of the GNU General Public License
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
+package org.secuso.privacyfriendlydame.game
 
-package org.secuso.privacyfriendlydame.game;
-
-import android.os.Parcel;
-import android.os.Parcelable;
-
-import java.io.Serializable;
-import java.util.LinkedList;
-
-import org.secuso.privacyfriendlydame.R;
+import android.os.Parcel
+import android.os.Parcelable
+import org.secuso.privacyfriendlydame.R
+import java.io.Serializable
+import java.util.LinkedList
 
 /**
  * This enum is used to identify the gametype of a game. Currently, two gametypes are supported;
  * playing against a human and playing against a bot.
  */
-public enum GameType implements Parcelable, Serializable{
-    Bot(R.string.game_type_bot,R.drawable.icon_bot),
-    Human(R.string.game_type_human,R.drawable.icon_human);
+enum class GameType(var stringResID: Int, var resIDImage: Int) : Parcelable, Serializable {
+    Bot(R.string.game_type_bot, R.drawable.icon_bot),
+    Human(R.string.game_type_human, R.drawable.icon_human);
 
-    int resIDString;
-    int resIDImage;
-
-    GameType(int resIDString, int resIDImage) {
-        this.resIDImage = resIDImage;
-        this.resIDString = resIDString;
+    override fun describeContents(): Int {
+        return 0
     }
 
-    public static LinkedList<GameType> getValidGameTypes() {
-        LinkedList<GameType> result = new LinkedList<>();
-        result.add(Human);
-        result.add(Bot);
-        return result;
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        dest.writeInt(ordinal)
+        dest.writeInt(this.stringResID)
+        dest.writeInt(resIDImage)
     }
 
-    public int getResIDImage(){return resIDImage;   }
+    companion object {
+        val validGameTypes: LinkedList<GameType?>
+            get() {
+                val result = LinkedList<GameType?>()
+                result.add(GameType.Human)
+                result.add(GameType.Bot)
+                return result
+            }
 
-    public int getStringResID() {
-        return resIDString;
-    }
+        val CREATOR: Parcelable.Creator<GameType?> = object : Parcelable.Creator<GameType?> {
+            override fun createFromParcel(`in`: Parcel): GameType {
+                val g = entries[`in`.readInt()]
+                g.stringResID = `in`.readInt()
+                g.resIDImage = `in`.readInt()
+                return g
+            }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(ordinal());
-        dest.writeInt(resIDString);
-        dest.writeInt(resIDImage);
-    }
-
-    public static final Parcelable.Creator<GameType> CREATOR = new Parcelable.Creator<GameType>() {
-        public GameType createFromParcel(Parcel in) {
-            GameType g = GameType.values()[in.readInt()];
-            g.resIDString = in.readInt();
-            g.resIDImage = in.readInt();
-            return g;
+            override fun newArray(size: Int): Array<GameType?> {
+                return arrayOfNulls<GameType>(size)
+            }
         }
-
-        public GameType[] newArray(int size) {
-            return new GameType[size];
-        }
-    };
+    }
 }

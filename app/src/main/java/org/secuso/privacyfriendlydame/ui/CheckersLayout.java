@@ -69,7 +69,7 @@ public class CheckersLayout extends TableLayout {
     public void highlightSelectablePieces(Piece[] selectablePieces) {
         for (Piece p: selectablePieces) {
             Position pos = myGame.getBoard().getPosition(p);
-            CheckerImageView posCell = cells[pos.getX()][pos.getY()];
+            CheckerImageView posCell = cells[pos.x][pos.y];
 
             posCell.setBackgroundColor(getResources().getColor(R.color.yellow));
         }
@@ -77,17 +77,17 @@ public class CheckersLayout extends TableLayout {
     }
 
     public void animateMove(Move move) {
-        CheckerImageView cellFrom = cells[move.start().getX()][move.start().getY()];
-        CheckerImageView cellTo = cells[move.end().getX()][move.end().getY()];
+        CheckerImageView cellFrom = cells[move.start().x][move.start().y];
+        CheckerImageView cellTo = cells[move.end().x][move.end().y];
         CheckerImageView cellCapturedPiece;
 
         int imgID = myGame.getBoard().getPiece(move.start()).getSummaryID();
 
         switch (imgID) {
-            case 1: Glide.with(this).load(myGame.getBlackNormalIconId()).into(cellTo); break;
-            case 2: Glide.with(this).load(myGame.getWhiteNormalIconId()).into(cellTo); break;
-            case 3: Glide.with(this).load(myGame.getBlackKingIconId()).into(cellTo); break;
-            default: Glide.with(this).load(myGame.getWhiteKingIconId()).into(cellTo); break;
+            case 1: Glide.with(this).load(myGame.blackNormalIconId).into(cellTo); break;
+            case 2: Glide.with(this).load(myGame.whiteNormalIconId).into(cellTo); break;
+            case 3: Glide.with(this).load(myGame.blackKingIconId).into(cellTo); break;
+            default: Glide.with(this).load(myGame.whiteKingIconId).into(cellTo); break;
         }
 
         Animation fadeOut = new AlphaAnimation(1.0f, 0.0f);
@@ -103,14 +103,14 @@ public class CheckersLayout extends TableLayout {
 
 
         for (Position p: move.capturePositions) {
-            cellCapturedPiece = cells[p.getX()][p.getY()];
+            cellCapturedPiece = cells[p.x][p.y];
 
             cellCapturedPiece.setBackgroundColor(getResources().getColor(R.color.yellow));
             cellCapturedPiece.startAnimation(fadeOut);
         }
 
         for (Position p: move.positions) {
-            cellCapturedPiece = cells[p.getX()][p.getY()];
+            cellCapturedPiece = cells[p.x][p.y];
 
             cellCapturedPiece.setBackgroundColor(getResources().getColor(R.color.yellow));
             cellCapturedPiece.startAnimation(fadeOut);
@@ -131,10 +131,10 @@ public class CheckersLayout extends TableLayout {
                         int id = piece.getSummaryID();
                         // set the correct image
                         switch (id) {
-                            case 1: Glide.with(this).load(myGame.getBlackNormalIconId()).into(cell); break;
-                            case 2: Glide.with(this).load(myGame.getWhiteNormalIconId()).into(cell); break;
-                            case 3: Glide.with(this).load(myGame.getBlackKingIconId()).into(cell); break;
-                            default: Glide.with(this).load(myGame.getWhiteKingIconId()).into(cell); break;
+                            case 1: Glide.with(this).load(myGame.blackNormalIconId).into(cell); break;
+                            case 2: Glide.with(this).load(myGame.whiteNormalIconId).into(cell); break;
+                            case 3: Glide.with(this).load(myGame.blackKingIconId).into(cell); break;
+                            default: Glide.with(this).load(myGame.whiteKingIconId).into(cell); break;
                         }
                         // set the background color
                         if (myActivity.isSelected(piece)) {

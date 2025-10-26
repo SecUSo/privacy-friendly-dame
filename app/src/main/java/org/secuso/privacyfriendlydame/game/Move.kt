@@ -14,87 +14,82 @@
  You should have received a copy of the GNU General Public License
  along with Privacy Friendly App Example. If not, see <http://www.gnu.org/licenses/>.
  */
-
-package org.secuso.privacyfriendlydame.game;
-import java.util.ArrayList;
-
+package org.secuso.privacyfriendlydame.game
 
 /**
  * This class is used to model a move in a game of checkers. A move keeps track of each board
  * position which is traversed as well as each position where an opposing piece is located which is
  * captured when that move is executed.
  */
-public class Move {
-    public ArrayList<Position> positions;
-    public ArrayList<Position> capturePositions;
-    private boolean kinged;
+class Move {
+    @JvmField
+    var positions: ArrayList<Position?>? = null
+    @JvmField
+    var capturePositions: ArrayList<Position?>? = null
+    var isKinged: Boolean = false
+        private set
 
-    public Move(Position pos) {
-        init(pos.x, pos.y);
+    constructor(pos: Position) {
+        init(pos.x, pos.y)
     }
 
     // copy constructor
-    public Move(Move clone) {
-        kinged = clone.kinged;
-        positions = new ArrayList<>();
-        for (Position position : clone.positions) {
-            positions.add(position);
+    constructor(clone: Move) {
+        this.isKinged = clone.isKinged
+        positions = ArrayList<Position?>()
+        for (position in clone.positions!!) {
+            positions!!.add(position)
         }
-        capturePositions = new ArrayList<>();
-        for (Position capture : clone.capturePositions) {
-            capturePositions.add(capture);
+        capturePositions = ArrayList<Position?>()
+        for (capture in clone.capturePositions!!) {
+            capturePositions!!.add(capture)
         }
     }
 
-    private void init(int x, int y) {
-        Position first = new Position(x, y);
-        positions = new ArrayList<>();
-        positions.add(first);
-        kinged = false;
-        capturePositions = new ArrayList<>();
+    private fun init(x: Int, y: Int) {
+        val first = Position(x, y)
+        positions = ArrayList<Position?>()
+        positions!!.add(first)
+        this.isKinged = false
+        capturePositions = ArrayList<Position?>()
     }
 
-    public Move add(Position pos) {
-        return add(pos.x, pos.y);
+    fun add(pos: Position): Move {
+        return add(pos.x, pos.y)
     }
 
-    public Move add(int x, int y) {
-        Position next = new Position(x, y);
-        positions.add(next);
+    fun add(x: Int, y: Int): Move {
+        val next = Position(x, y)
+        positions!!.add(next)
 
         // check if move results in a new king
         if (y == 0 || y == 7) {
-            kinged = true;
+            this.isKinged = true
         }
-        return this;
-    }
-
-    public boolean isKinged() {
-        return kinged;
+        return this
     }
 
     /**
      * add a position of a piece which is captured when executing the move
      * @param position position of piece which is captured
      */
-    public void addCapture(Position position) {
-        capturePositions.add(position);
+    fun addCapture(position: Position?) {
+        capturePositions!!.add(position)
     }
 
-    public Position start() {
-        return positions.get(0);
+    fun start(): Position? {
+        return positions!!.get(0)
     }
 
-    public Position end() {
-        return positions.get(positions.size() - 1);
+    fun end(): Position? {
+        return positions!!.get(positions!!.size - 1)
     }
 
-    public boolean equals(Move other){
-        if(positions.size()!=other.positions.size())return false;
-        for(int i = 0; i<positions.size(); i++){
-            if(!positions.get(i).equals(other.positions.get(i)))return false;
+    fun equals(other: Move): Boolean {
+        if (positions!!.size != other.positions!!.size) return false
+        for (i in positions!!.indices) {
+            if (!positions!!.get(i)!!.equals(other.positions!!.get(i))) return false
         }
-        return true;
+        return true
     }
-
 }
