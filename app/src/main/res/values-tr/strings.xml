@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="slide1_heading">Hoş geldiniz!</string>
+    <string name="action_help">Yardım</string>
+    <string name="pref_header_general">Genel</string>
+    <string name="new_game">Yeni Oyun</string>
+    <string name="chose_opponent">Rakibinizi seçin:</string>
+    <string name="yes">evet</string>
+    <string name="slide2_heading">Oyun modu</string>
+    <string name="pref_header_game">Oyun</string>
+    <string name="action_about">Hakkında</string>
+    <string name="menu_tutorial">Öğretici</string>
+    <string name="action_main">Ana Menü</string>
+    <string name="about_affiliation">ile bağlantılı olarak:</string>
+    <string name="help">Yardım</string>
+    <string name="about">Hakkında</string>
+    <string name="version_number">Sürüm</string>
+    <string name="about_author">Yazarlar:</string>
+    <string name="navigation_drawer_open">Gezinti çekmecesini aç</string>
+    <string name="navigation_drawer_close">Gezinti çekmecesini kapat</string>
+    <string name="about_author_contributors">ve katkıda bulunanlar.</string>
+    <string name="sHelpOverviewHeading">Genel bakış</string>
+    <string name="sHelpPrivacyHeading">Gizlilik Bilgisi</string>
+    <string name="sHelpPermissionsHeading">İzinler</string>
+    <string name="sModesCategory">Oyun Modu</string>
+    <string name="game_button_start">Yeni Oyun</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="action_tutorial">Öğretici</string>
+    <string name="title_activity_settings">Ayarlar</string>
+    <string name="menu_continue_game">Devam</string>
+    <string name="cancel">iptal</string>
+    <string name="okay">Tmm</string>
+    <string name="game_button_continue">Oyuna Devam Et</string>
+    <string name="pref_group_game">Oyun ayarları</string>
+</resources>
