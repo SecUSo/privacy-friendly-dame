@@ -221,7 +221,7 @@ class MainActivity : BaseActivity() {
         ): View {
             val rootView = inflater.inflate(R.layout.fragment_main_menu, container, false)
 
-            val gameType = GameType.getValidGameTypes()[arguments!!.getInt(ARG_SECTION_NUMBER)]
+            val gameType = GameType.getValidGameTypes()[requireArguments().getInt(ARG_SECTION_NUMBER)]
 
             val textView = rootView.findViewById<TextView>(R.id.section_label)
             val imageView = rootView.findViewById<ImageView>(R.id.gameTypeImage)
