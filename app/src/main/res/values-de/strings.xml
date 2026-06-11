@@ -26,7 +26,7 @@
     <string name="skip">Überspringen</string>
     <string name="menu_tutorial">Tutorial</string>
     <string name="okay">Okay</string>
-    <string name="main_button_welcomedialog">Willkommen anzeigen</string>
+    <string name="main_button_welcomedialog">Willkommen</string>
     <!-- ###DRAWER###-->
     <string name="action_help">Hilfe</string>
     <string name="action_about">Über</string>
@@ -48,7 +48,7 @@
     <string name="help">Help</string>
     <string name="help_whatis">Was ist Privacy Friendly Dame?</string>
     <string name="help_whatis_answer">Privacy Firendly Dame ist eine Implementierung des Brettspiels Dame</string>
-    <string name="help_feature_one">Feature 1</string>
+    <string name="help_feature_one">Funktion 1</string>
     <string name="help_feature_one_answer">Beschreibung des Feature 1</string>
     <string name="help_privacy">Wieso ist diese Applikation privacy friendly?</string>
     <string name="help_privacy_answer">Privacy Friendly Dame erfordert keine zusätzlichen Berechtigungen und es hat keine Werbung.</string>
